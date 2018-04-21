@@ -1,0 +1,6 @@
+/SqlRex/*.user
+*/bin
+*/obj
+/packages/
+/lib/
+/.vs/
