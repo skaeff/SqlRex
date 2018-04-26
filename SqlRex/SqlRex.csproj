@@ -96,6 +96,13 @@
       <DependentUpon>LongOperationControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Config.cs" />
+    <Compile Include="SqlDdlObject.cs" />
+    <Compile Include="SqlViewerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SqlViewerForm.Designer.cs">
+      <DependentUpon>SqlViewerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,6 +147,9 @@
     <EmbeddedResource Include="Common\LongOperationControl.resx">
       <DependentUpon>LongOperationControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SqlViewerForm.resx">
+      <DependentUpon>SqlViewerForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -180,8 +190,20 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="connections.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="get_create_table.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="get_object.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icons8-Windows-8-Animals-Dog.ico" />
     <Content Include="main.ico" />
+    <Content Include="query.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="recent_files.txt" />
     <None Include="rex.jpg" />
     <None Include="Resources\btc.png" />

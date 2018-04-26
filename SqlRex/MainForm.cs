@@ -684,5 +684,12 @@ namespace SqlRex
         {
             lblRegexOnLoad.Text = "RegexOnLoad mode: " + (Config.RegexOnLoad ? "ON" : "OFF");
         }
+
+        private void btnConnect_Click(object sender, EventArgs e)
+        {
+            var f = new SqlViewerForm();
+            f.MdiParent = this;
+            f.Show();
+        }
     }
 }
