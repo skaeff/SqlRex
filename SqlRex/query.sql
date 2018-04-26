@@ -9,7 +9,10 @@
 from sys.objects o
 	inner join sys.schemas s on s.schema_id = o.schema_id
 where
+	o.type in ('FN', 'IF', 'U', 'V','P','TF','TR')
+	/*
 	(OBJECT_DEFINITION(object_id) is not null 
 		and type not in ('C', 'D')
 		) or type = 'U'
+		--*/
 order by s.name + '.' + o.name
