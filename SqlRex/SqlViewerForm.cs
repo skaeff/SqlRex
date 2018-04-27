@@ -425,6 +425,7 @@ namespace SqlRex
             {
                 conn.Open();
                 var cmd = new SqlCommand(File.ReadAllText(Application.StartupPath + @"\query.sql"), conn);
+                cmd.CommandTimeout = 0;
                 //var rdr = cmd.ExecuteReader(CommandBehavior.SequentialAccess);
                 var rdr = cmd.ExecuteReader();
                 while (rdr.Read())
@@ -442,6 +443,7 @@ namespace SqlRex
                 //foreach (var item in tables)
                 //{
                 //    var cmdTable = new SqlCommand(File.ReadAllText(Application.StartupPath + @"\get_create_table.sql"), conn);
+                //    cmdTable.CommandTimeout = 0;
                 //    cmdTable.Parameters.AddWithValue("table_name_ext", item);
                 //    var tableRes = cmdTable.ExecuteScalar();
                 //    if (tableRes != null)
@@ -509,6 +511,7 @@ namespace SqlRex
                     {
                         conn.Open();
                         var cmdTable = new SqlCommand(File.ReadAllText(Application.StartupPath + @"\get_create_table.sql"), conn);
+                        cmdTable.CommandTimeout = 0;
                         cmdTable.Parameters.AddWithValue("table_name_ext", range.Name);
                         var tableRes = cmdTable.ExecuteScalar();
                         if (tableRes != null)
@@ -538,6 +541,7 @@ namespace SqlRex
                 {
                     conn.Open();
                     var cmdTable = new SqlCommand(File.ReadAllText(Application.StartupPath + @"\get_object.sql"), conn);
+                    cmdTable.CommandTimeout = 0;
                     cmdTable.Parameters.AddWithValue("object_id", range.ObjectId);
                     var tableRes = cmdTable.ExecuteScalar();
                     if (tableRes != null)
@@ -574,6 +578,7 @@ namespace SqlRex
 
                     conn.Open();
                     var cmd = new SqlCommand(File.ReadAllText(Application.StartupPath + @"\query.sql"), conn);
+                    cmd.CommandTimeout = 0;
                     //var rdr = cmd.ExecuteReader(CommandBehavior.SequentialAccess);
                     var rdr = cmd.ExecuteReader();
                     while (rdr.Read())
@@ -599,6 +604,7 @@ namespace SqlRex
                         if (getTables)
                         {
                             var cmdTable = new SqlCommand(File.ReadAllText(Application.StartupPath + @"\get_create_table.sql"), conn);
+                            cmdTable.CommandTimeout = 0;
                             cmdTable.Parameters.AddWithValue("table_name_ext", item);
                             var tableRes = cmdTable.ExecuteScalar();
                             if (tableRes != null)

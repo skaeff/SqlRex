@@ -60,11 +60,15 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.splitter3 = new System.Windows.Forms.Splitter();
+            this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.contextMenuStrip3.SuspendLayout();
             this.SuspendLayout();
             // 
             // fastColoredTextBox1
@@ -325,6 +329,7 @@
             // 
             this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
+            this.listView2.ContextMenuStrip = this.contextMenuStrip3;
             this.listView2.Dock = System.Windows.Forms.DockStyle.Right;
             this.listView2.FullRowSelect = true;
             this.listView2.HideSelection = false;
@@ -393,6 +398,27 @@
             this.splitter3.TabIndex = 9;
             this.splitter3.TabStop = false;
             // 
+            // contextMenuStrip3
+            // 
+            this.contextMenuStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.toolStripMenuItem2});
+            this.contextMenuStrip3.Name = "contextMenuStrip2";
+            this.contextMenuStrip3.Size = new System.Drawing.Size(216, 48);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(215, 22);
+            this.toolStripMenuItem1.Text = "Copy list";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(215, 22);
+            this.toolStripMenuItem2.Text = "Show object dependencies";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -415,6 +441,7 @@
             this.panel1.PerformLayout();
             this.contextMenuStrip2.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            this.contextMenuStrip3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -451,6 +478,9 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox tbSearchNode2;
         private System.Windows.Forms.Label lblRegexCntFound2;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip3;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
     }
 }
 

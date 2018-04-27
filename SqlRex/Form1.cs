@@ -931,5 +931,16 @@ namespace SqlRex
         {
             fastColoredTextBox1.SaveToFile(fileName, enc);
         }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var str = "";
+            foreach (var item in _listItems2)
+            {
+                str += item.Text + Environment.NewLine;
+            }
+
+            Clipboard.SetText(str);
+        }
     }
 }
