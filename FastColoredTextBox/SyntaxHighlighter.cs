@@ -991,7 +991,9 @@ namespace FastColoredTextBoxNS
             SQLStringRegex = new Regex(@"""""|''|"".*?[^\\]""|'.*?[^\\]'", RegexCompiledOption);
             SQLNumberRegex = new Regex(@"\b\d+[\.]?\d*([eE]\-?\d+)?\b", RegexCompiledOption);
             SQLCommentRegex1 = new Regex(@"--.*$", RegexOptions.Multiline | RegexCompiledOption);
-            SQLCommentRegex2 = new Regex(@"(/\*.*?\*/)|(/\*.*)", RegexOptions.Singleline | RegexCompiledOption);
+            //SQLCommentRegex2 = new Regex(@"(/\*.*?\*/)|(/\*.*)", RegexOptions.Singleline | RegexCompiledOption);
+            SQLCommentRegex2 = new Regex(@"\/\*+((([^\*])+)|([\*]+(?!\/)))[*]+\/", RegexOptions.Multiline | RegexCompiledOption);
+
             SQLCommentRegex3 = new Regex(@"(/\*.*?\*/)|(.*\*/)", RegexOptions.Singleline | RegexOptions.RightToLeft | RegexCompiledOption);
             SQLCommentRegex4 = new Regex(@"#.*$", RegexOptions.Multiline | RegexCompiledOption);
             SQLVarRegex = new Regex(@"@[a-zA-Z_\d]*\b", RegexCompiledOption);
@@ -1026,7 +1028,7 @@ namespace FastColoredTextBoxNS
             //comment highlighting
             range.SetStyle(CommentStyle, SQLCommentRegex1);
             range.SetStyle(CommentStyle, SQLCommentRegex2);
-            range.SetStyle(CommentStyle, SQLCommentRegex3);
+            //range.SetStyle(CommentStyle, SQLCommentRegex3);
             range.SetStyle(CommentStyle, SQLCommentRegex4);
             //string highlighting
             range.SetStyle(StringStyle, SQLStringRegex);
