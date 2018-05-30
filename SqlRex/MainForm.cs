@@ -56,7 +56,12 @@ namespace SqlRex
 
             cbEncoding.Items.AddRange(ls.ToArray());
 
-            cbEncoding.SelectedIndex = 0;
+            var un = ls.FirstOrDefault((i) => i.Enc != null && i.Enc.DisplayName.Contains("UTF-8"));
+
+            if (un != default(MyEncodingInfo))
+                cbEncoding.SelectedItem = un;
+            else
+                cbEncoding.SelectedIndex = 0;
         }
 
         

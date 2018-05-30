@@ -35,6 +35,7 @@
             this.findUsagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findUsageswholeWordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnGenerateSqlFileNoTables = new System.Windows.Forms.Button();
             this.btnGenerateSqlFile = new System.Windows.Forms.Button();
             this.cbSearchInText = new System.Windows.Forms.CheckBox();
             this.lbSqlDatabases = new System.Windows.Forms.ListBox();
@@ -53,7 +54,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.btnGenerateSqlFileNoTables = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -76,16 +76,17 @@
         '\''};
             this.fastColoredTextBox1.AutoIndent = false;
             this.fastColoredTextBox1.AutoIndentCharsPatterns = "";
-            this.fastColoredTextBox1.AutoScrollMinSize = new System.Drawing.Size(179, 14);
+            this.fastColoredTextBox1.AutoScrollMinSize = new System.Drawing.Size(158, 15);
             this.fastColoredTextBox1.BackBrush = null;
             this.fastColoredTextBox1.BookmarkColor = System.Drawing.Color.Crimson;
-            this.fastColoredTextBox1.CharHeight = 14;
-            this.fastColoredTextBox1.CharWidth = 8;
+            this.fastColoredTextBox1.CharHeight = 15;
+            this.fastColoredTextBox1.CharWidth = 7;
             this.fastColoredTextBox1.CommentPrefix = "--";
             this.fastColoredTextBox1.ContextMenuStrip = this.contextMenuStrip1;
             this.fastColoredTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fastColoredTextBox1.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.fastColoredTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fastColoredTextBox1.Font = new System.Drawing.Font("Consolas", 9.75F);
             this.fastColoredTextBox1.Hotkeys = resources.GetString("fastColoredTextBox1.Hotkeys");
             this.fastColoredTextBox1.IsReplaceMode = false;
             this.fastColoredTextBox1.Language = FastColoredTextBoxNS.Language.SQL;
@@ -142,6 +143,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1428, 154);
             this.panel1.TabIndex = 1;
+            // 
+            // btnGenerateSqlFileNoTables
+            // 
+            this.btnGenerateSqlFileNoTables.Location = new System.Drawing.Point(15, 97);
+            this.btnGenerateSqlFileNoTables.Name = "btnGenerateSqlFileNoTables";
+            this.btnGenerateSqlFileNoTables.Size = new System.Drawing.Size(187, 23);
+            this.btnGenerateSqlFileNoTables.TabIndex = 36;
+            this.btnGenerateSqlFileNoTables.Text = "generate SQL file (no tables)";
+            this.btnGenerateSqlFileNoTables.UseVisualStyleBackColor = true;
+            this.btnGenerateSqlFileNoTables.Click += new System.EventHandler(this.btnGenerateSqlFileNoTables_Click);
             // 
             // btnGenerateSqlFile
             // 
@@ -308,16 +319,6 @@
             // saveFileDialog1
             // 
             this.saveFileDialog1.Filter = "SQL files|*.sql";
-            // 
-            // btnGenerateSqlFileNoTables
-            // 
-            this.btnGenerateSqlFileNoTables.Location = new System.Drawing.Point(15, 97);
-            this.btnGenerateSqlFileNoTables.Name = "btnGenerateSqlFileNoTables";
-            this.btnGenerateSqlFileNoTables.Size = new System.Drawing.Size(187, 23);
-            this.btnGenerateSqlFileNoTables.TabIndex = 36;
-            this.btnGenerateSqlFileNoTables.Text = "generate SQL file (no tables)";
-            this.btnGenerateSqlFileNoTables.UseVisualStyleBackColor = true;
-            this.btnGenerateSqlFileNoTables.Click += new System.EventHandler(this.btnGenerateSqlFileNoTables_Click);
             // 
             // SqlViewerForm
             // 
