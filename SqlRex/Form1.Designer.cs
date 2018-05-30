@@ -35,6 +35,9 @@
             this.findUsagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findUsageswholeWordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnClearSearches = new System.Windows.Forms.Button();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnTest = new System.Windows.Forms.Button();
             this.tbSearchNode2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
@@ -107,7 +110,7 @@
             this.fastColoredTextBox1.RightBracket = ')';
             this.fastColoredTextBox1.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.fastColoredTextBox1.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fastColoredTextBox1.ServiceColors")));
-            this.fastColoredTextBox1.Size = new System.Drawing.Size(610, 345);
+            this.fastColoredTextBox1.Size = new System.Drawing.Size(610, 310);
             this.fastColoredTextBox1.TabIndex = 0;
             this.fastColoredTextBox1.Text = "fastColoredTextBox1";
             this.fastColoredTextBox1.Zoom = 100;
@@ -123,7 +126,8 @@
             this.findUsagesToolStripMenuItem,
             this.findUsageswholeWordToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(219, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(219, 70);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // findUsagesToolStripMenuItem
             // 
@@ -141,6 +145,9 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnClearSearches);
+            this.panel1.Controls.Add(this.flowLayoutPanel1);
+            this.panel1.Controls.Add(this.btnTest);
             this.panel1.Controls.Add(this.tbSearchNode2);
             this.panel1.Controls.Add(this.textBox1);
             this.panel1.Controls.Add(this.listBox1);
@@ -155,8 +162,37 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1428, 180);
+            this.panel1.Size = new System.Drawing.Size(1428, 215);
             this.panel1.TabIndex = 1;
+            // 
+            // btnClearSearches
+            // 
+            this.btnClearSearches.Location = new System.Drawing.Point(508, 186);
+            this.btnClearSearches.Name = "btnClearSearches";
+            this.btnClearSearches.Size = new System.Drawing.Size(114, 23);
+            this.btnClearSearches.TabIndex = 35;
+            this.btnClearSearches.Text = "clear searches";
+            this.btnClearSearches.UseVisualStyleBackColor = true;
+            this.btnClearSearches.Click += new System.EventHandler(this.btnClearSearches_Click);
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(628, 151);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(797, 58);
+            this.flowLayoutPanel1.TabIndex = 34;
+            // 
+            // btnTest
+            // 
+            this.btnTest.Location = new System.Drawing.Point(983, 34);
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Size = new System.Drawing.Size(75, 23);
+            this.btnTest.TabIndex = 32;
+            this.btnTest.Text = "test";
+            this.btnTest.UseVisualStyleBackColor = true;
+            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
             // 
             // tbSearchNode2
             // 
@@ -268,9 +304,9 @@
             // 
             // splitter1
             // 
-            this.splitter1.Location = new System.Drawing.Point(306, 180);
+            this.splitter1.Location = new System.Drawing.Point(306, 215);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 345);
+            this.splitter1.Size = new System.Drawing.Size(3, 310);
             this.splitter1.TabIndex = 3;
             this.splitter1.TabStop = false;
             // 
@@ -308,9 +344,9 @@
             this.listView1.Dock = System.Windows.Forms.DockStyle.Left;
             this.listView1.FullRowSelect = true;
             this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(0, 180);
+            this.listView1.Location = new System.Drawing.Point(0, 215);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(306, 345);
+            this.listView1.Size = new System.Drawing.Size(306, 310);
             this.listView1.TabIndex = 5;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -334,9 +370,9 @@
             this.listView2.Dock = System.Windows.Forms.DockStyle.Right;
             this.listView2.FullRowSelect = true;
             this.listView2.HideSelection = false;
-            this.listView2.Location = new System.Drawing.Point(1122, 180);
+            this.listView2.Location = new System.Drawing.Point(1122, 215);
             this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(306, 345);
+            this.listView2.Size = new System.Drawing.Size(306, 310);
             this.listView2.TabIndex = 6;
             this.listView2.UseCompatibleStateImageBehavior = false;
             this.listView2.View = System.Windows.Forms.View.Details;
@@ -385,7 +421,7 @@
             this.documentMap1.ForeColor = System.Drawing.Color.Maroon;
             this.documentMap1.Location = new System.Drawing.Point(613, 0);
             this.documentMap1.Name = "documentMap1";
-            this.documentMap1.Size = new System.Drawing.Size(200, 345);
+            this.documentMap1.Size = new System.Drawing.Size(200, 310);
             this.documentMap1.TabIndex = 7;
             this.documentMap1.Target = this.fastColoredTextBox1;
             this.documentMap1.Text = "documentMap1";
@@ -397,9 +433,9 @@
             this.panel2.Controls.Add(this.splitter2);
             this.panel2.Controls.Add(this.documentMap1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(309, 180);
+            this.panel2.Location = new System.Drawing.Point(309, 215);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(813, 345);
+            this.panel2.Size = new System.Drawing.Size(813, 310);
             this.panel2.TabIndex = 8;
             // 
             // splitter2
@@ -407,16 +443,16 @@
             this.splitter2.Dock = System.Windows.Forms.DockStyle.Right;
             this.splitter2.Location = new System.Drawing.Point(610, 0);
             this.splitter2.Name = "splitter2";
-            this.splitter2.Size = new System.Drawing.Size(3, 345);
+            this.splitter2.Size = new System.Drawing.Size(3, 310);
             this.splitter2.TabIndex = 8;
             this.splitter2.TabStop = false;
             // 
             // splitter3
             // 
             this.splitter3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.splitter3.Location = new System.Drawing.Point(1119, 180);
+            this.splitter3.Location = new System.Drawing.Point(1119, 215);
             this.splitter3.Name = "splitter3";
-            this.splitter3.Size = new System.Drawing.Size(3, 345);
+            this.splitter3.Size = new System.Drawing.Size(3, 310);
             this.splitter3.TabIndex = 9;
             this.splitter3.TabStop = false;
             // 
@@ -482,6 +518,9 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip3;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.Button btnTest;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Button btnClearSearches;
     }
 }
 

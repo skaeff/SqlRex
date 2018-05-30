@@ -416,6 +416,9 @@ namespace SqlRex
         List<Range> _listItems2 = new List<Range>();
         List<Range> _listItemsCache2 = new List<Range>();
 
+        Dictionary<string, List<Range>> _listItemsDic = new Dictionary<string, List<Range>>();
+        Dictionary<string, List<Range>> _foundRangesDic = new Dictionary<string, List<Range>>();
+
         private void tbSearchNode_TextChanged(object sender, EventArgs e)
         {
             if (tbSearchNode.Text == "")
@@ -762,7 +765,7 @@ namespace SqlRex
                             }
 
                         }
-
+                        
                         Syncronized(() => _listItems2.Clear());
                         Syncronized(() => _listItemsCache2.Clear());
 
@@ -771,6 +774,53 @@ namespace SqlRex
                             Syncronized(() => _listItems2.Add(item.Value));
                             Syncronized(() => _listItemsCache2.Add(item.Value));
                         }
+
+                        //---------------------------------------------------
+                        Syncronized(() =>
+                        {
+                            var rb = new RadioButton();
+                            rb.Text = regex;
+                            rb.AutoSize = true;
+                            rb.Click += (s, arg) =>
+                            {
+                                _listItems2.Clear();
+                                _listItemsCache2.Clear();
+
+                                ClearFoundRanges();
+                                _needRebuild2 = true;
+
+                                _listItems2.AddRange(_listItemsDic[((Control)s).Text]);
+                                _listItemsCache2.AddRange(_listItemsDic[((Control)s).Text]);
+                                _foundRanges.AddRange(_foundRangesDic[((Control)s).Text]);
+
+                                listView2.VirtualListSize = _listItems2.Count;
+                                listView2.SelectedIndices.Clear();
+                            };
+
+                            flowLayoutPanel1.Controls.Add(rb);
+
+                            if (_listItemsDic.ContainsKey(regex))
+                            {
+                                _listItemsDic[regex].Clear();
+                                _listItemsDic[regex].AddRange(new List<Range>(_listItems2));
+                            }
+                            else
+                            {
+                                _listItemsDic.Add(regex, new List<Range>(_listItems2));
+                            }
+
+                            if (_foundRangesDic.ContainsKey(regex))
+                            {
+                                _foundRangesDic[regex].Clear();
+                                _foundRangesDic[regex].AddRange(new List<Range>(_foundRanges));
+                            }
+                            else
+                            {
+                                _foundRangesDic.Add(regex, new List<Range>(_foundRanges));
+                            }
+
+                        });
+                        //---------------------------------------------------
 
                         _needRebuild2 = true;
                         Syncronized(() => listView2.VirtualListSize = _listItems2.Count);
@@ -941,6 +991,26 @@ namespace SqlRex
             }
 
             Clipboard.SetText(str);
+        }
+
+        private void btnTest_Click(object sender, EventArgs e)
+        {
+            var rb = new RadioButton();
+            rb.Text = "test";
+            flowLayoutPanel1.Controls.Add(rb);
+        }
+
+        private void btnClearSearches_Click(object sender, EventArgs e)
+        {
+            _foundRangesDic.Clear();
+            _listItemsDic.Clear();
+
+            flowLayoutPanel1.Controls.Clear();
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+
         }
     }
 }
