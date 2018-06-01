@@ -31,6 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.cbLargeFiles = new System.Windows.Forms.CheckBox();
             this.cbRegexOnLoad = new System.Windows.Forms.CheckBox();
+            this.cbEncoding = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cbReadonlySQL = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cbLargeFiles
@@ -55,11 +58,43 @@
             this.cbRegexOnLoad.UseVisualStyleBackColor = true;
             this.cbRegexOnLoad.CheckedChanged += new System.EventHandler(this.cbRegexOnLoad_CheckedChanged);
             // 
+            // cbEncoding
+            // 
+            this.cbEncoding.FormattingEnabled = true;
+            this.cbEncoding.Location = new System.Drawing.Point(105, 91);
+            this.cbEncoding.Name = "cbEncoding";
+            this.cbEncoding.Size = new System.Drawing.Size(211, 21);
+            this.cbEncoding.TabIndex = 5;
+            this.cbEncoding.SelectedIndexChanged += new System.EventHandler(this.cbEncoding_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 94);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(86, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "default encoding";
+            // 
+            // cbReadonlySQL
+            // 
+            this.cbReadonlySQL.AutoSize = true;
+            this.cbReadonlySQL.Location = new System.Drawing.Point(12, 132);
+            this.cbReadonlySQL.Name = "cbReadonlySQL";
+            this.cbReadonlySQL.Size = new System.Drawing.Size(90, 17);
+            this.cbReadonlySQL.TabIndex = 7;
+            this.cbReadonlySQL.Text = "readonly SQL";
+            this.cbReadonlySQL.UseVisualStyleBackColor = true;
+            this.cbReadonlySQL.CheckedChanged += new System.EventHandler(this.cbReadonlySQL_CheckedChanged);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(780, 402);
+            this.Controls.Add(this.cbReadonlySQL);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.cbEncoding);
             this.Controls.Add(this.cbRegexOnLoad);
             this.Controls.Add(this.cbLargeFiles);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -73,5 +108,8 @@
         #endregion
         private System.Windows.Forms.CheckBox cbLargeFiles;
         private System.Windows.Forms.CheckBox cbRegexOnLoad;
+        private System.Windows.Forms.ComboBox cbEncoding;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox cbReadonlySQL;
     }
 }

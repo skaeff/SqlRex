@@ -643,5 +643,10 @@ namespace SqlRex
                 Common.Async.ExecAsync(this, (b) => Generate(db, fileName, false), (tm) => ReportTime(tm), true);
             }
         }
+
+        public void NotifyReadonlySql()
+        {
+            //
+        }
     }
 }

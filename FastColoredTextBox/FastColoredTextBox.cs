@@ -2518,6 +2518,8 @@ namespace FastColoredTextBoxNS
             if (!Selection.IsEmpty)
             {
                 Copy();
+                if (ReadOnly)
+                    return;
                 ClearSelected();
             }
             else
@@ -2525,11 +2527,15 @@ namespace FastColoredTextBoxNS
             {
                 Selection.SelectAll();
                 Copy();
+                if (ReadOnly)
+                    return;
                 ClearSelected();
             }
             else
             {
                 Copy();
+                if (ReadOnly)
+                    return;
                 //remove current line
                 if (Selection.Start.iLine >= 0 && Selection.Start.iLine < LinesCount)
                 {
@@ -2545,6 +2551,9 @@ namespace FastColoredTextBoxNS
         /// </summary>
         public virtual void Paste()
         {
+            if (ReadOnly)
+                return;
+
             string text = null;
             var thread = new Thread(() =>
                                         {

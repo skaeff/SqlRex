@@ -60,6 +60,59 @@ namespace SqlRex
                 }
             }
         }
-        
+
+        public static bool ReadOnlySql
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["readonly_sql"]?.ToString() == "1";
+            }
+            set
+            {
+                //if (value)
+                {
+                    var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+                    if (config.AppSettings.Settings["readonly_sql"] != null)
+                    {
+                        config.AppSettings.Settings["readonly_sql"].Value = value ? "1" : "0";
+                    }
+                    else
+                    {
+                        config.AppSettings.Settings.Add("readonly_sql", value ? "1" : "0");
+                    }
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("appSettings");
+                }
+            }
+        }
+
+        public static string Encoding
+        {
+            get
+            {
+                var enc = ConfigurationManager.AppSettings["encoding"]?.ToString();
+                return string.IsNullOrEmpty(enc) ? "Auto" : enc;
+            }
+            set
+            {
+                //if (value)
+                {
+                    var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+                    if (config.AppSettings.Settings["encoding"] != null)
+                    {
+                        config.AppSettings.Settings["encoding"].Value = value;
+                    }
+                    else
+                    {
+                        config.AppSettings.Settings.Add("encoding", value);
+                    }
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("appSettings");
+                }
+            }
+        }
+
     }
 }

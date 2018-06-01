@@ -10,5 +10,8 @@ namespace SqlRex
     {
         void LargeFileModeChanged();
         void RegexOnLoadChanged();
+
+        void EncodingChanged();
+        void ReadonlySqlChanged();
     }
 }

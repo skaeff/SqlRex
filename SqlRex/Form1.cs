@@ -37,12 +37,14 @@ namespace SqlRex
         {
             InitializeComponent();
 
+            fastColoredTextBox1.ReadOnly = Config.ReadOnlySql;
 
             var fields = typeof(RegexValues).GetFields(System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
             listBox1.Items.AddRange(fields);
 
             _sync = SynchronizationContext.Current;
             TextModified = false;
+
             
         }
 
@@ -1011,6 +1013,11 @@ namespace SqlRex
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
 
+        }
+
+        public void NotifyReadonlySql()
+        {
+            fastColoredTextBox1.ReadOnly = Config.ReadOnlySql;
         }
     }
 }

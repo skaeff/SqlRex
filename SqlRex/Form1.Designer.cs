@@ -126,7 +126,7 @@
             this.findUsagesToolStripMenuItem,
             this.findUsageswholeWordToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(219, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(219, 48);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // findUsagesToolStripMenuItem

@@ -20,5 +20,7 @@ namespace SqlRex
         T Syncronized<T>(Func<T> action);
         void NextItem();
         void PrevItem();
+
+        void NotifyReadonlySql();
     }
 }

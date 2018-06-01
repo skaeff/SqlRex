@@ -56,7 +56,7 @@ namespace SqlRex
 
             cbEncoding.Items.AddRange(ls.ToArray());
 
-            var un = ls.FirstOrDefault((i) => i.Enc != null && i.Enc.DisplayName.Contains("UTF-8"));
+            var un = ls.FirstOrDefault((i) => i.Enc != null && i.Enc.DisplayName.Contains(Config.Encoding));
 
             if (un != default(MyEncodingInfo))
                 cbEncoding.SelectedItem = un;
@@ -695,6 +695,27 @@ namespace SqlRex
             var f = new SqlViewerForm();
             f.MdiParent = this;
             f.Show();
+        }
+
+        public void EncodingChanged()
+        {
+            var un = cbEncoding.Items.Cast<MyEncodingInfo>().FirstOrDefault((i) => i.Enc != null && i.Enc.DisplayName.Contains(Config.Encoding ?? "Auto"));
+
+            if (un != default(MyEncodingInfo))
+                cbEncoding.SelectedItem = un;
+        }
+
+        public void ReadonlySqlChanged()
+        {
+            foreach (TabPage item in tabForms.TabPages)
+            {
+                var frm = item.Tag as IChildForm;
+                if(frm != null)
+                {
+                    frm.NotifyReadonlySql();
+                }
+
+            }
         }
     }
 }

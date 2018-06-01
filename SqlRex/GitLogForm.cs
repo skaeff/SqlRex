@@ -168,5 +168,10 @@ namespace SqlRex
         {
             throw new NotImplementedException();
         }
+
+        public void NotifyReadonlySql()
+        {
+            //
+        }
     }
 }

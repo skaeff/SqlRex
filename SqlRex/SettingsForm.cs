@@ -24,6 +24,29 @@ namespace SqlRex
             cbRegexOnLoad.CheckedChanged -= cbRegexOnLoad_CheckedChanged;
             cbRegexOnLoad.Checked = Config.RegexOnLoad;
             cbRegexOnLoad.CheckedChanged += cbRegexOnLoad_CheckedChanged;
+
+            cbReadonlySQL.CheckedChanged -= cbReadonlySQL_CheckedChanged;
+            cbReadonlySQL.Checked = Config.ReadOnlySql;
+            cbReadonlySQL.CheckedChanged += cbReadonlySQL_CheckedChanged;
+
+            cbEncoding.SelectedIndexChanged -= cbEncoding_SelectedIndexChanged;
+            var list = Encoding.GetEncodings();
+
+            var ls = new List<MyEncodingInfo>();
+
+            ls.Add(new MyEncodingInfo());
+            ls.AddRange(list.Select<EncodingInfo, MyEncodingInfo>((a) => new MyEncodingInfo { Enc = a }));
+
+            cbEncoding.Items.AddRange(ls.ToArray());
+
+            var un = ls.FirstOrDefault((i) => i.Enc != null && i.Enc.DisplayName.Contains(Config.Encoding));
+
+            if (un != default(MyEncodingInfo))
+                cbEncoding.SelectedItem = un;
+            else
+                cbEncoding.SelectedIndex = 0;
+
+            cbEncoding.SelectedIndexChanged += cbEncoding_SelectedIndexChanged;
         }
 
         public string FileName
@@ -95,6 +118,33 @@ namespace SqlRex
             {
                 main.RegexOnLoadChanged();
             }
+        }
+
+        private void cbEncoding_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var enc = cbEncoding.SelectedItem as MyEncodingInfo;
+            
+            Config.Encoding = enc.Enc?.DisplayName;
+            var main = MdiParent as IMainForm;
+            if (main != null)
+            {
+                main.EncodingChanged();
+            }
+        }
+
+        private void cbReadonlySQL_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.ReadOnlySql = cbReadonlySQL.Checked;
+            var main = MdiParent as IMainForm;
+            if (main != null)
+            {
+                main.ReadonlySqlChanged();
+            }
+        }
+
+        public void NotifyReadonlySql()
+        {
+            //
         }
     }
 }
