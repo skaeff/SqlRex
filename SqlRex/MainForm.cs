@@ -36,8 +36,10 @@ namespace SqlRex
         public MainForm()
         {
             _sync = SynchronizationContext.Current;
-            TaskbarManager.Instance.ApplicationId = Assembly.GetEntryAssembly().Location;
 
+#if !DEBUG
+            TaskbarManager.Instance.ApplicationId = Assembly.GetEntryAssembly().Location;
+#endif
             InitializeComponent();
             LargeFileModeChanged();
             RegexOnLoadChanged();
@@ -562,7 +564,9 @@ namespace SqlRex
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
+#if !DEBUG
             RebuildRecentJumpList();
+#endif
         }
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)

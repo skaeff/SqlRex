@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,9 +32,14 @@ namespace SqlRex
                 Directory.Delete(tempPath, true);
                 Directory.CreateDirectory(tempPath);
             }
+
+#if DEBUG
+            Application.Run(new MainForm());
+#else
             string[] args = Environment.GetCommandLineArgs();
             SingleInstanceController controller = new SingleInstanceController();
             controller.Run(args);
+#endif
         }
 
         public class SingleInstanceController : WindowsFormsApplicationBase
