@@ -57,7 +57,7 @@ SELECT @SQL = 'CREATE TABLE ' + @object_name + CHAR(13) + '(' + CHAR(13) + STUFF
                 CASE WHEN c.collation_name IS NOT NULL THEN ' COLLATE ' + c.collation_name ELSE '' END +
                 CASE WHEN c.is_nullable = 1 THEN ' NULL' ELSE ' NOT NULL' END +
                 CASE WHEN dc.[definition] IS NOT NULL THEN ' DEFAULT' + dc.[definition] ELSE '' END + 
-                CASE WHEN ic.is_identity = 1 THEN ' IDENTITY(' + CAST(ISNULL(ic.seed_value, '0') AS CHAR(1)) + ',' + CAST(ISNULL(ic.increment_value, '1') AS CHAR(1)) + ')' ELSE '' END 
+                CASE WHEN ic.is_identity = 1 THEN ' IDENTITY(' + ltrim(rtrim(CAST(ISNULL(ic.seed_value, '0') AS CHAR(20)))) + ',' + ltrim(rtrim(CAST(ISNULL(ic.increment_value, '1') AS CHAR(20)))) + ')' ELSE '' END
         END + CHAR(13)
     FROM sys.columns c WITH (NOWAIT)
     JOIN sys.types tp WITH (NOWAIT) ON c.user_type_id = tp.user_type_id
