@@ -22,5 +22,6 @@ namespace SqlRex
         void PrevItem();
 
         void NotifyReadonlySql();
+        void NotifyAutocomplete();
     }
 }

@@ -105,7 +105,7 @@
             this.toolStripMenuItem1,
             this.diffWithPrevToolStripMenuItem});
             this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(191, 176);
+            this.contextMenuStrip2.Size = new System.Drawing.Size(191, 198);
             // 
             // undoToolStripMenuItem
             // 

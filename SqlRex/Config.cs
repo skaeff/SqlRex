@@ -87,6 +87,32 @@ namespace SqlRex
             }
         }
 
+        public static bool Autocomplete
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["autocomplete"]?.ToString() == "1";
+            }
+            set
+            {
+                //if (value)
+                {
+                    var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+                    if (config.AppSettings.Settings["autocomplete"] != null)
+                    {
+                        config.AppSettings.Settings["autocomplete"].Value = value ? "1" : "0";
+                    }
+                    else
+                    {
+                        config.AppSettings.Settings.Add("autocomplete", value ? "1" : "0");
+                    }
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("appSettings");
+                }
+            }
+        }
+
         public static string Encoding
         {
             get

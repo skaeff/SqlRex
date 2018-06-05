@@ -19,6 +19,7 @@ namespace SqlRex
 {
     public partial class Form1 : Form, IChildForm
     {
+        AutoCompleteStringCollection _autoComplete = new AutoCompleteStringCollection();
         SynchronizationContext _sync;
         Encoding _encoding = Encoding.GetEncoding("windows-1251");
 
@@ -36,6 +37,9 @@ namespace SqlRex
         public Form1()
         {
             InitializeComponent();
+
+            timer1.Enabled = Config.Autocomplete;
+            tbSearchNode.AutoCompleteCustomSource = _autoComplete;
 
             fastColoredTextBox1.ReadOnly = Config.ReadOnlySql;
 
@@ -421,8 +425,10 @@ namespace SqlRex
         Dictionary<string, List<Range>> _listItemsDic = new Dictionary<string, List<Range>>();
         Dictionary<string, List<Range>> _foundRangesDic = new Dictionary<string, List<Range>>();
 
+        Stopwatch _sw = new Stopwatch();
         private void tbSearchNode_TextChanged(object sender, EventArgs e)
         {
+            _sw.Restart();
             if (tbSearchNode.Text == "")
             {
                 _listItems.Clear();
@@ -1018,6 +1024,120 @@ namespace SqlRex
         public void NotifyReadonlySql()
         {
             fastColoredTextBox1.ReadOnly = Config.ReadOnlySql;
+        }
+
+        public void NotifyAutocomplete()
+        {
+            timer1.Enabled = Config.Autocomplete;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (_sw.Elapsed >= TimeSpan.FromSeconds(5))
+            {
+                if (!string.IsNullOrEmpty(tbSearchNode.Text))
+                {
+                    var txt = tbSearchNode.Text;
+                    if (!_autoComplete.Cast<string>().Contains(txt))
+                        _autoComplete.Add(txt);
+                }
+            }
+        }
+
+        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveControl != null)
+            {
+                var ctl = ActiveControl;
+                if (ctl is TextBox)
+                {
+                    (ctl as TextBox).Undo();
+                }
+                if (ctl is FastColoredTextBoxNS.FastColoredTextBox)
+                {
+                    (ctl as FastColoredTextBoxNS.FastColoredTextBox).Undo();
+                }
+            }
+        }
+
+        private void redoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveControl != null)
+            {
+                var ctl = ActiveControl;
+                if (ctl is TextBox)
+                {
+
+                }
+                if (ctl is FastColoredTextBoxNS.FastColoredTextBox)
+                {
+                    (ctl as FastColoredTextBoxNS.FastColoredTextBox).Redo();
+                }
+            }
+        }
+
+        private void cutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveControl != null)
+            {
+                var ctl = ActiveControl;
+                if (ctl is TextBox)
+                {
+                    (ctl as TextBox).Cut();
+                }
+                if (ctl is FastColoredTextBoxNS.FastColoredTextBox)
+                {
+                    (ctl as FastColoredTextBoxNS.FastColoredTextBox).Cut();
+                }
+            }
+        }
+
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveControl != null)
+            {
+                var ctl = ActiveControl;
+                if (ctl is TextBox)
+                {
+                    (ctl as TextBox).Copy();
+                }
+                if (ctl is FastColoredTextBoxNS.FastColoredTextBox)
+                {
+                    (ctl as FastColoredTextBoxNS.FastColoredTextBox).Copy();
+                }
+            }
+        }
+
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveControl != null)
+            {
+                var ctl = ActiveControl;
+                if (ctl is TextBox)
+                {
+                    (ctl as TextBox).Paste();
+                }
+                if (ctl is FastColoredTextBoxNS.FastColoredTextBox)
+                {
+                    (ctl as FastColoredTextBoxNS.FastColoredTextBox).Paste();
+                }
+            }
+        }
+
+        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveControl != null)
+            {
+                var ctl = ActiveControl;
+                if (ctl is TextBox)
+                {
+                    (ctl as TextBox).SelectAll();
+                }
+                if (ctl is FastColoredTextBoxNS.FastColoredTextBox)
+                {
+                    (ctl as FastColoredTextBoxNS.FastColoredTextBox).SelectAll();
+                }
+            }
         }
     }
 }

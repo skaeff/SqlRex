@@ -20,6 +20,7 @@ namespace SqlRex
 {
     public partial class SqlViewerForm : Form, IChildForm
     {
+        AutoCompleteStringCollection _autoComplete = new AutoCompleteStringCollection();
         SynchronizationContext _sync;
         Encoding _encoding = Encoding.GetEncoding("windows-1251");
 
@@ -37,6 +38,8 @@ namespace SqlRex
         public SqlViewerForm()
         {
             InitializeComponent();
+            timer1.Enabled = Config.Autocomplete;
+            tbSearchNode.AutoCompleteCustomSource = _autoComplete;
 
             var conns = File.ReadAllLines(Application.StartupPath + @"\connections.txt");
             lbSqlDatabases.Items.AddRange(conns);
@@ -119,10 +122,11 @@ namespace SqlRex
         List<SqlDdlObject> _listItems = new List<SqlDdlObject>();
         List<SqlDdlObject> _listItemsCache = new List<SqlDdlObject>();
 
-     
 
+        Stopwatch _sw = new Stopwatch();
         private void tbSearchNode_TextChanged(object sender, EventArgs e)
         {
+            _sw.Restart();
             if (tbSearchNode.Text == "")
             {
                 _listItems.Clear();
@@ -161,13 +165,14 @@ namespace SqlRex
 
         public void SaveFile()
         {
-           
-            File.WriteAllText(FileName, SqlText, _encoding);
+            MessageBox.Show("Not implemented");
+
+            //File.WriteAllText(FileName, SqlText, _encoding);
             
-            var fi = new FileInfo(FileName);
-            Text = fi.Name;
-            TextModified = false;
-            OnTextModified(this, fi.Name);
+            //var fi = new FileInfo(FileName);
+            //Text = fi.Name;
+            //TextModified = false;
+            //OnTextModified(this, fi.Name);
 
             
         }
@@ -493,6 +498,9 @@ namespace SqlRex
             if (lbSqlDatabases.SelectedItem != null)
             {
                 var db = lbSqlDatabases.SelectedItem.ToString();
+                var csb = new SqlConnectionStringBuilder(db);
+                Text = csb.DataSource + "." + csb.InitialCatalog;
+                (MdiParent as IMainForm).RefreshTab();
                 Common.Async.ExecAsync(this, (b) => BuildSqlObjects(db, b), (tm) => ReportTime(tm), true);
             }
         }
@@ -646,7 +654,122 @@ namespace SqlRex
 
         public void NotifyReadonlySql()
         {
-            //
+            fastColoredTextBox1.ReadOnly = Config.ReadOnlySql;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if(_sw.Elapsed >= TimeSpan.FromSeconds(5))
+            {
+                if(!string.IsNullOrEmpty(tbSearchNode.Text))
+                {
+                    var txt = tbSearchNode.Text;
+                    if (!_autoComplete.Cast<string>().Contains(txt))
+                        _autoComplete.Add(txt);
+                }
+            }
+        }
+
+        
+        public void NotifyAutocomplete()
+        {
+            timer1.Enabled = Config.Autocomplete;
+        }
+
+        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveControl != null)
+            {
+                var ctl = ActiveControl;
+                if (ctl is TextBox)
+                {
+                    (ctl as TextBox).Undo();
+                }
+                if (ctl is FastColoredTextBoxNS.FastColoredTextBox)
+                {
+                    (ctl as FastColoredTextBoxNS.FastColoredTextBox).Undo();
+                }
+            }
+        }
+
+        private void redoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveControl != null)
+            {
+                var ctl = ActiveControl;
+                if (ctl is TextBox)
+                {
+
+                }
+                if (ctl is FastColoredTextBoxNS.FastColoredTextBox)
+                {
+                    (ctl as FastColoredTextBoxNS.FastColoredTextBox).Redo();
+                }
+            }
+        }
+
+        private void cutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveControl != null)
+            {
+                var ctl = ActiveControl;
+                if (ctl is TextBox)
+                {
+                    (ctl as TextBox).Cut();
+                }
+                if (ctl is FastColoredTextBoxNS.FastColoredTextBox)
+                {
+                    (ctl as FastColoredTextBoxNS.FastColoredTextBox).Cut();
+                }
+            }
+        }
+
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveControl != null)
+            {
+                var ctl = ActiveControl;
+                if (ctl is TextBox)
+                {
+                    (ctl as TextBox).Copy();
+                }
+                if (ctl is FastColoredTextBoxNS.FastColoredTextBox)
+                {
+                    (ctl as FastColoredTextBoxNS.FastColoredTextBox).Copy();
+                }
+            }
+        }
+
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveControl != null)
+            {
+                var ctl = ActiveControl;
+                if (ctl is TextBox)
+                {
+                    (ctl as TextBox).Paste();
+                }
+                if (ctl is FastColoredTextBoxNS.FastColoredTextBox)
+                {
+                    (ctl as FastColoredTextBoxNS.FastColoredTextBox).Paste();
+                }
+            }
+        }
+
+        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveControl != null)
+            {
+                var ctl = ActiveControl;
+                if (ctl is TextBox)
+                {
+                    (ctl as TextBox).SelectAll();
+                }
+                if (ctl is FastColoredTextBoxNS.FastColoredTextBox)
+                {
+                    (ctl as FastColoredTextBoxNS.FastColoredTextBox).SelectAll();
+                }
+            }
         }
     }
 }

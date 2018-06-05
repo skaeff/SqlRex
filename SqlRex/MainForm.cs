@@ -721,5 +721,24 @@ namespace SqlRex
 
             }
         }
+
+        public void AutocompleteChanged()
+        {
+            foreach (TabPage item in tabForms.TabPages)
+            {
+                var frm = item.Tag as IChildForm;
+                if (frm != null)
+                {
+                    frm.NotifyAutocomplete();
+                }
+
+            }
+        }
+
+        public void RefreshTab()
+        {
+            (ActiveMdiChild.Tag as TabPage).Text = ActiveMdiChild.Text;
+            (ActiveMdiChild.Tag as TabPage).ToolTipText = ActiveMdiChild.Text;
+        }
     }
 }

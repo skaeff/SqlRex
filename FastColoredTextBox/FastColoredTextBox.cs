@@ -4739,6 +4739,9 @@ namespace FastColoredTextBoxNS
         /// </summary>
         public virtual void Undo()
         {
+            if (ReadOnly)
+                return;
+
             lines.Manager.Undo();
             DoCaretVisible();
             Invalidate();
@@ -4749,6 +4752,9 @@ namespace FastColoredTextBoxNS
         /// </summary>
         public virtual void Redo()
         {
+            if (ReadOnly)
+                return;
+
             lines.Manager.Redo();
             DoCaretVisible();
             Invalidate();

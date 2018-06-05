@@ -166,10 +166,15 @@ namespace SqlRex
 
         public void SaveFile(string fileName, Encoding enc)
         {
-            throw new NotImplementedException();
+            //
         }
 
         public void NotifyReadonlySql()
+        {
+            //
+        }
+
+        public void NotifyAutocomplete()
         {
             //
         }

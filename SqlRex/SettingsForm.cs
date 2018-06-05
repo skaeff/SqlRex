@@ -29,6 +29,10 @@ namespace SqlRex
             cbReadonlySQL.Checked = Config.ReadOnlySql;
             cbReadonlySQL.CheckedChanged += cbReadonlySQL_CheckedChanged;
 
+            cbAutoComplete.CheckedChanged -= cbAutoComplete_CheckedChanged;
+            cbAutoComplete.Checked = Config.Autocomplete;
+            cbAutoComplete.CheckedChanged += cbAutoComplete_CheckedChanged;
+
             cbEncoding.SelectedIndexChanged -= cbEncoding_SelectedIndexChanged;
             var list = Encoding.GetEncodings();
 
@@ -143,6 +147,21 @@ namespace SqlRex
         }
 
         public void NotifyReadonlySql()
+        {
+            //
+        }
+
+        private void cbAutoComplete_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.Autocomplete = cbAutoComplete.Checked;
+            var main = MdiParent as IMainForm;
+            if (main != null)
+            {
+                main.AutocompleteChanged();
+            }
+        }
+
+        public void NotifyAutocomplete()
         {
             //
         }

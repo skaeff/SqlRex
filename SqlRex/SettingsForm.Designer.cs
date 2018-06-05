@@ -34,6 +34,7 @@
             this.cbEncoding = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cbReadonlySQL = new System.Windows.Forms.CheckBox();
+            this.cbAutoComplete = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cbLargeFiles
@@ -87,11 +88,23 @@
             this.cbReadonlySQL.UseVisualStyleBackColor = true;
             this.cbReadonlySQL.CheckedChanged += new System.EventHandler(this.cbReadonlySQL_CheckedChanged);
             // 
+            // cbAutoComplete
+            // 
+            this.cbAutoComplete.AutoSize = true;
+            this.cbAutoComplete.Location = new System.Drawing.Point(12, 168);
+            this.cbAutoComplete.Name = "cbAutoComplete";
+            this.cbAutoComplete.Size = new System.Drawing.Size(139, 17);
+            this.cbAutoComplete.TabIndex = 8;
+            this.cbAutoComplete.Text = "Autocomplete in textbox";
+            this.cbAutoComplete.UseVisualStyleBackColor = true;
+            this.cbAutoComplete.CheckedChanged += new System.EventHandler(this.cbAutoComplete_CheckedChanged);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(780, 402);
+            this.Controls.Add(this.cbAutoComplete);
             this.Controls.Add(this.cbReadonlySQL);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbEncoding);
@@ -111,5 +124,6 @@
         private System.Windows.Forms.ComboBox cbEncoding;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox cbReadonlySQL;
+        private System.Windows.Forms.CheckBox cbAutoComplete;
     }
 }
