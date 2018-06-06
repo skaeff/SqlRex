@@ -43,7 +43,8 @@ namespace SqlRex
 
             var conns = File.ReadAllLines(Application.StartupPath + @"\connections.txt");
             lbSqlDatabases.Items.AddRange(conns);
-            lbSqlDatabases.SelectedIndex = 0;
+            if(conns.Length > 0)
+                lbSqlDatabases.SelectedIndex = 0;
 
            
             _sync = SynchronizationContext.Current;
@@ -769,6 +770,47 @@ namespace SqlRex
                 {
                     (ctl as FastColoredTextBoxNS.FastColoredTextBox).SelectAll();
                 }
+            }
+        }
+
+        private void addConnectionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var f = new ConnectionDialog();
+            if(f.ShowDialog() == DialogResult.OK)
+            {
+                var connStr = f.ConnectionString;
+
+                lbSqlDatabases.Items.Add(connStr);
+                File.WriteAllLines(Application.StartupPath + @"\connections.txt", lbSqlDatabases.Items.Cast<string>().ToArray());
+                
+            }
+        }
+
+        private void testConnectionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (lbSqlDatabases.SelectedItem != null)
+            {
+                var f = new ConnectionDialog();
+                f.ConnectionString = lbSqlDatabases.SelectedItem.ToString();
+                if(f.ShowDialog() == DialogResult.OK)
+                {
+                    var connStr = f.ConnectionString;
+
+                    lbSqlDatabases.Items.RemoveAt(lbSqlDatabases.SelectedIndex);
+                    lbSqlDatabases.Items.Add(connStr);
+                    File.WriteAllLines(Application.StartupPath + @"\connections.txt", lbSqlDatabases.Items.Cast<string>().ToArray());
+                }
+            }
+        }
+
+        private void deleteConnectionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(lbSqlDatabases.SelectedItem != null &&
+                MessageBox.Show(string.Format("Are you sure to delete [{0}] from connections list?", lbSqlDatabases.SelectedItem.ToString()), "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button3)
+                == DialogResult.Yes)
+            {
+                lbSqlDatabases.Items.RemoveAt(lbSqlDatabases.SelectedIndex);
+                File.WriteAllLines(Application.StartupPath + @"\connections.txt", lbSqlDatabases.Items.Cast<string>().ToArray());
             }
         }
     }

@@ -96,6 +96,18 @@
       <DependentUpon>LongOperationControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Config.cs" />
+    <Compile Include="ConnectionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConnectionDialog.Designer.cs">
+      <DependentUpon>ConnectionDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExceptionWindowForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExceptionWindowForm.Designer.cs">
+      <DependentUpon>ExceptionWindowForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SqlDdlObject.cs" />
     <Compile Include="SqlViewerForm.cs">
       <SubType>Form</SubType>
@@ -146,6 +158,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Common\LongOperationControl.resx">
       <DependentUpon>LongOperationControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConnectionDialog.resx">
+      <DependentUpon>ConnectionDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExceptionWindowForm.resx">
+      <DependentUpon>ExceptionWindowForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SqlViewerForm.resx">
       <DependentUpon>SqlViewerForm.cs</DependentUpon>
