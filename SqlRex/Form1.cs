@@ -1039,7 +1039,15 @@ namespace SqlRex
                 {
                     var txt = tbSearchNode.Text;
                     if (!_autoComplete.Cast<string>().Contains(txt))
+                    {
                         _autoComplete.Add(txt);
+                        var tip = "";
+                        foreach(var item in _autoComplete.Cast<string>())
+                        {
+                            tip += item + Environment.NewLine;
+                        }
+                        toolTip1.SetToolTip(tbSearchNode, tip);
+                    }
                 }
             }
         }

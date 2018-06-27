@@ -18,15 +18,16 @@ namespace SqlRex
             InitializeComponent();
         }
 
-        public string ConnectionString
+        public string DecryptedConnectionString
         {
             get
             {
                 var csb = new SqlConnectionStringBuilder();
+                //csb.PersistSecurityInfo = true;
                 csb.DataSource = tbServerName.Text;
 
                 csb.IntegratedSecurity = rbWinAuth.Checked;
-                if (csb.IntegratedSecurity)
+                if (!csb.IntegratedSecurity)
                 {
                     csb.UserID = tbUserName.Text;
                     csb.Password = tbPassword.Text;
@@ -34,12 +35,31 @@ namespace SqlRex
                 csb.InitialCatalog = cbDatabaseName.Text;
                 return csb.ConnectionString;
             }
+        }
+        public string ConnectionString
+        {
+            get
+            {
+                var csb = new SqlConnectionStringBuilder();
+                //csb.PersistSecurityInfo = true;
+                csb.DataSource = tbServerName.Text;
+
+                csb.IntegratedSecurity = rbWinAuth.Checked;
+                if (!csb.IntegratedSecurity)
+                {
+                    csb.UserID = tbUserName.Text;
+                    csb.Password = Utils.Encrypt(tbPassword.Text);
+                }
+                csb.InitialCatalog = cbDatabaseName.Text;
+                return csb.ConnectionString;
+            }
             set
             {
                 var csb = new SqlConnectionStringBuilder(value);
+                //csb.PersistSecurityInfo = true;
                 tbServerName.Text = csb.DataSource;
                 tbUserName.Text = csb.UserID;
-                tbPassword.Text = csb.Password;
+                tbPassword.Text = Utils.Decrypt(csb.Password);
                 rbWinAuth.Checked = csb.IntegratedSecurity;
                 rbSqlAuth.Checked = !csb.IntegratedSecurity;
                 cbDatabaseName.Text = csb.InitialCatalog;
@@ -67,7 +87,7 @@ namespace SqlRex
         {
             try
             {
-                using (var con = new SqlConnection(ConnectionString))
+                using (var con = new SqlConnection(DecryptedConnectionString))
                 {
                     con.Open();
 
@@ -100,7 +120,7 @@ namespace SqlRex
             }
             try
             {
-                using (var con = new SqlConnection(ConnectionString))
+                using (var con = new SqlConnection(DecryptedConnectionString))
                 {
                     con.Open();
                 }

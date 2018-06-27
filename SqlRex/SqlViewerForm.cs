@@ -392,7 +392,7 @@ namespace SqlRex
 
         private void btnGetSqlObjects_Click(object sender, EventArgs e)
         {
-            var db = lbSqlDatabases.SelectedItem.ToString();
+            var db = Utils.DecryptedConnectionString(lbSqlDatabases.SelectedItem.ToString());
             Common.Async.ExecAsync(this, (b) => BuildSqlObjects(db, b), (tm) => ReportTime(tm), true);
         }
 
@@ -498,8 +498,12 @@ namespace SqlRex
         {
             if (lbSqlDatabases.SelectedItem != null)
             {
-                var db = lbSqlDatabases.SelectedItem.ToString();
+                var db = Utils.DecryptedConnectionString(lbSqlDatabases.SelectedItem.ToString());
                 var csb = new SqlConnectionStringBuilder(db);
+                if(!csb.IntegratedSecurity)
+                {
+                    csb.Password = Utils.Decrypt(csb.Password);
+                }
                 Text = csb.DataSource + "." + csb.InitialCatalog;
                 (MdiParent as IMainForm).RefreshTab();
                 Common.Async.ExecAsync(this, (b) => BuildSqlObjects(db, b), (tm) => ReportTime(tm), true);
@@ -513,7 +517,7 @@ namespace SqlRex
                 var idx = listView1.SelectedIndices[0];
                 var range = _listItems[idx];
 
-                var database = lbSqlDatabases.SelectedItem.ToString();
+                var database = Utils.DecryptedConnectionString(lbSqlDatabases.SelectedItem.ToString());
                 if(range.Type == "U")
                 {
                     using (var conn = new SqlConnection(database))
@@ -544,8 +548,7 @@ namespace SqlRex
                 var idx = listView1.SelectedIndices[0];
                 var range = _listItems[idx];
 
-                var database = lbSqlDatabases.SelectedItem.ToString();
-                
+                var database = Utils.DecryptedConnectionString(lbSqlDatabases.SelectedItem.ToString());
                 using (var conn = new SqlConnection(database))
                 {
                     conn.Open();
@@ -570,7 +573,7 @@ namespace SqlRex
         {
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                var db = lbSqlDatabases.SelectedItem.ToString();
+                var db = Utils.DecryptedConnectionString(lbSqlDatabases.SelectedItem.ToString());
                 var fileName = saveFileDialog1.FileName;
                 Common.Async.ExecAsync(this, (b) => Generate(db, fileName, true), (tm) => ReportTime(tm), true);
             }
@@ -647,7 +650,7 @@ namespace SqlRex
         {
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                var db = lbSqlDatabases.SelectedItem.ToString();
+                var db = Utils.DecryptedConnectionString(lbSqlDatabases.SelectedItem.ToString());
                 var fileName = saveFileDialog1.FileName;
                 Common.Async.ExecAsync(this, (b) => Generate(db, fileName, false), (tm) => ReportTime(tm), true);
             }
@@ -666,7 +669,15 @@ namespace SqlRex
                 {
                     var txt = tbSearchNode.Text;
                     if (!_autoComplete.Cast<string>().Contains(txt))
+                    {
                         _autoComplete.Add(txt);
+                        var tip = "";
+                        foreach (var item in _autoComplete.Cast<string>())
+                        {
+                            tip += item + Environment.NewLine;
+                        }
+                        toolTip1.SetToolTip(tbSearchNode, tip);
+                    }
                 }
             }
         }
@@ -812,6 +823,38 @@ namespace SqlRex
                 lbSqlDatabases.Items.RemoveAt(lbSqlDatabases.SelectedIndex);
                 File.WriteAllLines(Application.StartupPath + @"\connections.txt", lbSqlDatabases.Items.Cast<string>().ToArray());
             }
+        }
+
+        private void lbSqlDatabases_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0)
+                return;
+
+
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+                e = new DrawItemEventArgs(e.Graphics,
+                                          e.Font,
+                                          e.Bounds,
+                                          e.Index,
+                                          e.State ^ DrawItemState.Selected,
+                                          e.ForeColor,
+                                          Color.LightSkyBlue);//Choose the color
+
+            var item = lbSqlDatabases.Items[e.Index].ToString();
+
+            var conStr = new SqlConnectionStringBuilder(item);
+
+            e.DrawBackground();
+            
+            e.Graphics.DrawString(conStr.DataSource + "." + conStr.InitialCatalog + (conStr.IntegratedSecurity ? " [win]" : " [sql]"), e.Font, Brushes.Black, e.Bounds);
+
+            e.DrawFocusRectangle();
+
+        }
+
+        private void lbSqlDatabases_MeasureItem(object sender, MeasureItemEventArgs e)
+        {
+            e.ItemHeight = lbSqlDatabases.Font.Height;
         }
     }
 }

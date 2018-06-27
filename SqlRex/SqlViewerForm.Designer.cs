@@ -65,6 +65,7 @@
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox1)).BeginInit();
             this.contextMenuStrip3.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -251,11 +252,15 @@
             this.lbSqlDatabases.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbSqlDatabases.ContextMenuStrip = this.contextMenuStrip1;
+            this.lbSqlDatabases.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.lbSqlDatabases.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lbSqlDatabases.FormattingEnabled = true;
             this.lbSqlDatabases.Location = new System.Drawing.Point(223, 13);
             this.lbSqlDatabases.Name = "lbSqlDatabases";
             this.lbSqlDatabases.Size = new System.Drawing.Size(1180, 108);
             this.lbSqlDatabases.TabIndex = 33;
+            this.lbSqlDatabases.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbSqlDatabases_DrawItem);
+            this.lbSqlDatabases.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lbSqlDatabases_MeasureItem);
             this.lbSqlDatabases.SelectedIndexChanged += new System.EventHandler(this.lbSqlDatabases_SelectedIndexChanged);
             this.lbSqlDatabases.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lbSqlDatabases_MouseDoubleClick);
             // 
@@ -266,7 +271,7 @@
             this.testConnectionToolStripMenuItem,
             this.deleteConnectionToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(170, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(170, 70);
             // 
             // addConnectionToolStripMenuItem
             // 
@@ -492,6 +497,7 @@
         private System.Windows.Forms.ToolStripMenuItem addConnectionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem testConnectionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteConnectionToolStripMenuItem;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 
