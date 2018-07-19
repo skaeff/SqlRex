@@ -90,6 +90,7 @@
             this.fastColoredTextBox1.TabIndex = 1;
             this.fastColoredTextBox1.Text = "fastColoredTextBox1";
             this.fastColoredTextBox1.Zoom = 100;
+            this.fastColoredTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fastColoredTextBox1_KeyDown);
             // 
             // contextMenuStrip2
             // 
@@ -105,7 +106,7 @@
             this.toolStripMenuItem1,
             this.diffWithPrevToolStripMenuItem});
             this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(191, 198);
+            this.contextMenuStrip2.Size = new System.Drawing.Size(191, 176);
             // 
             // undoToolStripMenuItem
             // 

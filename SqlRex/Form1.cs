@@ -1150,5 +1150,41 @@ namespace SqlRex
                 }
             }
         }
+
+        private void fastColoredTextBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.Down && _foundRanges != null && _foundRanges.Count > 0)
+            {
+                var range = fastColoredTextBox1.Selection;
+                foreach (var item in _foundRanges)
+                {
+                    if (item.Start.iLine > range.Start.iLine)
+                    {
+                        fastColoredTextBox1.Selection = new Range(fastColoredTextBox1, item.Start.iLine);
+                        fastColoredTextBox1.DoCaretVisible();
+                        break;
+                    }
+                }
+
+                e.Handled = true;
+            }
+
+            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.Up && _foundRanges != null && _foundRanges.Count > 0)
+            {
+                var range = fastColoredTextBox1.Selection;
+                for (int i = _foundRanges.Count - 1; i >= 0; i--)
+                {
+                    var item = _foundRanges[i];
+                    if (item.Start.iLine < range.Start.iLine)
+                    {
+                        fastColoredTextBox1.Selection = new Range(fastColoredTextBox1, item.Start.iLine);
+                        fastColoredTextBox1.DoCaretVisible();
+                        break;
+                    }
+                }
+
+                e.Handled = true;
+            }
+        }
     }
 }

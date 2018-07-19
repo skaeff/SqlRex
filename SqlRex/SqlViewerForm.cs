@@ -259,8 +259,10 @@ namespace SqlRex
                 var idx = listView1.SelectedIndices[0];
                 var range = _listItems[idx];
 
-                
-                
+                _foundRanges.Clear();
+                if (_ls.ContainsKey(range.ObjectId))
+                    _foundRanges.AddRange(_ls[range.ObjectId]);
+
                 fastColoredTextBox1.Text = range.Text;
                 fastColoredTextBox1.DoSelectionVisible();
                 
@@ -366,17 +368,32 @@ namespace SqlRex
         const int _maxLines = 50;
         private void fastColoredTextBox1_VisibleRangeChangedDelayed(object sender, EventArgs e)
         {
-            if (Config.UseLargeFiles)
+            //if (Config.UseLargeFiles)
             {
                 var args = new TextChangedEventArgs(fastColoredTextBox1.VisibleRange);
-                
+
                 fastColoredTextBox1.OnSyntaxHighlight(args);
 
                 var diff = fastColoredTextBox1.VisibleRange.End.iLine - fastColoredTextBox1.VisibleRange.Start.iLine;
                 int minLine = fastColoredTextBox1.VisibleRange.Start.iLine - diff * 4;
                 int maxLine = fastColoredTextBox1.VisibleRange.End.iLine + diff * 4;
-                
-                
+
+                foreach (var item2 in _foundRanges)
+                {
+                    if (item2.Start.iLine > minLine && item2.End.iLine < maxLine)
+                    {
+                        var rng = fastColoredTextBox1.GetLine(item2.Start.iLine);
+
+                        var hl = fastColoredTextBox1.SyntaxHighlighter;
+
+                        rng.ClearAllStyle();
+                        rng.SetStyle(new TextStyle(Brushes.Black, Brushes.Yellow, FontStyle.Regular));
+
+                        var rng2 = new Range(fastColoredTextBox1, item2.Start, item2.End);
+                        rng2.ClearAllStyle();
+                        rng2.SetStyle(new TextStyle(Brushes.Black, Brushes.Orange, FontStyle.Bold));
+                    }
+                }
             }
         }
 
@@ -863,6 +880,7 @@ namespace SqlRex
                 FindUsage(fastColoredTextBox1.SelectedText);
         }
 
+        Dictionary<int, List<Range>> _ls = new Dictionary<int, List<Range>>();
         //TODO
         private void FindUsage(string regex)
         {
@@ -876,12 +894,31 @@ namespace SqlRex
                 {
                     fastColoredTextBox1.VisibleRangeChangedDelayed -= fastColoredTextBox1_VisibleRangeChangedDelayed;
 
-                    var ls = new Dictionary<int, List<Range>>();
+                    
 
+                    var rx = new Regex(regex, RegexOptions.IgnoreCase);
+
+                    _ls.Clear();
+                    
                     foreach (var item in _listItemsCache)
                     {
                         var resultOut = new List<Range>();
 
+                        var matches = rx.Matches(item.Text);
+                        foreach (Match match in matches)
+                        {
+                            Group g = match.Groups[0];
+                            var lineNumber = item.Text.Take(g.Index).Count(c => c == '\n')/* + 1*/;//https://stackoverflow.com/questions/7255743/what-is-simpliest-way-to-get-line-number-from-char-position-in-string
+
+                            var item1 = Syncronized(() => new Range(fastColoredTextBox1, g.Index, lineNumber, g.Index + g.Length, lineNumber));
+                            Syncronized(() => resultOut.Add(item1));
+
+                        }
+                        if(resultOut.Count > 0)
+                            _ls.Add(item.ObjectId, resultOut);
+
+                        /*
+                        
                         Syncronized(() => fastColoredTextBox1.Text = item.Text);
 
                         var tb = Syncronized(() => fastColoredTextBox1);
@@ -907,8 +944,77 @@ namespace SqlRex
                         }
 
                         ls.Add(item.ObjectId, resultOut);
+                        //*/
                         //return resultOut;
                     }
+
+                    _listItems2.Clear();
+                    foreach (var item in _ls)
+                    {
+                        _listItems2.Add(_listItemsCache.First((o) => o.ObjectId == item.Key));
+                    }
+                    //============================================================
+                    Syncronized(() =>
+                    {
+                        var rb = new RadioButton();
+                        rb.Text = regex;
+                        rb.AutoSize = true;
+                        rb.Click += (s, arg) =>
+                        {
+                            _listItems2.Clear();
+                            _listItemsCache2.Clear();
+
+                            //ClearFoundRanges();
+                            //_needRebuild2 = true;
+
+                            _listItems2.AddRange(_listItemsDic[((Control)s).Text]);
+                            _listItemsCache2.AddRange(_listItemsDic[((Control)s).Text]);
+
+                            _ls.Clear();
+                            foreach (var item in _lsDic[((Control)s).Text])
+                            {
+                                _ls.Add(item.Key, item.Value);
+                            }
+
+                            listView2.VirtualListSize = _listItems2.Count;
+                            listView2.SelectedIndices.Clear();
+                        };
+
+                        flowLayoutPanel1.Controls.Add(rb);
+
+                        if (_listItemsDic.ContainsKey(regex))
+                        {
+                            _listItemsDic[regex].Clear();
+                            _listItemsDic[regex].AddRange(new List<SqlDdlObject>(_listItems2));
+                        }
+                        else
+                        {
+                            _listItemsDic.Add(regex, new List<SqlDdlObject>(_listItems2));
+                        }
+
+                        if (_lsDic.ContainsKey(regex))
+                        {
+                            _lsDic[regex].Clear();
+                            foreach (var item in _ls)
+                            {
+                                _lsDic[regex].Add(item.Key, item.Value);
+                            }
+                        }
+                        else
+                        {
+                            _lsDic.Add(regex, new Dictionary<int, List<Range>>());
+                            foreach (var item in _ls)
+                            {
+                                _lsDic[regex].Add(item.Key, item.Value);
+                            }
+                        }
+
+                    });
+                    //============================================================
+
+                    Syncronized(() => listView2.VirtualListSize = _listItems2.Count);
+                    Syncronized(() => listView2.SelectedIndices.Clear());
+                    
                     //result = BuildTree3(regex, b);
 
                     //var data = _listItemsCache;
@@ -1016,10 +1122,7 @@ namespace SqlRex
                     //    });
                     //    //---------------------------------------------------
 
-                    //    _needRebuild2 = true;
-                    //    Syncronized(() => listView2.VirtualListSize = _listItems2.Count);
-                    //    Syncronized(() => listView2.SelectedIndices.Clear());
-                    //    Syncronized(() => lblRegexCntFound2.Text = "Found " + _listItemsCache2.Count.ToString() + " usages of " + regex);
+
                     //}
                 }
                 catch { throw; }
@@ -1029,6 +1132,106 @@ namespace SqlRex
                 }
 
             }, (tm) => ReportTime(tm), true);
+        }
+
+        List<ListViewItem> _cache2 = new List<ListViewItem>();
+        List<SqlDdlObject> _listItems2 = new List<SqlDdlObject>();
+        List<SqlDdlObject> _listItemsCache2 = new List<SqlDdlObject>();
+        private void listView2_CacheVirtualItems(object sender, CacheVirtualItemsEventArgs e)
+        {
+            //if (_needRebuild)
+            {
+                _cache2.Clear();
+                foreach (var item in _listItems2)
+                {
+                    _cache2.Add(new ListViewItem(item.Name + "   [" + item.TypeDesc + "]"));
+                }
+                //_needRebuild = false;
+            }
+        }
+
+        private void listView2_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
+        {
+            if (_cache2.Count > e.ItemIndex && e.ItemIndex >= 0)
+                e.Item = _cache2[e.ItemIndex];
+            else
+                e.Item = new ListViewItem();
+        }
+
+        private void listView2_SearchForVirtualItem(object sender, SearchForVirtualItemEventArgs e)
+        {
+            for (int i = 0; i < _listItems2.Count; i++)
+            {
+                var item = _listItems2[i];
+                if (item.Text.Contains(e.Text))
+                {
+                    e.Index = i;
+                }
+            }
+        }
+
+        private void listView2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listView2.SelectedIndices.Count > 0)
+            {
+                var idx = listView2.SelectedIndices[0];
+                var range = _listItems2[idx];
+
+                _foundRanges.Clear();
+                if (_ls.ContainsKey(range.ObjectId))
+                    _foundRanges.AddRange(_ls[range.ObjectId]);
+
+                fastColoredTextBox1.Text = range.Text;
+                fastColoredTextBox1.DoSelectionVisible();
+
+            }
+        }
+
+        private void fastColoredTextBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Modifiers == Keys.Control && e.KeyCode == Keys.Down && _foundRanges != null && _foundRanges.Count > 0)
+            {
+                var range = fastColoredTextBox1.Selection;
+                foreach (var item in _foundRanges)
+                {
+                    if(item.Start.iLine > range.Start.iLine)
+                    {
+                        fastColoredTextBox1.Selection = new Range(fastColoredTextBox1, item.Start.iLine);
+                        fastColoredTextBox1.DoCaretVisible();
+                        break;
+                    }
+                }
+
+                e.Handled = true;
+            }
+
+            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.Up && _foundRanges != null && _foundRanges.Count > 0)
+            {
+                var range = fastColoredTextBox1.Selection;
+                for (int i = _foundRanges.Count - 1; i >= 0; i--)
+                {
+                    var item = _foundRanges[i];
+                    if (item.Start.iLine < range.Start.iLine)
+                    {
+                        fastColoredTextBox1.Selection = new Range(fastColoredTextBox1, item.Start.iLine);
+                        fastColoredTextBox1.DoCaretVisible();
+                        break;
+                    }
+                }
+
+                e.Handled = true;
+            }
+        }
+
+        Dictionary<string, List<SqlDdlObject>> _listItemsDic = new Dictionary<string, List<SqlDdlObject>>();
+        Dictionary<string, Dictionary<int, List<Range>>> _lsDic = new Dictionary<string, Dictionary<int, List<Range>>>();
+
+        private void btnClearSearches_Click(object sender, EventArgs e)
+        {
+            _lsDic.Clear();
+            _listItemsDic.Clear();
+
+            flowLayoutPanel1.Controls.Clear();
         }
     }
 }
