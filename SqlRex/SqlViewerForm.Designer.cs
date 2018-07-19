@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SqlViewerForm));
             this.fastColoredTextBox1 = new FastColoredTextBoxNS.FastColoredTextBox();
             this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.findUsagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
@@ -123,6 +125,8 @@
             // contextMenuStrip3
             // 
             this.contextMenuStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.findUsagesToolStripMenuItem,
+            this.toolStripMenuItem1,
             this.undoToolStripMenuItem,
             this.redoToolStripMenuItem,
             this.toolStripSeparator6,
@@ -132,7 +136,21 @@
             this.toolStripSeparator7,
             this.selectAllToolStripMenuItem});
             this.contextMenuStrip3.Name = "contextMenuStrip2";
-            this.contextMenuStrip3.Size = new System.Drawing.Size(191, 148);
+            this.contextMenuStrip3.Size = new System.Drawing.Size(191, 198);
+            // 
+            // findUsagesToolStripMenuItem
+            // 
+            this.findUsagesToolStripMenuItem.Name = "findUsagesToolStripMenuItem";
+            this.findUsagesToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.findUsagesToolStripMenuItem.Text = "Find Usages";
+            this.findUsagesToolStripMenuItem.Visible = false;
+            this.findUsagesToolStripMenuItem.Click += new System.EventHandler(this.findUsagesToolStripMenuItem_Click_1);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(187, 6);
+            this.toolStripMenuItem1.Visible = false;
             // 
             // undoToolStripMenuItem
             // 
@@ -498,6 +516,8 @@
         private System.Windows.Forms.ToolStripMenuItem testConnectionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteConnectionToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ToolStripMenuItem findUsagesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
     }
 }
 
