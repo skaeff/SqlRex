@@ -420,6 +420,26 @@ namespace SqlRex
             Syncronized(() => _listItems.Clear());
             Syncronized(() => _listItemsCache.Clear());
 
+            Syncronized(() => _listItems2.Clear());
+            Syncronized(() => _listItemsCache2.Clear());
+
+            Syncronized(() => _cache.Clear());
+            Syncronized(() => _cache2.Clear());
+
+            Syncronized(() => _ls.Clear());
+            Syncronized(() => _lsDic.Clear());
+            Syncronized(() => flowLayoutPanel1.Controls.Clear());
+
+
+            Syncronized(() => _listItemsDic.Clear());
+            Syncronized(() => _foundRanges.Clear());
+
+            Syncronized(() => listView1.VirtualListSize = _listItems.Count);
+            Syncronized(() => listView1.SelectedIndices.Clear());
+
+            Syncronized(() => listView2.VirtualListSize = _listItems2.Count);
+            Syncronized(() => listView2.SelectedIndices.Clear());
+
             int i = 0;
 
             foreach (var item in result)
