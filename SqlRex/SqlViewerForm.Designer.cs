@@ -33,6 +33,9 @@
             this.fastColoredTextBox1 = new FastColoredTextBoxNS.FastColoredTextBox();
             this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.findUsagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.findUsagesInFoundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.findUsagesanyTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.findUsagesInFoundanyTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,6 +46,8 @@
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnClearSearches = new System.Windows.Forms.Button();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnGenerateSqlFileNoTables = new System.Windows.Forms.Button();
             this.btnGenerateSqlFile = new System.Windows.Forms.Button();
             this.cbSearchInText = new System.Windows.Forms.CheckBox();
@@ -70,8 +75,6 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.listView2 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnClearSearches = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox1)).BeginInit();
             this.contextMenuStrip3.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -131,6 +134,9 @@
             // 
             this.contextMenuStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.findUsagesToolStripMenuItem,
+            this.findUsagesInFoundToolStripMenuItem,
+            this.findUsagesanyTextToolStripMenuItem,
+            this.findUsagesInFoundanyTextToolStripMenuItem,
             this.toolStripMenuItem1,
             this.undoToolStripMenuItem,
             this.redoToolStripMenuItem,
@@ -141,19 +147,42 @@
             this.toolStripSeparator7,
             this.selectAllToolStripMenuItem});
             this.contextMenuStrip3.Name = "contextMenuStrip2";
-            this.contextMenuStrip3.Size = new System.Drawing.Size(191, 176);
+            this.contextMenuStrip3.Size = new System.Drawing.Size(247, 242);
             // 
             // findUsagesToolStripMenuItem
             // 
             this.findUsagesToolStripMenuItem.Name = "findUsagesToolStripMenuItem";
-            this.findUsagesToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.findUsagesToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
             this.findUsagesToolStripMenuItem.Text = "Find Usages";
             this.findUsagesToolStripMenuItem.Click += new System.EventHandler(this.findUsagesToolStripMenuItem_Click_1);
+            // 
+            // findUsagesInFoundToolStripMenuItem
+            // 
+            this.findUsagesInFoundToolStripMenuItem.Enabled = false;
+            this.findUsagesInFoundToolStripMenuItem.Name = "findUsagesInFoundToolStripMenuItem";
+            this.findUsagesInFoundToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
+            this.findUsagesInFoundToolStripMenuItem.Text = "Find Usages in found";
+            this.findUsagesInFoundToolStripMenuItem.Click += new System.EventHandler(this.findUsagesInFoundToolStripMenuItem_Click);
+            // 
+            // findUsagesanyTextToolStripMenuItem
+            // 
+            this.findUsagesanyTextToolStripMenuItem.Name = "findUsagesanyTextToolStripMenuItem";
+            this.findUsagesanyTextToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
+            this.findUsagesanyTextToolStripMenuItem.Text = "Find Usages (any text)...";
+            this.findUsagesanyTextToolStripMenuItem.Click += new System.EventHandler(this.findUsagesanyTextToolStripMenuItem_Click);
+            // 
+            // findUsagesInFoundanyTextToolStripMenuItem
+            // 
+            this.findUsagesInFoundanyTextToolStripMenuItem.Enabled = false;
+            this.findUsagesInFoundanyTextToolStripMenuItem.Name = "findUsagesInFoundanyTextToolStripMenuItem";
+            this.findUsagesInFoundanyTextToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
+            this.findUsagesInFoundanyTextToolStripMenuItem.Text = "Find Usages in found (any text)...";
+            this.findUsagesInFoundanyTextToolStripMenuItem.Click += new System.EventHandler(this.findUsagesInFoundanyTextToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(187, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(243, 6);
             // 
             // undoToolStripMenuItem
             // 
@@ -161,7 +190,7 @@
             this.undoToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
             this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
             this.undoToolStripMenuItem.Text = "&Отменить";
             this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
             // 
@@ -171,14 +200,14 @@
             this.redoToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
             this.redoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.redoToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
             this.redoToolStripMenuItem.Text = "&Вернуть";
             this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(187, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(243, 6);
             // 
             // cutToolStripMenuItem
             // 
@@ -186,7 +215,7 @@
             this.cutToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
             this.cutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.cutToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.cutToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
             this.cutToolStripMenuItem.Text = "&Вырезать";
             this.cutToolStripMenuItem.Click += new System.EventHandler(this.cutToolStripMenuItem_Click);
             // 
@@ -196,7 +225,7 @@
             this.copyToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
             this.copyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
             this.copyToolStripMenuItem.Text = "&Копировать";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
             // 
@@ -206,20 +235,20 @@
             this.pasteToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
             this.pasteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
             this.pasteToolStripMenuItem.Text = "&Вставить";
             this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(187, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(243, 6);
             // 
             // selectAllToolStripMenuItem
             // 
             this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
             this.selectAllToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
-            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
             this.selectAllToolStripMenuItem.Text = "Выделить &все";
             this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
             // 
@@ -239,6 +268,25 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1428, 181);
             this.panel1.TabIndex = 1;
+            // 
+            // btnClearSearches
+            // 
+            this.btnClearSearches.Location = new System.Drawing.Point(508, 155);
+            this.btnClearSearches.Name = "btnClearSearches";
+            this.btnClearSearches.Size = new System.Drawing.Size(114, 23);
+            this.btnClearSearches.TabIndex = 38;
+            this.btnClearSearches.Text = "clear searches";
+            this.btnClearSearches.UseVisualStyleBackColor = true;
+            this.btnClearSearches.Click += new System.EventHandler(this.btnClearSearches_Click);
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(628, 123);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(797, 58);
+            this.flowLayoutPanel1.TabIndex = 37;
             // 
             // btnGenerateSqlFileNoTables
             // 
@@ -481,25 +529,6 @@
             // 
             this.columnHeader1.Width = 300;
             // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(628, 123);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(797, 58);
-            this.flowLayoutPanel1.TabIndex = 37;
-            // 
-            // btnClearSearches
-            // 
-            this.btnClearSearches.Location = new System.Drawing.Point(508, 155);
-            this.btnClearSearches.Name = "btnClearSearches";
-            this.btnClearSearches.Size = new System.Drawing.Size(114, 23);
-            this.btnClearSearches.TabIndex = 38;
-            this.btnClearSearches.Text = "clear searches";
-            this.btnClearSearches.UseVisualStyleBackColor = true;
-            this.btnClearSearches.Click += new System.EventHandler(this.btnClearSearches_Click);
-            // 
             // SqlViewerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -570,6 +599,9 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button btnClearSearches;
+        private System.Windows.Forms.ToolStripMenuItem findUsagesInFoundToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem findUsagesanyTextToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem findUsagesInFoundanyTextToolStripMenuItem;
     }
 }
 

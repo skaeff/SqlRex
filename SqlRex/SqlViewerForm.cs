@@ -440,6 +440,14 @@ namespace SqlRex
             Syncronized(() => listView2.VirtualListSize = _listItems2.Count);
             Syncronized(() => listView2.SelectedIndices.Clear());
 
+
+            Syncronized(() => findUsagesInFoundToolStripMenuItem.Text = "Find Usages in found");
+            Syncronized(() => findUsagesInFoundToolStripMenuItem.Enabled = false);
+
+            Syncronized(() => findUsagesInFoundanyTextToolStripMenuItem.Text = "Find Usages in found");
+            Syncronized(() => findUsagesInFoundanyTextToolStripMenuItem.Enabled = false);
+            _lastSearch = "";
+
             int i = 0;
 
             foreach (var item in result)
@@ -900,11 +908,22 @@ namespace SqlRex
                 FindUsage(fastColoredTextBox1.SelectedText);
         }
 
+        private void FindUsageInCurrentSearch(string regex)
+        {
+            var objects = new List<SqlDdlObject>(_listItemsCache2);
+            FindUsage(regex, objects);
+        }
+
+        string _lastSearch = "";
         Dictionary<int, List<Range>> _ls = new Dictionary<int, List<Range>>();
         //TODO
-        private void FindUsage(string regex)
+        private void FindUsage(string regex, List<SqlDdlObject> objectsToSearch = null)
         {
-
+            bool findInFound = objectsToSearch != null;
+            if(objectsToSearch == null)
+            {
+                objectsToSearch = _listItemsCache;
+            }
 
             var result = new List<Range>();
             var res = new Dictionary<string, Range>();
@@ -920,7 +939,7 @@ namespace SqlRex
 
                     _ls.Clear();
                     
-                    foreach (var item in _listItemsCache)
+                    foreach (var item in objectsToSearch)
                     {
                         var resultOut = new List<Range>();
 
@@ -969,16 +988,30 @@ namespace SqlRex
                     }
 
                     _listItems2.Clear();
+                    _listItemsCache2.Clear();
                     foreach (var item in _ls)
                     {
-                        _listItems2.Add(_listItemsCache.First((o) => o.ObjectId == item.Key));
+                        _listItems2.Add(objectsToSearch.First((o) => o.ObjectId == item.Key));
+                        _listItemsCache2.Add(objectsToSearch.First((o) => o.ObjectId == item.Key));
                     }
                     //============================================================
+                    var dicKey = "";
+                    if (findInFound)
+                    {
+                        dicKey = $"{regex} in [{ _lastSearch }]";
+                    }
+                    else
+                    {
+                        dicKey = regex;
+                    }
+                    _lastSearch = regex;
+
                     Syncronized(() =>
                     {
                         var rb = new RadioButton();
-                        rb.Text = regex;
+                        rb.Text = dicKey;    
                         rb.AutoSize = true;
+                        //rb.Checked = true;
                         rb.Click += (s, arg) =>
                         {
                             _listItems2.Clear();
@@ -986,6 +1019,9 @@ namespace SqlRex
 
                             //ClearFoundRanges();
                             //_needRebuild2 = true;
+
+                            findUsagesInFoundToolStripMenuItem.Text = $"Find Usages in [{((Control)s).Text}] search";
+                            findUsagesInFoundanyTextToolStripMenuItem.Text = $"Find Usages in [{((Control)s).Text}] search (any text)...";
 
                             _listItems2.AddRange(_listItemsDic[((Control)s).Text]);
                             _listItemsCache2.AddRange(_listItemsDic[((Control)s).Text]);
@@ -1002,30 +1038,36 @@ namespace SqlRex
 
                         flowLayoutPanel1.Controls.Add(rb);
 
-                        if (_listItemsDic.ContainsKey(regex))
+                        findUsagesInFoundToolStripMenuItem.Text = $"Find Usages in [{dicKey}] search";
+                        findUsagesInFoundToolStripMenuItem.Enabled = true;
+
+                        findUsagesInFoundanyTextToolStripMenuItem.Text = $"Find Usages in [{dicKey}] search (any text)...";
+                        findUsagesInFoundanyTextToolStripMenuItem.Enabled = true;
+
+                        if (_listItemsDic.ContainsKey(dicKey))
                         {
-                            _listItemsDic[regex].Clear();
-                            _listItemsDic[regex].AddRange(new List<SqlDdlObject>(_listItems2));
+                            _listItemsDic[dicKey].Clear();
+                            _listItemsDic[dicKey].AddRange(new List<SqlDdlObject>(_listItems2));
                         }
                         else
                         {
-                            _listItemsDic.Add(regex, new List<SqlDdlObject>(_listItems2));
+                            _listItemsDic.Add(dicKey, new List<SqlDdlObject>(_listItems2));
                         }
 
-                        if (_lsDic.ContainsKey(regex))
+                        if (_lsDic.ContainsKey(dicKey))
                         {
-                            _lsDic[regex].Clear();
+                            _lsDic[dicKey].Clear();
                             foreach (var item in _ls)
                             {
-                                _lsDic[regex].Add(item.Key, item.Value);
+                                _lsDic[dicKey].Add(item.Key, item.Value);
                             }
                         }
                         else
                         {
-                            _lsDic.Add(regex, new Dictionary<int, List<Range>>());
+                            _lsDic.Add(dicKey, new Dictionary<int, List<Range>>());
                             foreach (var item in _ls)
                             {
-                                _lsDic[regex].Add(item.Key, item.Value);
+                                _lsDic[dicKey].Add(item.Key, item.Value);
                             }
                         }
 
@@ -1035,115 +1077,6 @@ namespace SqlRex
                     Syncronized(() => listView2.VirtualListSize = _listItems2.Count);
                     Syncronized(() => listView2.SelectedIndices.Clear());
                     
-                    //result = BuildTree3(regex, b);
-
-                    //var data = _listItemsCache;
-                    //if (data.Count > 0)
-                    //{
-                    //    foreach (var item2 in result)
-                    //    {
-                    //        if (b != null && b.CancellationPending)
-                    //            break;
-
-                    //        _foundRanges.Add(item2);
-                    //        if (Config.UseLargeFiles)
-                    //        {
-                    //            var rng = fastColoredTextBox1.GetLine(item2.Start.iLine);
-
-                    //            var hl = fastColoredTextBox1.SyntaxHighlighter;
-
-                    //            rng.ClearAllStyle();
-                    //            rng.SetStyle(new TextStyle(Brushes.Black, Brushes.Yellow, FontStyle.Regular));
-
-                    //            item2.ClearAllStyle();
-                    //            item2.SetStyle(new TextStyle(Brushes.Black, Brushes.Orange, FontStyle.Bold));
-                    //        }
-
-
-                    //        for (int i = 0; i < data.Count - 1; i++)
-                    //        {
-                    //            var r1 = data[i];
-                    //            var r2 = data[i + 1];
-
-                    //            if (item2.Start >= r1.Start && item2.End <= r2.Start)
-                    //            {
-                    //                //not include duplicate range
-                    //                if (!res.ContainsKey(data[i].Text + data[i].Start.iLine.ToString()))
-                    //                    res.Add(data[i].Text + data[i].Start.iLine.ToString(), data[i]);
-                    //                //if (!res.Exists((a) => a.Text == data[i].Text && a.Start.iLine == data[i].Start.iLine))
-                    //                //    res.Add(data[i]);
-                    //            }
-                    //        }
-
-                    //        if (item2.Start >= data[data.Count - 1].Start)
-                    //        {
-                    //            //not include duplicate range
-                    //            if (!res.ContainsKey(data[data.Count - 1].Text + data[data.Count - 1].Start.iLine.ToString()))
-                    //                res.Add(data[data.Count - 1].Text + data[data.Count - 1].Start.iLine.ToString(), data[data.Count - 1]);
-                    //            //if (!res.Exists((a) => a.Text == data[data.Count - 1].Text && a.Start.iLine == data[data.Count - 1].Start.iLine))
-                    //            //    res.Add(data[data.Count - 1]);
-                    //        }
-
-                    //    }
-
-                    //    Syncronized(() => _listItems2.Clear());
-                    //    Syncronized(() => _listItemsCache2.Clear());
-
-                    //    foreach (var item in res)
-                    //    {
-                    //        Syncronized(() => _listItems2.Add(item.Value));
-                    //        Syncronized(() => _listItemsCache2.Add(item.Value));
-                    //    }
-
-                    //    //---------------------------------------------------
-                    //    Syncronized(() =>
-                    //    {
-                    //        var rb = new RadioButton();
-                    //        rb.Text = regex;
-                    //        rb.AutoSize = true;
-                    //        rb.Click += (s, arg) =>
-                    //        {
-                    //            _listItems2.Clear();
-                    //            _listItemsCache2.Clear();
-
-                    //            ClearFoundRanges();
-                    //            _needRebuild2 = true;
-
-                    //            _listItems2.AddRange(_listItemsDic[((Control)s).Text]);
-                    //            _listItemsCache2.AddRange(_listItemsDic[((Control)s).Text]);
-                    //            _foundRanges.AddRange(_foundRangesDic[((Control)s).Text]);
-
-                    //            listView2.VirtualListSize = _listItems2.Count;
-                    //            listView2.SelectedIndices.Clear();
-                    //        };
-
-                    //        flowLayoutPanel1.Controls.Add(rb);
-
-                    //        if (_listItemsDic.ContainsKey(regex))
-                    //        {
-                    //            _listItemsDic[regex].Clear();
-                    //            _listItemsDic[regex].AddRange(new List<Range>(_listItems2));
-                    //        }
-                    //        else
-                    //        {
-                    //            _listItemsDic.Add(regex, new List<Range>(_listItems2));
-                    //        }
-
-                    //        if (_foundRangesDic.ContainsKey(regex))
-                    //        {
-                    //            _foundRangesDic[regex].Clear();
-                    //            _foundRangesDic[regex].AddRange(new List<Range>(_foundRanges));
-                    //        }
-                    //        else
-                    //        {
-                    //            _foundRangesDic.Add(regex, new List<Range>(_foundRanges));
-                    //        }
-
-                    //    });
-                    //    //---------------------------------------------------
-
-
-                    //}
                 }
                 catch { throw; }
                 finally
@@ -1252,6 +1185,30 @@ namespace SqlRex
             _listItemsDic.Clear();
 
             flowLayoutPanel1.Controls.Clear();
+        }
+
+        private void findUsagesInFoundToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(fastColoredTextBox1.SelectedText))
+                FindUsageInCurrentSearch(fastColoredTextBox1.SelectedText);
+        }
+
+        private void findUsagesanyTextToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var str = Microsoft.VisualBasic.Interaction.InputBox("Enter some text to search for", "Search string", "");
+            if(!string.IsNullOrEmpty(str))
+            {
+                FindUsage(str);
+            }
+        }
+
+        private void findUsagesInFoundanyTextToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var str = Microsoft.VisualBasic.Interaction.InputBox("Enter some text to search for", "Search string", "");
+            if (!string.IsNullOrEmpty(str))
+            {
+                FindUsageInCurrentSearch(str);
+            }
         }
     }
 }
