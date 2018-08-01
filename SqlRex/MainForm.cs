@@ -740,5 +740,10 @@ namespace SqlRex
             (ActiveMdiChild.Tag as TabPage).Text = ActiveMdiChild.Text;
             (ActiveMdiChild.Tag as TabPage).ToolTipText = ActiveMdiChild.Text;
         }
+
+        private void clrToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
