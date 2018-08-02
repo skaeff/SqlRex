@@ -905,7 +905,19 @@ namespace SqlRex
         private void findUsagesToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(fastColoredTextBox1.SelectedText))
-                FindUsage(fastColoredTextBox1.SelectedText);
+                FindUsage(EscapeRegex(fastColoredTextBox1.SelectedText));
+        }
+
+        private string EscapeRegex(string txt)
+        {
+            if(Config.FindUsageRegex)
+            {
+                return txt;
+            }
+            else
+            {
+                return Regex.Escape(txt);
+            }
         }
 
         private void FindUsageInCurrentSearch(string regex)
@@ -1190,7 +1202,7 @@ namespace SqlRex
         private void findUsagesInFoundToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(fastColoredTextBox1.SelectedText))
-                FindUsageInCurrentSearch(fastColoredTextBox1.SelectedText);
+                FindUsageInCurrentSearch(EscapeRegex(fastColoredTextBox1.SelectedText));
         }
 
         private void findUsagesanyTextToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1198,7 +1210,7 @@ namespace SqlRex
             var str = Microsoft.VisualBasic.Interaction.InputBox("Enter some text to search for", "Search string", "");
             if(!string.IsNullOrEmpty(str))
             {
-                FindUsage(str);
+                FindUsage(EscapeRegex(str));
             }
         }
 
@@ -1207,7 +1219,7 @@ namespace SqlRex
             var str = Microsoft.VisualBasic.Interaction.InputBox("Enter some text to search for", "Search string", "");
             if (!string.IsNullOrEmpty(str))
             {
-                FindUsageInCurrentSearch(str);
+                FindUsageInCurrentSearch(EscapeRegex(str));
             }
         }
     }

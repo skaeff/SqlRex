@@ -113,6 +113,32 @@ namespace SqlRex
             }
         }
 
+        public static bool FindUsageRegex
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["find_usage_regex"]?.ToString() == "1";
+            }
+            set
+            {
+                //if (value)
+                {
+                    var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+                    if (config.AppSettings.Settings["find_usage_regex"] != null)
+                    {
+                        config.AppSettings.Settings["find_usage_regex"].Value = value ? "1" : "0";
+                    }
+                    else
+                    {
+                        config.AppSettings.Settings.Add("find_usage_regex", value ? "1" : "0");
+                    }
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("appSettings");
+                }
+            }
+        }
+
         public static string Encoding
         {
             get

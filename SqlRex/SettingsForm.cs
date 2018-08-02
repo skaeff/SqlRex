@@ -33,6 +33,10 @@ namespace SqlRex
             cbAutoComplete.Checked = Config.Autocomplete;
             cbAutoComplete.CheckedChanged += cbAutoComplete_CheckedChanged;
 
+            cbFindUsageRegex.CheckedChanged -= cbFindUsageRegex_CheckedChanged;
+            cbFindUsageRegex.Checked = Config.FindUsageRegex;
+            cbFindUsageRegex.CheckedChanged += cbFindUsageRegex_CheckedChanged;
+
             cbEncoding.SelectedIndexChanged -= cbEncoding_SelectedIndexChanged;
             var list = Encoding.GetEncodings();
 
@@ -164,6 +168,11 @@ namespace SqlRex
         public void NotifyAutocomplete()
         {
             //
+        }
+
+        private void cbFindUsageRegex_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.FindUsageRegex = cbFindUsageRegex.Checked;
         }
     }
 }

@@ -702,12 +702,22 @@ namespace SqlRex
             }
         }
 
-       
+        private string EscapeRegex(string txt)
+        {
+            if (Config.FindUsageRegex)
+            {
+                return txt;
+            }
+            else
+            {
+                return Regex.Escape(txt);
+            }
+        }
 
         private void findUsagesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if(!string.IsNullOrEmpty(fastColoredTextBox1.SelectedText))
-            FindUsage(fastColoredTextBox1.SelectedText);
+            FindUsage(EscapeRegex(fastColoredTextBox1.SelectedText));
         }
 
         List<Range> _foundRanges = new List<Range>();
@@ -848,7 +858,7 @@ namespace SqlRex
         private void findUsageswholeWordToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(fastColoredTextBox1.SelectedText))
-                FindUsage(@"\b" + fastColoredTextBox1.SelectedText + @"\b");
+                FindUsage(@"\b" + EscapeRegex(fastColoredTextBox1.SelectedText) + @"\b");
         }
 
         private void fastColoredTextBox1_MouseDoubleClick(object sender, MouseEventArgs e)
