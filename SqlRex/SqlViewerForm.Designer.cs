@@ -75,6 +75,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.listView2 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnAssemblyExporter = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox1)).BeginInit();
             this.contextMenuStrip3.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -254,6 +255,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnAssemblyExporter);
             this.panel1.Controls.Add(this.btnClearSearches);
             this.panel1.Controls.Add(this.flowLayoutPanel1);
             this.panel1.Controls.Add(this.btnGenerateSqlFileNoTables);
@@ -529,6 +531,16 @@
             // 
             this.columnHeader1.Width = 300;
             // 
+            // btnAssemblyExporter
+            // 
+            this.btnAssemblyExporter.Location = new System.Drawing.Point(15, 152);
+            this.btnAssemblyExporter.Name = "btnAssemblyExporter";
+            this.btnAssemblyExporter.Size = new System.Drawing.Size(187, 23);
+            this.btnAssemblyExporter.TabIndex = 39;
+            this.btnAssemblyExporter.Text = "assembly exporter";
+            this.btnAssemblyExporter.UseVisualStyleBackColor = true;
+            this.btnAssemblyExporter.Click += new System.EventHandler(this.btnAssemblyExporter_Click);
+            // 
             // SqlViewerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -602,6 +614,7 @@
         private System.Windows.Forms.ToolStripMenuItem findUsagesInFoundToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem findUsagesanyTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem findUsagesInFoundanyTextToolStripMenuItem;
+        private System.Windows.Forms.Button btnAssemblyExporter;
     }
 }
 

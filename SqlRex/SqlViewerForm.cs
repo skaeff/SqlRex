@@ -1222,5 +1222,11 @@ namespace SqlRex
                 FindUsageInCurrentSearch(EscapeRegex(str));
             }
         }
+
+        private void btnAssemblyExporter_Click(object sender, EventArgs e)
+        {
+            var f = new AssemblyExporterForm(Utils.DecryptedConnectionString(lbSqlDatabases.SelectedItem.ToString()));
+            f.ShowDialog();
+        }
     }
 }

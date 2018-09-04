@@ -89,6 +89,12 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="AssemblyExporterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AssemblyExporterForm.Designer.cs">
+      <DependentUpon>AssemblyExporterForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Common\Async.cs" />
     <Compile Include="Common\LongOperationControl.cs">
       <SubType>UserControl</SubType>
@@ -109,6 +115,7 @@
     <Compile Include="ExceptionWindowForm.Designer.cs">
       <DependentUpon>ExceptionWindowForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SqlAssemblyObject.cs" />
     <Compile Include="SqlDdlObject.cs" />
     <Compile Include="SqlViewerForm.cs">
       <SubType>Form</SubType>
@@ -156,6 +163,9 @@
     <Compile Include="Utils.cs" />
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AssemblyExporterForm.resx">
+      <DependentUpon>AssemblyExporterForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Common\LongOperationControl.resx">
       <DependentUpon>LongOperationControl.cs</DependentUpon>
@@ -213,6 +223,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="get_create_table.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="get_assemblies.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="get_object.sql">
