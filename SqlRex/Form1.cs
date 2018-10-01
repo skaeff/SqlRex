@@ -1044,6 +1044,11 @@ namespace SqlRex
             timer1.Enabled = Config.Autocomplete;
         }
 
+        public void NotifyReloadConnections()
+        {
+            //TODO dummy
+        }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (_sw.Elapsed >= TimeSpan.FromSeconds(5))

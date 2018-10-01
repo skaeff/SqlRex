@@ -16,5 +16,7 @@ namespace SqlRex
         void AutocompleteChanged();
 
         void RefreshTab();
+
+        void ConnectionsChanged();
     }
 }

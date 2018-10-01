@@ -35,16 +35,16 @@ namespace SqlRex
             _sync.Send((o) => result = action(), null);
             return result;
         }
+        Dictionary<string, List<string>> _serverTabs;
+        string _selectedConnection = "";
         public SqlViewerForm()
         {
             InitializeComponent();
             timer1.Enabled = Config.Autocomplete;
             tbSearchNode.AutoCompleteCustomSource = _autoComplete;
 
-            var conns = File.ReadAllLines(Application.StartupPath + @"\connections.txt");
-            lbSqlDatabases.Items.AddRange(conns);
-            if(conns.Length > 0)
-                lbSqlDatabases.SelectedIndex = 0;
+
+            RebuildServerTabs();
 
            
             _sync = SynchronizationContext.Current;
@@ -52,6 +52,49 @@ namespace SqlRex
             
         }
 
+        void RebuildServerTabs()
+        {
+
+            tabSource.TabPages.Clear();
+
+            var conns = File.ReadAllLines(Application.StartupPath + @"\connections.txt");
+
+            _serverTabs = new Dictionary<string, List<string>>();
+            foreach (var item in conns)
+            {
+                var db = Utils.DecryptedConnectionString(item);
+                var csb = new SqlConnectionStringBuilder(db);
+                if (!csb.IntegratedSecurity)
+                {
+                    csb.Password = Utils.Decrypt(csb.Password);
+                }
+                if (!_serverTabs.ContainsKey(csb.DataSource))
+                {
+                    _serverTabs.Add(csb.DataSource, new List<string>());
+                }
+                _serverTabs[csb.DataSource].Add(item);
+            }
+
+            foreach (var item in _serverTabs)
+            {
+                var tp = new TabPage(item.Key);
+                var lb = new ListBox();
+
+                lb.DrawItem += lbSqlDatabases_DrawItem;
+                lb.MeasureItem += lbSqlDatabases_MeasureItem;
+                lb.SelectedIndexChanged += lbSqlDatabases_SelectedIndexChanged;
+                lb.MouseDoubleClick += lbSqlDatabases_MouseDoubleClick;
+                lb.KeyDown += lbSqlDatabases_KeyDown;
+                lb.Dock = DockStyle.Fill;
+                lb.DrawMode = DrawMode.OwnerDrawVariable;
+                lb.Font = new Font(lb.Font.FontFamily, 10);
+                lb.Items.AddRange(item.Value.ToArray());
+                lb.ContextMenuStrip = contextMenuStrip1;
+
+                tp.Controls.Add(lb);
+                tabSource.TabPages.Add(tp);
+            }
+        }
         public event EventHandler<string> OnTextModified;
         public event EventHandler<TimeSpan> OnAsyncCompleted;
         
@@ -409,7 +452,14 @@ namespace SqlRex
 
         private void btnGetSqlObjects_Click(object sender, EventArgs e)
         {
-            var db = Utils.DecryptedConnectionString(lbSqlDatabases.SelectedItem.ToString());
+            var db = Utils.DecryptedConnectionString(_selectedConnection);
+            var csb = new SqlConnectionStringBuilder(db);
+            if (!csb.IntegratedSecurity)
+            {
+                csb.Password = Utils.Decrypt(csb.Password);
+            }
+            Text = csb.DataSource + "." + csb.InitialCatalog;
+            (MdiParent as IMainForm).RefreshTab();
             Common.Async.ExecAsync(this, (b) => BuildSqlObjects(db, b), (tm) => ReportTime(tm), true);
         }
 
@@ -536,14 +586,18 @@ namespace SqlRex
 
         private void lbSqlDatabases_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            //if ((sender as ListBox).SelectedItem != null)
+            //{
+            //    _selectedConnection = (sender as ListBox).SelectedItem.ToString();
+            //}
         }
 
         private void lbSqlDatabases_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (lbSqlDatabases.SelectedItem != null)
+            if ((sender as ListBox).SelectedItem != null)
             {
-                var db = Utils.DecryptedConnectionString(lbSqlDatabases.SelectedItem.ToString());
+                _selectedConnection = (sender as ListBox).SelectedItem.ToString();
+                var db = Utils.DecryptedConnectionString(_selectedConnection);
                 var csb = new SqlConnectionStringBuilder(db);
                 if(!csb.IntegratedSecurity)
                 {
@@ -552,7 +606,17 @@ namespace SqlRex
                 Text = csb.DataSource + "." + csb.InitialCatalog;
                 (MdiParent as IMainForm).RefreshTab();
                 Common.Async.ExecAsync(this, (b) => BuildSqlObjects(db, b), (tm) => ReportTime(tm), true);
+
+                EnableButtons();
             }
+        }
+
+        void EnableButtons()
+        {
+            btnGenerateSqlFile.Enabled = true;
+            btnGetSqlObjects.Enabled = true;
+            btnGenerateSqlFileNoTables.Enabled = true;
+            btnAssemblyExporter.Enabled = true;
         }
 
         private void getCREATETABLEToolStripMenuItem_Click(object sender, EventArgs e)
@@ -562,7 +626,7 @@ namespace SqlRex
                 var idx = listView1.SelectedIndices[0];
                 var range = _listItems[idx];
 
-                var database = Utils.DecryptedConnectionString(lbSqlDatabases.SelectedItem.ToString());
+                var database = Utils.DecryptedConnectionString(_selectedConnection);
                 if(range.Type == "U")
                 {
                     using (var conn = new SqlConnection(database))
@@ -593,7 +657,7 @@ namespace SqlRex
                 var idx = listView1.SelectedIndices[0];
                 var range = _listItems[idx];
 
-                var database = Utils.DecryptedConnectionString(lbSqlDatabases.SelectedItem.ToString());
+                var database = Utils.DecryptedConnectionString(_selectedConnection);
                 using (var conn = new SqlConnection(database))
                 {
                     conn.Open();
@@ -618,7 +682,7 @@ namespace SqlRex
         {
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                var db = Utils.DecryptedConnectionString(lbSqlDatabases.SelectedItem.ToString());
+                var db = Utils.DecryptedConnectionString(_selectedConnection);
                 var fileName = saveFileDialog1.FileName;
                 Common.Async.ExecAsync(this, (b) => Generate(db, fileName, true), (tm) => ReportTime(tm), true);
             }
@@ -695,7 +759,7 @@ namespace SqlRex
         {
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                var db = Utils.DecryptedConnectionString(lbSqlDatabases.SelectedItem.ToString());
+                var db = Utils.DecryptedConnectionString(_selectedConnection);
                 var fileName = saveFileDialog1.FileName;
                 Common.Async.ExecAsync(this, (b) => Generate(db, fileName, false), (tm) => ReportTime(tm), true);
             }
@@ -731,6 +795,11 @@ namespace SqlRex
         public void NotifyAutocomplete()
         {
             timer1.Enabled = Config.Autocomplete;
+        }
+
+        public void NotifyReloadConnections()
+        {
+            RebuildServerTabs();
         }
 
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -831,42 +900,91 @@ namespace SqlRex
 
         private void addConnectionToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            var lb = ((sender as ToolStripItem).Owner as ContextMenuStrip).SourceControl as ListBox;
             var f = new ConnectionDialog();
             if(f.ShowDialog() == DialogResult.OK)
             {
                 var connStr = f.ConnectionString;
-
-                lbSqlDatabases.Items.Add(connStr);
-                File.WriteAllLines(Application.StartupPath + @"\connections.txt", lbSqlDatabases.Items.Cast<string>().ToArray());
                 
+                var conns = new List<string>();
+                foreach (var item in _serverTabs)
+                {
+                    foreach (var conn in item.Value)
+                    {
+                        conns.Add(conn);
+                    }
+                }
+                conns.Add(connStr);
+
+                File.WriteAllLines(Application.StartupPath + @"\connections.txt", conns.ToArray());
+
+                var main = MdiParent as IMainForm;
+                if (main != null)
+                {
+                    main.ConnectionsChanged();
+                }
+
             }
         }
 
         private void testConnectionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (lbSqlDatabases.SelectedItem != null)
+            var lb = ((sender as ToolStripItem).Owner as ContextMenuStrip).SourceControl as ListBox;
+            if (lb.SelectedItem != null)
             {
                 var f = new ConnectionDialog();
-                f.ConnectionString = lbSqlDatabases.SelectedItem.ToString();
+                f.ConnectionString = lb.SelectedItem.ToString();
                 if(f.ShowDialog() == DialogResult.OK)
                 {
                     var connStr = f.ConnectionString;
 
-                    lbSqlDatabases.Items.RemoveAt(lbSqlDatabases.SelectedIndex);
-                    lbSqlDatabases.Items.Add(connStr);
-                    File.WriteAllLines(Application.StartupPath + @"\connections.txt", lbSqlDatabases.Items.Cast<string>().ToArray());
+                    var conns = new List<string>();
+                    foreach (var item in _serverTabs)
+                    {
+                        item.Value.Remove(lb.SelectedItem.ToString());
+                        foreach (var conn in item.Value)
+                        {
+                            conns.Add(conn);
+                        }
+                    }
+                    conns.Add(connStr);
+
+                    File.WriteAllLines(Application.StartupPath + @"\connections.txt", conns.ToArray());
+
+                    var main = MdiParent as IMainForm;
+                    if (main != null)
+                    {
+                        main.ConnectionsChanged();
+                    }
                 }
             }
         }
 
         private void deleteConnectionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(lbSqlDatabases.SelectedItem != null &&
-                MessageBox.Show(string.Format("Are you sure to delete [{0}] from connections list?", lbSqlDatabases.SelectedItem.ToString()), "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button3)
+            var lb = ((sender as ToolStripItem).Owner as ContextMenuStrip).SourceControl as ListBox;
+            if (lb.SelectedItem != null &&
+                MessageBox.Show(string.Format("Are you sure to delete [{0}] from connections list?", lb.SelectedItem.ToString()), "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button3)
                 == DialogResult.Yes)
             {
-                lbSqlDatabases.Items.RemoveAt(lbSqlDatabases.SelectedIndex);
-                File.WriteAllLines(Application.StartupPath + @"\connections.txt", lbSqlDatabases.Items.Cast<string>().ToArray());
+
+                var conns = new List<string>();
+                foreach (var item in _serverTabs)
+                {
+                    item.Value.Remove(lb.SelectedItem.ToString());
+                    foreach (var conn in item.Value)
+                    {
+                        conns.Add(conn);
+                    }
+                }
+                
+                File.WriteAllLines(Application.StartupPath + @"\connections.txt", conns.ToArray());
+
+                var main = MdiParent as IMainForm;
+                if (main != null)
+                {
+                    main.ConnectionsChanged();
+                }
             }
         }
 
@@ -885,7 +1003,7 @@ namespace SqlRex
                                           e.ForeColor,
                                           Color.LightSkyBlue);//Choose the color
 
-            var item = lbSqlDatabases.Items[e.Index].ToString();
+            var item = (sender as ListBox).Items[e.Index].ToString();
 
             var conStr = new SqlConnectionStringBuilder(item);
 
@@ -899,7 +1017,7 @@ namespace SqlRex
 
         private void lbSqlDatabases_MeasureItem(object sender, MeasureItemEventArgs e)
         {
-            e.ItemHeight = lbSqlDatabases.Font.Height;
+            e.ItemHeight = (sender as ListBox).Font.Height;
         }
 
         private void findUsagesToolStripMenuItem_Click_1(object sender, EventArgs e)
@@ -1225,8 +1343,14 @@ namespace SqlRex
 
         private void btnAssemblyExporter_Click(object sender, EventArgs e)
         {
-            var f = new AssemblyExporterForm(Utils.DecryptedConnectionString(lbSqlDatabases.SelectedItem.ToString()));
+            var f = new AssemblyExporterForm(Utils.DecryptedConnectionString(_selectedConnection));
             f.ShowDialog();
+        }
+
+
+        private void lbSqlDatabases_KeyDown(object sender, KeyEventArgs e)
+        {
+            e.SuppressKeyPress = true;
         }
     }
 }

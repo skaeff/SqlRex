@@ -170,6 +170,11 @@ namespace SqlRex
             //
         }
 
+        public void NotifyReloadConnections()
+        {
+            //TODO dummy
+        }
+
         private void cbFindUsageRegex_CheckedChanged(object sender, EventArgs e)
         {
             Config.FindUsageRegex = cbFindUsageRegex.Checked;

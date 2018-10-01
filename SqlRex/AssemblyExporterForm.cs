@@ -24,6 +24,8 @@ namespace SqlRex
 
             using (var conn = new SqlConnection(_connStr))
             {
+                Text = conn.DataSource + "." + conn.Database;
+
                 conn.Open();
                 var cmd = new SqlCommand(File.ReadAllText(Application.StartupPath + @"\get_assemblies.sql"), conn);
                 cmd.CommandTimeout = 0;

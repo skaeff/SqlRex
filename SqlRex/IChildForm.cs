@@ -23,5 +23,7 @@ namespace SqlRex
 
         void NotifyReadonlySql();
         void NotifyAutocomplete();
+
+        void NotifyReloadConnections();
     }
 }

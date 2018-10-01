@@ -741,6 +741,19 @@ namespace SqlRex
             (ActiveMdiChild.Tag as TabPage).ToolTipText = ActiveMdiChild.Text;
         }
 
+        public void ConnectionsChanged()
+        {
+            foreach (TabPage item in tabForms.TabPages)
+            {
+                var frm = item.Tag as IChildForm;
+                if (frm != null)
+                {
+                    frm.NotifyReloadConnections();
+                }
+
+            }
+        }
+
         private void clrToolStripMenuItem_Click(object sender, EventArgs e)
         {
 

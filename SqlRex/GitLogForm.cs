@@ -178,5 +178,10 @@ namespace SqlRex
         {
             //
         }
+
+        public void NotifyReloadConnections()
+        {
+            //TODO dummy
+        }
     }
 }

@@ -46,19 +46,20 @@
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.tabSource = new System.Windows.Forms.TabControl();
+            this.btnAssemblyExporter = new System.Windows.Forms.Button();
             this.btnClearSearches = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnGenerateSqlFileNoTables = new System.Windows.Forms.Button();
             this.btnGenerateSqlFile = new System.Windows.Forms.Button();
             this.cbSearchInText = new System.Windows.Forms.CheckBox();
-            this.lbSqlDatabases = new System.Windows.Forms.ListBox();
+            this.btnGetSqlObjects = new System.Windows.Forms.Button();
+            this.lblRegexCntFound = new System.Windows.Forms.Label();
+            this.tbSearchNode = new System.Windows.Forms.TextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addConnectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testConnectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteConnectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnGetSqlObjects = new System.Windows.Forms.Button();
-            this.lblRegexCntFound = new System.Windows.Forms.Label();
-            this.tbSearchNode = new System.Windows.Forms.TextBox();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -75,7 +76,6 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.listView2 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btnAssemblyExporter = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox1)).BeginInit();
             this.contextMenuStrip3.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -255,13 +255,13 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.tabSource);
             this.panel1.Controls.Add(this.btnAssemblyExporter);
             this.panel1.Controls.Add(this.btnClearSearches);
             this.panel1.Controls.Add(this.flowLayoutPanel1);
             this.panel1.Controls.Add(this.btnGenerateSqlFileNoTables);
             this.panel1.Controls.Add(this.btnGenerateSqlFile);
             this.panel1.Controls.Add(this.cbSearchInText);
-            this.panel1.Controls.Add(this.lbSqlDatabases);
             this.panel1.Controls.Add(this.btnGetSqlObjects);
             this.panel1.Controls.Add(this.lblRegexCntFound);
             this.panel1.Controls.Add(this.tbSearchNode);
@@ -270,6 +270,27 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1428, 181);
             this.panel1.TabIndex = 1;
+            // 
+            // tabSource
+            // 
+            this.tabSource.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabSource.Location = new System.Drawing.Point(208, 13);
+            this.tabSource.Name = "tabSource";
+            this.tabSource.SelectedIndex = 0;
+            this.tabSource.Size = new System.Drawing.Size(1217, 104);
+            this.tabSource.TabIndex = 40;
+            // 
+            // btnAssemblyExporter
+            // 
+            this.btnAssemblyExporter.Enabled = false;
+            this.btnAssemblyExporter.Location = new System.Drawing.Point(15, 152);
+            this.btnAssemblyExporter.Name = "btnAssemblyExporter";
+            this.btnAssemblyExporter.Size = new System.Drawing.Size(187, 23);
+            this.btnAssemblyExporter.TabIndex = 39;
+            this.btnAssemblyExporter.Text = "assembly exporter";
+            this.btnAssemblyExporter.UseVisualStyleBackColor = true;
+            this.btnAssemblyExporter.Click += new System.EventHandler(this.btnAssemblyExporter_Click);
             // 
             // btnClearSearches
             // 
@@ -292,6 +313,7 @@
             // 
             // btnGenerateSqlFileNoTables
             // 
+            this.btnGenerateSqlFileNoTables.Enabled = false;
             this.btnGenerateSqlFileNoTables.Location = new System.Drawing.Point(15, 97);
             this.btnGenerateSqlFileNoTables.Name = "btnGenerateSqlFileNoTables";
             this.btnGenerateSqlFileNoTables.Size = new System.Drawing.Size(187, 23);
@@ -302,6 +324,7 @@
             // 
             // btnGenerateSqlFile
             // 
+            this.btnGenerateSqlFile.Enabled = false;
             this.btnGenerateSqlFile.Location = new System.Drawing.Point(15, 68);
             this.btnGenerateSqlFile.Name = "btnGenerateSqlFile";
             this.btnGenerateSqlFile.Size = new System.Drawing.Size(187, 23);
@@ -320,55 +343,9 @@
             this.cbSearchInText.Text = "search in text";
             this.cbSearchInText.UseVisualStyleBackColor = true;
             // 
-            // lbSqlDatabases
-            // 
-            this.lbSqlDatabases.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbSqlDatabases.ContextMenuStrip = this.contextMenuStrip1;
-            this.lbSqlDatabases.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.lbSqlDatabases.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbSqlDatabases.FormattingEnabled = true;
-            this.lbSqlDatabases.Location = new System.Drawing.Point(223, 13);
-            this.lbSqlDatabases.Name = "lbSqlDatabases";
-            this.lbSqlDatabases.Size = new System.Drawing.Size(1180, 108);
-            this.lbSqlDatabases.TabIndex = 33;
-            this.lbSqlDatabases.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbSqlDatabases_DrawItem);
-            this.lbSqlDatabases.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lbSqlDatabases_MeasureItem);
-            this.lbSqlDatabases.SelectedIndexChanged += new System.EventHandler(this.lbSqlDatabases_SelectedIndexChanged);
-            this.lbSqlDatabases.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lbSqlDatabases_MouseDoubleClick);
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addConnectionToolStripMenuItem,
-            this.testConnectionToolStripMenuItem,
-            this.deleteConnectionToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(170, 70);
-            // 
-            // addConnectionToolStripMenuItem
-            // 
-            this.addConnectionToolStripMenuItem.Name = "addConnectionToolStripMenuItem";
-            this.addConnectionToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.addConnectionToolStripMenuItem.Text = "add connection...";
-            this.addConnectionToolStripMenuItem.Click += new System.EventHandler(this.addConnectionToolStripMenuItem_Click);
-            // 
-            // testConnectionToolStripMenuItem
-            // 
-            this.testConnectionToolStripMenuItem.Name = "testConnectionToolStripMenuItem";
-            this.testConnectionToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.testConnectionToolStripMenuItem.Text = "edit connection...";
-            this.testConnectionToolStripMenuItem.Click += new System.EventHandler(this.testConnectionToolStripMenuItem_Click);
-            // 
-            // deleteConnectionToolStripMenuItem
-            // 
-            this.deleteConnectionToolStripMenuItem.Name = "deleteConnectionToolStripMenuItem";
-            this.deleteConnectionToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.deleteConnectionToolStripMenuItem.Text = "delete connection";
-            this.deleteConnectionToolStripMenuItem.Click += new System.EventHandler(this.deleteConnectionToolStripMenuItem_Click);
-            // 
             // btnGetSqlObjects
             // 
+            this.btnGetSqlObjects.Enabled = false;
             this.btnGetSqlObjects.Location = new System.Drawing.Point(14, 13);
             this.btnGetSqlObjects.Name = "btnGetSqlObjects";
             this.btnGetSqlObjects.Size = new System.Drawing.Size(188, 23);
@@ -396,6 +373,36 @@
             this.tbSearchNode.Size = new System.Drawing.Size(438, 20);
             this.tbSearchNode.TabIndex = 6;
             this.tbSearchNode.TextChanged += new System.EventHandler(this.tbSearchNode_TextChanged);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addConnectionToolStripMenuItem,
+            this.testConnectionToolStripMenuItem,
+            this.deleteConnectionToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(170, 92);
+            // 
+            // addConnectionToolStripMenuItem
+            // 
+            this.addConnectionToolStripMenuItem.Name = "addConnectionToolStripMenuItem";
+            this.addConnectionToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.addConnectionToolStripMenuItem.Text = "add connection...";
+            this.addConnectionToolStripMenuItem.Click += new System.EventHandler(this.addConnectionToolStripMenuItem_Click);
+            // 
+            // testConnectionToolStripMenuItem
+            // 
+            this.testConnectionToolStripMenuItem.Name = "testConnectionToolStripMenuItem";
+            this.testConnectionToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.testConnectionToolStripMenuItem.Text = "edit connection...";
+            this.testConnectionToolStripMenuItem.Click += new System.EventHandler(this.testConnectionToolStripMenuItem_Click);
+            // 
+            // deleteConnectionToolStripMenuItem
+            // 
+            this.deleteConnectionToolStripMenuItem.Name = "deleteConnectionToolStripMenuItem";
+            this.deleteConnectionToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.deleteConnectionToolStripMenuItem.Text = "delete connection";
+            this.deleteConnectionToolStripMenuItem.Click += new System.EventHandler(this.deleteConnectionToolStripMenuItem_Click);
             // 
             // splitter1
             // 
@@ -531,16 +538,6 @@
             // 
             this.columnHeader1.Width = 300;
             // 
-            // btnAssemblyExporter
-            // 
-            this.btnAssemblyExporter.Location = new System.Drawing.Point(15, 152);
-            this.btnAssemblyExporter.Name = "btnAssemblyExporter";
-            this.btnAssemblyExporter.Size = new System.Drawing.Size(187, 23);
-            this.btnAssemblyExporter.TabIndex = 39;
-            this.btnAssemblyExporter.Text = "assembly exporter";
-            this.btnAssemblyExporter.UseVisualStyleBackColor = true;
-            this.btnAssemblyExporter.Click += new System.EventHandler(this.btnAssemblyExporter_Click);
-            // 
             // SqlViewerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -583,7 +580,6 @@
         private System.Windows.Forms.Splitter splitter2;
         private System.Windows.Forms.Button btnGetSqlObjects;
         private System.Windows.Forms.ToolStripMenuItem diffWithFileToolStripMenuItem;
-        private System.Windows.Forms.ListBox lbSqlDatabases;
         private System.Windows.Forms.ToolStripMenuItem getCREATETABLEToolStripMenuItem;
         private System.Windows.Forms.CheckBox cbSearchInText;
         private System.Windows.Forms.ToolStripMenuItem refreshObjectToolStripMenuItem;
@@ -615,6 +611,7 @@
         private System.Windows.Forms.ToolStripMenuItem findUsagesanyTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem findUsagesInFoundanyTextToolStripMenuItem;
         private System.Windows.Forms.Button btnAssemblyExporter;
+        private System.Windows.Forms.TabControl tabSource;
     }
 }
 
