@@ -219,9 +219,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="accept-database-32.ico" />
     <Content Include="connections.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="database-5-32.ico" />
     <Content Include="get_create_table.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

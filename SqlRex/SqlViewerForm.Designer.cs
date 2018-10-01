@@ -30,6 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SqlViewerForm));
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("opendb", 0);
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("bdodb", 0);
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("workflowdb", 0);
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("bufferzonedb", 0);
             this.fastColoredTextBox1 = new FastColoredTextBoxNS.FastColoredTextBox();
             this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.findUsagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,6 +50,8 @@
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.listView3 = new System.Windows.Forms.ListView();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.tabSource = new System.Windows.Forms.TabControl();
             this.btnAssemblyExporter = new System.Windows.Forms.Button();
             this.btnClearSearches = new System.Windows.Forms.Button();
@@ -255,6 +261,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.listView3);
             this.panel1.Controls.Add(this.tabSource);
             this.panel1.Controls.Add(this.btnAssemblyExporter);
             this.panel1.Controls.Add(this.btnClearSearches);
@@ -270,6 +277,30 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1428, 181);
             this.panel1.TabIndex = 1;
+            // 
+            // listView3
+            // 
+            this.listView3.HideSelection = false;
+            this.listView3.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem1,
+            listViewItem2,
+            listViewItem3,
+            listViewItem4});
+            this.listView3.Location = new System.Drawing.Point(1031, 13);
+            this.listView3.Name = "listView3";
+            this.listView3.Size = new System.Drawing.Size(362, 97);
+            this.listView3.SmallImageList = this.imageList1;
+            this.listView3.TabIndex = 41;
+            this.listView3.UseCompatibleStateImageBehavior = false;
+            this.listView3.View = System.Windows.Forms.View.SmallIcon;
+            this.listView3.Visible = false;
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "database-5-32.ico");
+            this.imageList1.Images.SetKeyName(1, "accept-database-32.ico");
             // 
             // tabSource
             // 
@@ -381,7 +412,7 @@
             this.testConnectionToolStripMenuItem,
             this.deleteConnectionToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(170, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(170, 70);
             // 
             // addConnectionToolStripMenuItem
             // 
@@ -612,6 +643,8 @@
         private System.Windows.Forms.ToolStripMenuItem findUsagesInFoundanyTextToolStripMenuItem;
         private System.Windows.Forms.Button btnAssemblyExporter;
         private System.Windows.Forms.TabControl tabSource;
+        private System.Windows.Forms.ListView listView3;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }
 
