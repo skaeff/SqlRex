@@ -299,8 +299,10 @@
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "database-5-32.ico");
-            this.imageList1.Images.SetKeyName(1, "accept-database-32.ico");
+            this.imageList1.Images.SetKeyName(0, "database-5-16 (3).ico");
+            this.imageList1.Images.SetKeyName(1, "accept-database-16.ico");
+            this.imageList1.Images.SetKeyName(2, "database-5-32.ico");
+            this.imageList1.Images.SetKeyName(3, "accept-database-32.ico");
             // 
             // tabSource
             // 
