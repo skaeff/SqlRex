@@ -11,9 +11,11 @@ namespace SqlRex
     public class DatabaseAssemblyResolver : IAssemblyResolver
     {
         List<SqlAssemblyObject> _databaseLibs;
+        DefaultAssemblyResolver _resolver;
         public DatabaseAssemblyResolver(List<SqlAssemblyObject> dlls)
         {
             _databaseLibs = dlls;
+            _resolver = new DefaultAssemblyResolver();
         }
         public void Dispose()
         {
@@ -29,7 +31,7 @@ namespace SqlRex
                     return AssemblyDefinition.ReadAssembly(new MemoryStream(item.Data.Value));
                 }
             }
-            return null;
+            return _resolver.Resolve(name);
         }
 
         public AssemblyDefinition Resolve(AssemblyNameReference name, ReaderParameters parameters)
@@ -41,7 +43,7 @@ namespace SqlRex
                     return AssemblyDefinition.ReadAssembly(new MemoryStream(item.Data.Value));
                 }
             }
-            return null;
+            return _resolver.Resolve(name, parameters);
         }
     }
 }

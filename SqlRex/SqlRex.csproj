@@ -133,6 +133,12 @@
     <Compile Include="AssemblyViewerForm.Designer.cs">
       <DependentUpon>AssemblyViewerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForm.Designer.cs">
+      <DependentUpon>BaseForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Common\Async.cs" />
     <Compile Include="Common\LongOperationControl.cs">
       <SubType>UserControl</SubType>
@@ -153,6 +159,12 @@
     </Compile>
     <Compile Include="ExceptionWindowForm.Designer.cs">
       <DependentUpon>ExceptionWindowForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ServerTabsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ServerTabsControl.Designer.cs">
+      <DependentUpon>ServerTabsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="SqlAssemblyObject.cs" />
     <Compile Include="SqlDdlObject.cs" />
@@ -217,6 +229,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ExceptionWindowForm.resx">
       <DependentUpon>ExceptionWindowForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ServerTabsControl.resx">
+      <DependentUpon>ServerTabsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SqlViewerForm.resx">
       <DependentUpon>SqlViewerForm.cs</DependentUpon>

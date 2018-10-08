@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SqlViewerForm));
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("opendb", 0);
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("bdodb", 0);
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("workflowdb", 0);
-            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("bufferzonedb", 0);
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("opendb", 0);
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("bdodb", 0);
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("workflowdb", 0);
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("bufferzonedb", 0);
             this.fastColoredTextBox1 = new FastColoredTextBoxNS.FastColoredTextBox();
             this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.findUsagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,7 +53,6 @@
             this.listView3 = new System.Windows.Forms.ListView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.tabSource = new System.Windows.Forms.TabControl();
-            this.btnAssemblyExporter = new System.Windows.Forms.Button();
             this.btnClearSearches = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnGenerateSqlFileNoTables = new System.Windows.Forms.Button();
@@ -264,7 +263,6 @@
             // 
             this.panel1.Controls.Add(this.listView3);
             this.panel1.Controls.Add(this.tabSource);
-            this.panel1.Controls.Add(this.btnAssemblyExporter);
             this.panel1.Controls.Add(this.btnClearSearches);
             this.panel1.Controls.Add(this.flowLayoutPanel1);
             this.panel1.Controls.Add(this.btnGenerateSqlFileNoTables);
@@ -283,10 +281,10 @@
             // 
             this.listView3.HideSelection = false;
             this.listView3.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem5,
-            listViewItem6,
-            listViewItem7,
-            listViewItem8});
+            listViewItem1,
+            listViewItem2,
+            listViewItem3,
+            listViewItem4});
             this.listView3.Location = new System.Drawing.Point(1031, 13);
             this.listView3.Name = "listView3";
             this.listView3.Size = new System.Drawing.Size(362, 97);
@@ -314,17 +312,7 @@
             this.tabSource.SelectedIndex = 0;
             this.tabSource.Size = new System.Drawing.Size(1217, 104);
             this.tabSource.TabIndex = 40;
-            // 
-            // btnAssemblyExporter
-            // 
-            this.btnAssemblyExporter.Enabled = false;
-            this.btnAssemblyExporter.Location = new System.Drawing.Point(15, 152);
-            this.btnAssemblyExporter.Name = "btnAssemblyExporter";
-            this.btnAssemblyExporter.Size = new System.Drawing.Size(187, 23);
-            this.btnAssemblyExporter.TabIndex = 39;
-            this.btnAssemblyExporter.Text = "assembly exporter";
-            this.btnAssemblyExporter.UseVisualStyleBackColor = true;
-            this.btnAssemblyExporter.Click += new System.EventHandler(this.btnAssemblyExporter_Click);
+            this.tabSource.SelectedIndexChanged += new System.EventHandler(this.tabSource_SelectedIndexChanged);
             // 
             // btnClearSearches
             // 
@@ -415,26 +403,26 @@
             this.testConnectionToolStripMenuItem,
             this.deleteConnectionToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(170, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(170, 70);
             // 
             // addConnectionToolStripMenuItem
             // 
             this.addConnectionToolStripMenuItem.Name = "addConnectionToolStripMenuItem";
-            this.addConnectionToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.addConnectionToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.addConnectionToolStripMenuItem.Text = "add connection...";
             this.addConnectionToolStripMenuItem.Click += new System.EventHandler(this.addConnectionToolStripMenuItem_Click);
             // 
             // testConnectionToolStripMenuItem
             // 
             this.testConnectionToolStripMenuItem.Name = "testConnectionToolStripMenuItem";
-            this.testConnectionToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.testConnectionToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.testConnectionToolStripMenuItem.Text = "edit connection...";
             this.testConnectionToolStripMenuItem.Click += new System.EventHandler(this.testConnectionToolStripMenuItem_Click);
             // 
             // deleteConnectionToolStripMenuItem
             // 
             this.deleteConnectionToolStripMenuItem.Name = "deleteConnectionToolStripMenuItem";
-            this.deleteConnectionToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.deleteConnectionToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.deleteConnectionToolStripMenuItem.Text = "delete connection";
             this.deleteConnectionToolStripMenuItem.Click += new System.EventHandler(this.deleteConnectionToolStripMenuItem_Click);
             // 
@@ -652,7 +640,6 @@
         private System.Windows.Forms.ToolStripMenuItem findUsagesInFoundToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem findUsagesanyTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem findUsagesInFoundanyTextToolStripMenuItem;
-        private System.Windows.Forms.Button btnAssemblyExporter;
         private System.Windows.Forms.TabControl tabSource;
         private System.Windows.Forms.ListView listView3;
         private System.Windows.Forms.ImageList imageList1;

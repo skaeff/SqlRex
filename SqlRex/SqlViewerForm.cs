@@ -648,7 +648,6 @@ namespace SqlRex
             btnGenerateSqlFile.Enabled = true;
             btnGetSqlObjects.Enabled = true;
             btnGenerateSqlFileNoTables.Enabled = true;
-            btnAssemblyExporter.Enabled = true;
         }
 
         private void getCREATETABLEToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1375,8 +1374,7 @@ namespace SqlRex
 
         private void btnAssemblyExporter_Click(object sender, EventArgs e)
         {
-            var f = new AssemblyExporterForm(Utils.DecryptedConnectionString(_selectedConnection));
-            f.ShowDialog();
+            
         }
 
 
@@ -1428,5 +1426,9 @@ namespace SqlRex
             }
         }
 
+        private void tabSource_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

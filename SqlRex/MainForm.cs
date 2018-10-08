@@ -758,5 +758,12 @@ namespace SqlRex
         {
 
         }
+
+        private void btnAssemblyBrowser_Click(object sender, EventArgs e)
+        {
+            var f = new AssemblyExporterForm();
+            f.MdiParent = this;
+            f.Show();
+        }
     }
 }

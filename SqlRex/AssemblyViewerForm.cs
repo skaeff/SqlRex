@@ -14,17 +14,19 @@ using System.Windows.Forms;
 
 namespace SqlRex
 {
-    public partial class AssemblyViewerForm : Form
+    public partial class AssemblyViewerForm : BaseForm
     {
         AssemblyDefinition _assemblyDefinition;
         
-        public AssemblyViewerForm(Stream stream, List<SqlAssemblyObject> dlls)
+        public AssemblyViewerForm(int id, List<SqlAssemblyObject> dlls)
         {
             InitializeComponent();
 
+            Text = dlls[id].AssemblyName + " at ";
+
             var pars = new ReaderParameters();
             pars.AssemblyResolver = new DatabaseAssemblyResolver(dlls);
-            _assemblyDefinition = Mono.Cecil.AssemblyDefinition.ReadAssembly(stream, pars);
+            _assemblyDefinition = Mono.Cecil.AssemblyDefinition.ReadAssembly(new MemoryStream(dlls[id].Data.Value), pars);
 
             foreach (var typeInAssembly in _assemblyDefinition.MainModule.Types)
             {
