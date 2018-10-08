@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,25 +16,15 @@ namespace SqlRex
 {
     public partial class AssemblyViewerForm : Form
     {
-        string _fileName;
-        public AssemblyViewerForm(string fileName)
+        AssemblyDefinition _assemblyDefinition;
+        public AssemblyViewerForm(Stream stream)
         {
             InitializeComponent();
-            _fileName = fileName;
-            LoadTree();
-        }
-
-        private void LoadTree()
-        {
 
 
+            _assemblyDefinition = Mono.Cecil.AssemblyDefinition.ReadAssembly(stream);
 
-            string pathToAssembly = _fileName;
-            //System.Reflection.Assembly assembly = System.Reflection.Assembly.ReflectionOnlyLoadFrom(pathToAssembly);
-            Mono.Cecil.AssemblyDefinition assemblyDefinition = Mono.Cecil.AssemblyDefinition.ReadAssembly(pathToAssembly);
-            //AstBuilder astBuilder = null;
-
-            foreach (var typeInAssembly in assemblyDefinition.MainModule.Types)
+            foreach (var typeInAssembly in _assemblyDefinition.MainModule.Types)
             {
                 if (typeInAssembly.IsPublic)
                 {
@@ -69,24 +60,15 @@ namespace SqlRex
                     }
 
                     treeView1.Nodes.Add(node);
-                    /*
-                    Console.WriteLine("T:{0}", typeInAssembly.Name);
-                    //just reset the builder to include only code for a single type
-                    //astBuilder = new AstBuilder(new ICSharpCode.Decompiler.DecompilerContext(assemblyDefinition.MainModule));
-                    //astBuilder.AddType(typeInAssembly);
-                    StringWriter output = new StringWriter();
-                    //astBuilder.GenerateCode(new PlainTextOutput(output));
-                    string result = output.ToString();
-                    output.Dispose();
-                    */
+
                 }
             }
-
         }
+
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            var decompiler = new CSharpDecompiler(_fileName, new DecompilerSettings());
+            var decompiler = new CSharpDecompiler(_assemblyDefinition.MainModule, new DecompilerSettings());
             //var name = new FullTypeName(e.Node.Text);
 
             var str = decompiler.DecompileAsString(e.Node.Tag as IMemberDefinition);

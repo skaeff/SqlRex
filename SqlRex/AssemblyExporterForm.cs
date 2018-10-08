@@ -157,17 +157,20 @@ namespace SqlRex
                     var asm = _listItems[idx];
 
 
-                    var fn = Path.GetTempFileName();
+                    //var fn = Path.GetTempFileName();
 
-
-                    using (FileStream bytestream = new FileStream(fn, FileMode.Create))
+                    using (MemoryStream bytestream = new MemoryStream(asm.Data.Value))
                     {
-                        bytestream.Write(asm.Data.Value, 0, (int)asm.Data.Length);
-                        bytestream.Close();
+                        //bytestream.Write(asm.Data.Value, 0, (int)asm.Data.Length);
+
+
+                        var f = new AssemblyViewerForm(bytestream);
+                        f.ShowDialog();
+
+                        //bytestream.Close();
                     }
 
-                    var f = new AssemblyViewerForm(fn);
-                    f.ShowDialog();
+                    
                 }
             }
             catch (Exception ex)
