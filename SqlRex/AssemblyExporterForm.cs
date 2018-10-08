@@ -164,7 +164,7 @@ namespace SqlRex
                         //bytestream.Write(asm.Data.Value, 0, (int)asm.Data.Length);
 
 
-                        var f = new AssemblyViewerForm(bytestream);
+                        var f = new AssemblyViewerForm(bytestream, _listItems);
                         f.ShowDialog();
 
                         //bytestream.Close();

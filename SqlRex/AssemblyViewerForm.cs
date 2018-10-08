@@ -17,12 +17,14 @@ namespace SqlRex
     public partial class AssemblyViewerForm : Form
     {
         AssemblyDefinition _assemblyDefinition;
-        public AssemblyViewerForm(Stream stream)
+        
+        public AssemblyViewerForm(Stream stream, List<SqlAssemblyObject> dlls)
         {
             InitializeComponent();
 
-
-            _assemblyDefinition = Mono.Cecil.AssemblyDefinition.ReadAssembly(stream);
+            var pars = new ReaderParameters();
+            pars.AssemblyResolver = new DatabaseAssemblyResolver(dlls);
+            _assemblyDefinition = Mono.Cecil.AssemblyDefinition.ReadAssembly(stream, pars);
 
             foreach (var typeInAssembly in _assemblyDefinition.MainModule.Types)
             {
@@ -68,6 +70,7 @@ namespace SqlRex
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            
             var decompiler = new CSharpDecompiler(_assemblyDefinition.MainModule, new DecompilerSettings());
             //var name = new FullTypeName(e.Node.Text);
 

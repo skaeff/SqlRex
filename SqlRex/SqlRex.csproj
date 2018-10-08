@@ -147,6 +147,7 @@
     <Compile Include="ConnectionDialog.Designer.cs">
       <DependentUpon>ConnectionDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseAssemblyResolver.cs" />
     <Compile Include="ExceptionWindowForm.cs">
       <SubType>Form</SubType>
     </Compile>
