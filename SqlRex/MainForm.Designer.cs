@@ -70,6 +70,7 @@
             this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.btnOpenFolder = new System.Windows.Forms.ToolStripButton();
             this.btnConnect = new System.Windows.Forms.ToolStripButton();
+            this.btnAssemblyBrowser = new System.Windows.Forms.ToolStripButton();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.lblLargeFilesMode = new System.Windows.Forms.ToolStripLabel();
@@ -81,7 +82,6 @@
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.tabForms = new System.Windows.Forms.TabControl();
-            this.btnAssemblyBrowser = new System.Windows.Forms.ToolStripButton();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -448,6 +448,16 @@
             this.btnConnect.Text = "Connect";
             this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
+            // btnAssemblyBrowser
+            // 
+            this.btnAssemblyBrowser.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnAssemblyBrowser.Image = ((System.Drawing.Image)(resources.GetObject("btnAssemblyBrowser.Image")));
+            this.btnAssemblyBrowser.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnAssemblyBrowser.Name = "btnAssemblyBrowser";
+            this.btnAssemblyBrowser.Size = new System.Drawing.Size(23, 22);
+            this.btnAssemblyBrowser.Text = "Assembly Browser";
+            this.btnAssemblyBrowser.Click += new System.EventHandler(this.btnAssemblyBrowser_Click);
+            // 
             // saveToolStripButton
             // 
             this.saveToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -521,16 +531,6 @@
             this.tabForms.Visible = false;
             this.tabForms.SelectedIndexChanged += new System.EventHandler(this.tabForms_SelectedIndexChanged);
             this.tabForms.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Tp_MouseClick);
-            // 
-            // btnAssemblyBrowser
-            // 
-            this.btnAssemblyBrowser.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnAssemblyBrowser.Image = ((System.Drawing.Image)(resources.GetObject("btnAssemblyBrowser.Image")));
-            this.btnAssemblyBrowser.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnAssemblyBrowser.Name = "btnAssemblyBrowser";
-            this.btnAssemblyBrowser.Size = new System.Drawing.Size(23, 22);
-            this.btnAssemblyBrowser.Text = "Assembly Browser";
-            this.btnAssemblyBrowser.Click += new System.EventHandler(this.btnAssemblyBrowser_Click);
             // 
             // MainForm
             // 

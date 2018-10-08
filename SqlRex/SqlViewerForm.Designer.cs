@@ -34,7 +34,6 @@
             System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("bdodb", 0);
             System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("workflowdb", 0);
             System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("bufferzonedb", 0);
-            this.fastColoredTextBox1 = new FastColoredTextBoxNS.FastColoredTextBox();
             this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.findUsagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findUsagesInFoundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,8 +50,6 @@
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.listView3 = new System.Windows.Forms.ListView();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.tabSource = new System.Windows.Forms.TabControl();
             this.btnClearSearches = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnGenerateSqlFileNoTables = new System.Windows.Forms.Button();
@@ -61,10 +58,6 @@
             this.btnGetSqlObjects = new System.Windows.Forms.Button();
             this.lblRegexCntFound = new System.Windows.Forms.Label();
             this.tbSearchNode = new System.Windows.Forms.TextBox();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.addConnectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.testConnectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteConnectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -74,7 +67,6 @@
             this.refreshObjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listView1 = new System.Windows.Forms.ListView();
             this.result = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.documentMap1 = new FastColoredTextBoxNS.DocumentMap();
             this.panel2 = new System.Windows.Forms.Panel();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
@@ -82,60 +74,15 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.listView2 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox1)).BeginInit();
+            this.fastColoredTextBox1 = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.documentMap1 = new FastColoredTextBoxNS.DocumentMap();
+            this.serverTabsControl1 = new SqlRex.ServerTabsControl();
             this.contextMenuStrip3.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.contextMenuStrip1.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // fastColoredTextBox1
-            // 
-            this.fastColoredTextBox1.AutoCompleteBracketsList = new char[] {
-        '(',
-        ')',
-        '{',
-        '}',
-        '[',
-        ']',
-        '\"',
-        '\"',
-        '\'',
-        '\''};
-            this.fastColoredTextBox1.AutoIndent = false;
-            this.fastColoredTextBox1.AutoIndentCharsPatterns = "";
-            this.fastColoredTextBox1.AutoScrollMinSize = new System.Drawing.Size(158, 15);
-            this.fastColoredTextBox1.BackBrush = null;
-            this.fastColoredTextBox1.BookmarkColor = System.Drawing.Color.Crimson;
-            this.fastColoredTextBox1.CharHeight = 15;
-            this.fastColoredTextBox1.CharWidth = 7;
-            this.fastColoredTextBox1.CommentPrefix = "--";
-            this.fastColoredTextBox1.ContextMenuStrip = this.contextMenuStrip3;
-            this.fastColoredTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.fastColoredTextBox1.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.fastColoredTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fastColoredTextBox1.Font = new System.Drawing.Font("Consolas", 9.75F);
-            this.fastColoredTextBox1.Hotkeys = resources.GetString("fastColoredTextBox1.Hotkeys");
-            this.fastColoredTextBox1.IsReplaceMode = false;
-            this.fastColoredTextBox1.Language = FastColoredTextBoxNS.Language.SQL;
-            this.fastColoredTextBox1.LeftBracket = '(';
-            this.fastColoredTextBox1.Location = new System.Drawing.Point(0, 0);
-            this.fastColoredTextBox1.Name = "fastColoredTextBox1";
-            this.fastColoredTextBox1.Paddings = new System.Windows.Forms.Padding(0);
-            this.fastColoredTextBox1.RightBracket = ')';
-            this.fastColoredTextBox1.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.fastColoredTextBox1.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fastColoredTextBox1.ServiceColors")));
-            this.fastColoredTextBox1.Size = new System.Drawing.Size(610, 344);
-            this.fastColoredTextBox1.TabIndex = 0;
-            this.fastColoredTextBox1.Text = "fastColoredTextBox1";
-            this.fastColoredTextBox1.Zoom = 100;
-            this.fastColoredTextBox1.TextChanged += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.fastColoredTextBox1_TextChanged);
-            this.fastColoredTextBox1.TextChangedDelayed += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.fastColoredTextBox1_TextChangedDelayed);
-            this.fastColoredTextBox1.VisibleRangeChangedDelayed += new System.EventHandler(this.fastColoredTextBox1_VisibleRangeChangedDelayed);
-            this.fastColoredTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fastColoredTextBox1_KeyDown);
-            this.fastColoredTextBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.fastColoredTextBox1_MouseClick);
-            this.fastColoredTextBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.fastColoredTextBox1_MouseDoubleClick);
             // 
             // contextMenuStrip3
             // 
@@ -261,8 +208,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.serverTabsControl1);
             this.panel1.Controls.Add(this.listView3);
-            this.panel1.Controls.Add(this.tabSource);
             this.panel1.Controls.Add(this.btnClearSearches);
             this.panel1.Controls.Add(this.flowLayoutPanel1);
             this.panel1.Controls.Add(this.btnGenerateSqlFileNoTables);
@@ -288,31 +235,10 @@
             this.listView3.Location = new System.Drawing.Point(1031, 13);
             this.listView3.Name = "listView3";
             this.listView3.Size = new System.Drawing.Size(362, 97);
-            this.listView3.SmallImageList = this.imageList1;
             this.listView3.TabIndex = 41;
             this.listView3.UseCompatibleStateImageBehavior = false;
             this.listView3.View = System.Windows.Forms.View.SmallIcon;
             this.listView3.Visible = false;
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "database-5-16 (3).ico");
-            this.imageList1.Images.SetKeyName(1, "accept-database-16.ico");
-            this.imageList1.Images.SetKeyName(2, "database-5-32.ico");
-            this.imageList1.Images.SetKeyName(3, "accept-database-32.ico");
-            // 
-            // tabSource
-            // 
-            this.tabSource.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabSource.Location = new System.Drawing.Point(208, 13);
-            this.tabSource.Name = "tabSource";
-            this.tabSource.SelectedIndex = 0;
-            this.tabSource.Size = new System.Drawing.Size(1217, 104);
-            this.tabSource.TabIndex = 40;
-            this.tabSource.SelectedIndexChanged += new System.EventHandler(this.tabSource_SelectedIndexChanged);
             // 
             // btnClearSearches
             // 
@@ -396,36 +322,6 @@
             this.tbSearchNode.TabIndex = 6;
             this.tbSearchNode.TextChanged += new System.EventHandler(this.tbSearchNode_TextChanged);
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addConnectionToolStripMenuItem,
-            this.testConnectionToolStripMenuItem,
-            this.deleteConnectionToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(170, 70);
-            // 
-            // addConnectionToolStripMenuItem
-            // 
-            this.addConnectionToolStripMenuItem.Name = "addConnectionToolStripMenuItem";
-            this.addConnectionToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.addConnectionToolStripMenuItem.Text = "add connection...";
-            this.addConnectionToolStripMenuItem.Click += new System.EventHandler(this.addConnectionToolStripMenuItem_Click);
-            // 
-            // testConnectionToolStripMenuItem
-            // 
-            this.testConnectionToolStripMenuItem.Name = "testConnectionToolStripMenuItem";
-            this.testConnectionToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.testConnectionToolStripMenuItem.Text = "edit connection...";
-            this.testConnectionToolStripMenuItem.Click += new System.EventHandler(this.testConnectionToolStripMenuItem_Click);
-            // 
-            // deleteConnectionToolStripMenuItem
-            // 
-            this.deleteConnectionToolStripMenuItem.Name = "deleteConnectionToolStripMenuItem";
-            this.deleteConnectionToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.deleteConnectionToolStripMenuItem.Text = "delete connection";
-            this.deleteConnectionToolStripMenuItem.Click += new System.EventHandler(this.deleteConnectionToolStripMenuItem_Click);
-            // 
             // splitter1
             // 
             this.splitter1.Location = new System.Drawing.Point(306, 181);
@@ -503,19 +399,6 @@
             // 
             this.result.Width = 300;
             // 
-            // documentMap1
-            // 
-            this.documentMap1.BackColor = System.Drawing.Color.White;
-            this.documentMap1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.documentMap1.ForeColor = System.Drawing.Color.Maroon;
-            this.documentMap1.Location = new System.Drawing.Point(613, 0);
-            this.documentMap1.Name = "documentMap1";
-            this.documentMap1.Size = new System.Drawing.Size(200, 344);
-            this.documentMap1.TabIndex = 7;
-            this.documentMap1.Target = this.fastColoredTextBox1;
-            this.documentMap1.Text = "documentMap1";
-            this.documentMap1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.documentMap1_MouseDown);
-            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.fastColoredTextBox1);
@@ -568,6 +451,73 @@
             // 
             this.columnHeader1.Width = 300;
             // 
+            // fastColoredTextBox1
+            // 
+            this.fastColoredTextBox1.AutoCompleteBracketsList = new char[] {
+        '(',
+        ')',
+        '{',
+        '}',
+        '[',
+        ']',
+        '\"',
+        '\"',
+        '\'',
+        '\''};
+            this.fastColoredTextBox1.AutoIndent = false;
+            this.fastColoredTextBox1.AutoIndentCharsPatterns = "";
+            this.fastColoredTextBox1.AutoScrollMinSize = new System.Drawing.Size(158, 15);
+            this.fastColoredTextBox1.BackBrush = null;
+            this.fastColoredTextBox1.BookmarkColor = System.Drawing.Color.Crimson;
+            this.fastColoredTextBox1.CharHeight = 15;
+            this.fastColoredTextBox1.CharWidth = 7;
+            this.fastColoredTextBox1.CommentPrefix = "--";
+            this.fastColoredTextBox1.ContextMenuStrip = this.contextMenuStrip3;
+            this.fastColoredTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.fastColoredTextBox1.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.fastColoredTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fastColoredTextBox1.Font = new System.Drawing.Font("Consolas", 9.75F);
+            this.fastColoredTextBox1.Hotkeys = resources.GetString("fastColoredTextBox1.Hotkeys");
+            this.fastColoredTextBox1.IsReplaceMode = false;
+            this.fastColoredTextBox1.Language = FastColoredTextBoxNS.Language.SQL;
+            this.fastColoredTextBox1.LeftBracket = '(';
+            this.fastColoredTextBox1.Location = new System.Drawing.Point(0, 0);
+            this.fastColoredTextBox1.Name = "fastColoredTextBox1";
+            this.fastColoredTextBox1.Paddings = new System.Windows.Forms.Padding(0);
+            this.fastColoredTextBox1.RightBracket = ')';
+            this.fastColoredTextBox1.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.fastColoredTextBox1.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fastColoredTextBox1.ServiceColors")));
+            this.fastColoredTextBox1.Size = new System.Drawing.Size(610, 344);
+            this.fastColoredTextBox1.TabIndex = 0;
+            this.fastColoredTextBox1.Text = "fastColoredTextBox1";
+            this.fastColoredTextBox1.Zoom = 100;
+            this.fastColoredTextBox1.TextChanged += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.fastColoredTextBox1_TextChanged);
+            this.fastColoredTextBox1.TextChangedDelayed += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.fastColoredTextBox1_TextChangedDelayed);
+            this.fastColoredTextBox1.VisibleRangeChangedDelayed += new System.EventHandler(this.fastColoredTextBox1_VisibleRangeChangedDelayed);
+            this.fastColoredTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fastColoredTextBox1_KeyDown);
+            this.fastColoredTextBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.fastColoredTextBox1_MouseClick);
+            this.fastColoredTextBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.fastColoredTextBox1_MouseDoubleClick);
+            // 
+            // documentMap1
+            // 
+            this.documentMap1.BackColor = System.Drawing.Color.White;
+            this.documentMap1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.documentMap1.ForeColor = System.Drawing.Color.Maroon;
+            this.documentMap1.Location = new System.Drawing.Point(613, 0);
+            this.documentMap1.Name = "documentMap1";
+            this.documentMap1.Size = new System.Drawing.Size(200, 344);
+            this.documentMap1.TabIndex = 7;
+            this.documentMap1.Target = this.fastColoredTextBox1;
+            this.documentMap1.Text = "documentMap1";
+            this.documentMap1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.documentMap1_MouseDown);
+            // 
+            // serverTabsControl1
+            // 
+            this.serverTabsControl1.Location = new System.Drawing.Point(208, 12);
+            this.serverTabsControl1.Name = "serverTabsControl1";
+            this.serverTabsControl1.Size = new System.Drawing.Size(1208, 98);
+            this.serverTabsControl1.TabIndex = 42;
+            // 
             // SqlViewerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -583,13 +533,12 @@
             this.Text = "Sql Objects";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
-            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox1)).EndInit();
             this.contextMenuStrip3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.contextMenuStrip1.ResumeLayout(false);
             this.contextMenuStrip2.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -626,10 +575,6 @@
         private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem addConnectionToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem testConnectionToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem deleteConnectionToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ToolStripMenuItem findUsagesToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
@@ -640,10 +585,9 @@
         private System.Windows.Forms.ToolStripMenuItem findUsagesInFoundToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem findUsagesanyTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem findUsagesInFoundanyTextToolStripMenuItem;
-        private System.Windows.Forms.TabControl tabSource;
         private System.Windows.Forms.ListView listView3;
-        private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.ToolStripMenuItem getCLRDescToolStripMenuItem;
+        private ServerTabsControl serverTabsControl1;
     }
 }
 

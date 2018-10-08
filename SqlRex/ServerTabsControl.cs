@@ -20,11 +20,16 @@ namespace SqlRex
         public ServerTabsControl()
         {
             InitializeComponent();
-            RebuildServerTabs();
+            
         }
 
         Dictionary<string, List<string>> _serverTabs;
         string _selectedConnection = "";
+
+        public string SelectedConnection
+        {
+            get { return _selectedConnection; }
+        }
 
         public void RebuildServerTabs()
         {

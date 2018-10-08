@@ -21,6 +21,7 @@ namespace SqlRex
         public AssemblyExporterForm()
         {
             InitializeComponent();
+            serverTabsControl1.RebuildServerTabs();
             serverTabsControl1.OnDatabaseSelected += ServerTabsControl1_OnDatabaseSelected;
             serverTabsControl1.OnServerTabsChanged += ServerTabsControl1_OnServerTabsChanged;
         }
@@ -34,7 +35,10 @@ namespace SqlRex
             }
         }
 
-        
+        public override void NotifyReloadConnections()
+        {
+            serverTabsControl1.RebuildServerTabs();
+        }
 
         private void ServerTabsControl1_OnDatabaseSelected(object sender, string e)
         {
@@ -68,6 +72,9 @@ namespace SqlRex
 
                 conn.Close();
             }
+
+            _listItems.Clear();
+            _listItemsCache.Clear();
 
             _listItems.AddRange(result);
             _listItemsCache.AddRange(result);
