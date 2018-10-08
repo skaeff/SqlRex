@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SqlViewerForm));
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("opendb", 0);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("bdodb", 0);
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("workflowdb", 0);
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("bufferzonedb", 0);
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("opendb", 0);
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("bdodb", 0);
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("workflowdb", 0);
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("bufferzonedb", 0);
             this.fastColoredTextBox1 = new FastColoredTextBoxNS.FastColoredTextBox();
             this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.findUsagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,6 +71,7 @@
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.diffWithFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.getCREATETABLEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.getCLRDescToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshObjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listView1 = new System.Windows.Forms.ListView();
             this.result = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -282,10 +283,10 @@
             // 
             this.listView3.HideSelection = false;
             this.listView3.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4});
+            listViewItem5,
+            listViewItem6,
+            listViewItem7,
+            listViewItem8});
             this.listView3.Location = new System.Drawing.Point(1031, 13);
             this.listView3.Name = "listView3";
             this.listView3.Size = new System.Drawing.Size(362, 97);
@@ -414,26 +415,26 @@
             this.testConnectionToolStripMenuItem,
             this.deleteConnectionToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(170, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(170, 92);
             // 
             // addConnectionToolStripMenuItem
             // 
             this.addConnectionToolStripMenuItem.Name = "addConnectionToolStripMenuItem";
-            this.addConnectionToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.addConnectionToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.addConnectionToolStripMenuItem.Text = "add connection...";
             this.addConnectionToolStripMenuItem.Click += new System.EventHandler(this.addConnectionToolStripMenuItem_Click);
             // 
             // testConnectionToolStripMenuItem
             // 
             this.testConnectionToolStripMenuItem.Name = "testConnectionToolStripMenuItem";
-            this.testConnectionToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.testConnectionToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.testConnectionToolStripMenuItem.Text = "edit connection...";
             this.testConnectionToolStripMenuItem.Click += new System.EventHandler(this.testConnectionToolStripMenuItem_Click);
             // 
             // deleteConnectionToolStripMenuItem
             // 
             this.deleteConnectionToolStripMenuItem.Name = "deleteConnectionToolStripMenuItem";
-            this.deleteConnectionToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.deleteConnectionToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.deleteConnectionToolStripMenuItem.Text = "delete connection";
             this.deleteConnectionToolStripMenuItem.Click += new System.EventHandler(this.deleteConnectionToolStripMenuItem_Click);
             // 
@@ -455,9 +456,10 @@
             this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.diffWithFileToolStripMenuItem,
             this.getCREATETABLEToolStripMenuItem,
+            this.getCLRDescToolStripMenuItem,
             this.refreshObjectToolStripMenuItem});
             this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(175, 70);
+            this.contextMenuStrip2.Size = new System.Drawing.Size(175, 92);
             // 
             // diffWithFileToolStripMenuItem
             // 
@@ -472,6 +474,13 @@
             this.getCREATETABLEToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.getCREATETABLEToolStripMenuItem.Text = "Get CREATE TABLE";
             this.getCREATETABLEToolStripMenuItem.Click += new System.EventHandler(this.getCREATETABLEToolStripMenuItem_Click);
+            // 
+            // getCLRDescToolStripMenuItem
+            // 
+            this.getCLRDescToolStripMenuItem.Name = "getCLRDescToolStripMenuItem";
+            this.getCLRDescToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.getCLRDescToolStripMenuItem.Text = "Get CLR desc";
+            this.getCLRDescToolStripMenuItem.Click += new System.EventHandler(this.getCLRDescToolStripMenuItem_Click);
             // 
             // refreshObjectToolStripMenuItem
             // 
@@ -647,6 +656,7 @@
         private System.Windows.Forms.TabControl tabSource;
         private System.Windows.Forms.ListView listView3;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.ToolStripMenuItem getCLRDescToolStripMenuItem;
     }
 }
 

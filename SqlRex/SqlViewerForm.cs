@@ -1388,5 +1388,45 @@ namespace SqlRex
             }
             //e.SuppressKeyPress = true;
         }
+
+        private void getCLRDescToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedIndices.Count > 0)
+            {
+                var idx = listView1.SelectedIndices[0];
+                var range = _listItems[idx];
+
+                var database = Utils.DecryptedConnectionString(_selectedConnection);
+                if (range.Type == "PC" || range.Type == "FS" || range.Type == "FT")
+                {
+                    using (var conn = new SqlConnection(database))
+                    {
+                        conn.Open();
+                        var cmdTable = new SqlCommand(File.ReadAllText(Application.StartupPath + @"\get_clr_ddl.sql"), conn);
+                        cmdTable.CommandTimeout = 0;
+                        cmdTable.Parameters.AddWithValue("clr_name_ext", range.Name);
+                        var rdr = cmdTable.ExecuteReader();
+
+                        while(rdr.Read())
+                        {
+                            var str = rdr["o1"].ToString() + rdr["o2"].ToString() + rdr["o3"].ToString() 
+                                + rdr["o4"].ToString() + rdr["o5"].ToString();
+                            range.Text = str;
+                            fastColoredTextBox1.Text = str;
+                        }
+                        //var tableRes = cmdTable.ExecuteScalar();
+                        //if (tableRes != null)
+                        //{
+                        //    var str = tableRes.ToString();
+                        //    range.Text = str;
+                        //    fastColoredTextBox1.Text = str;
+                        //}
+                        
+                        conn.Close();
+                    }
+                }
+            }
+        }
+
     }
 }

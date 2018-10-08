@@ -131,5 +131,49 @@ namespace SqlRex
                 }
             }
         }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            OpenViewer();
+        }
+
+        private void exploredoubleClickToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenViewer();
+        }
+
+        void OpenViewer()
+        {
+            try
+            {
+                if (listView1.SelectedIndices.Count > 0)
+                {
+                    var idx = listView1.SelectedIndices[0];
+                    var asm = _listItems[idx];
+
+
+                    var fn = Path.GetTempFileName();
+
+
+                    using (FileStream bytestream = new FileStream(fn, FileMode.Create))
+                    {
+                        bytestream.Write(asm.Data.Value, 0, (int)asm.Data.Length);
+                        bytestream.Close();
+                    }
+
+                    var f = new AssemblyViewerForm(fn);
+                    f.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
