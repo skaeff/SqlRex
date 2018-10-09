@@ -49,6 +49,7 @@
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.serverTabsControl1 = new SqlRex.ServerTabsControl();
             this.listView3 = new System.Windows.Forms.ListView();
             this.btnClearSearches = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
@@ -68,15 +69,14 @@
             this.listView1 = new System.Windows.Forms.ListView();
             this.result = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel2 = new System.Windows.Forms.Panel();
+            this.fastColoredTextBox1 = new FastColoredTextBoxNS.FastColoredTextBox();
             this.splitter2 = new System.Windows.Forms.Splitter();
+            this.documentMap1 = new FastColoredTextBoxNS.DocumentMap();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.listView2 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.fastColoredTextBox1 = new FastColoredTextBoxNS.FastColoredTextBox();
-            this.documentMap1 = new FastColoredTextBoxNS.DocumentMap();
-            this.serverTabsControl1 = new SqlRex.ServerTabsControl();
             this.contextMenuStrip3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
@@ -221,8 +221,15 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1428, 181);
+            this.panel1.Size = new System.Drawing.Size(1428, 169);
             this.panel1.TabIndex = 1;
+            // 
+            // serverTabsControl1
+            // 
+            this.serverTabsControl1.Location = new System.Drawing.Point(3, 3);
+            this.serverTabsControl1.Name = "serverTabsControl1";
+            this.serverTabsControl1.Size = new System.Drawing.Size(1217, 100);
+            this.serverTabsControl1.TabIndex = 42;
             // 
             // listView3
             // 
@@ -232,9 +239,9 @@
             listViewItem2,
             listViewItem3,
             listViewItem4});
-            this.listView3.Location = new System.Drawing.Point(1031, 13);
+            this.listView3.Location = new System.Drawing.Point(1358, 100);
             this.listView3.Name = "listView3";
-            this.listView3.Size = new System.Drawing.Size(362, 97);
+            this.listView3.Size = new System.Drawing.Size(67, 33);
             this.listView3.TabIndex = 41;
             this.listView3.UseCompatibleStateImageBehavior = false;
             this.listView3.View = System.Windows.Forms.View.SmallIcon;
@@ -242,7 +249,7 @@
             // 
             // btnClearSearches
             // 
-            this.btnClearSearches.Location = new System.Drawing.Point(508, 155);
+            this.btnClearSearches.Location = new System.Drawing.Point(542, 104);
             this.btnClearSearches.Name = "btnClearSearches";
             this.btnClearSearches.Size = new System.Drawing.Size(114, 23);
             this.btnClearSearches.TabIndex = 38;
@@ -254,15 +261,15 @@
             // 
             this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(628, 123);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(662, 105);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(797, 58);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(763, 58);
             this.flowLayoutPanel1.TabIndex = 37;
             // 
             // btnGenerateSqlFileNoTables
             // 
             this.btnGenerateSqlFileNoTables.Enabled = false;
-            this.btnGenerateSqlFileNoTables.Location = new System.Drawing.Point(15, 97);
+            this.btnGenerateSqlFileNoTables.Location = new System.Drawing.Point(1229, 76);
             this.btnGenerateSqlFileNoTables.Name = "btnGenerateSqlFileNoTables";
             this.btnGenerateSqlFileNoTables.Size = new System.Drawing.Size(187, 23);
             this.btnGenerateSqlFileNoTables.TabIndex = 36;
@@ -273,7 +280,7 @@
             // btnGenerateSqlFile
             // 
             this.btnGenerateSqlFile.Enabled = false;
-            this.btnGenerateSqlFile.Location = new System.Drawing.Point(15, 68);
+            this.btnGenerateSqlFile.Location = new System.Drawing.Point(1229, 47);
             this.btnGenerateSqlFile.Name = "btnGenerateSqlFile";
             this.btnGenerateSqlFile.Size = new System.Drawing.Size(187, 23);
             this.btnGenerateSqlFile.TabIndex = 35;
@@ -284,7 +291,7 @@
             // cbSearchInText
             // 
             this.cbSearchInText.AutoSize = true;
-            this.cbSearchInText.Location = new System.Drawing.Point(456, 129);
+            this.cbSearchInText.Location = new System.Drawing.Point(447, 110);
             this.cbSearchInText.Name = "cbSearchInText";
             this.cbSearchInText.Size = new System.Drawing.Size(89, 17);
             this.cbSearchInText.TabIndex = 34;
@@ -294,7 +301,7 @@
             // btnGetSqlObjects
             // 
             this.btnGetSqlObjects.Enabled = false;
-            this.btnGetSqlObjects.Location = new System.Drawing.Point(14, 13);
+            this.btnGetSqlObjects.Location = new System.Drawing.Point(1228, 0);
             this.btnGetSqlObjects.Name = "btnGetSqlObjects";
             this.btnGetSqlObjects.Size = new System.Drawing.Size(188, 23);
             this.btnGetSqlObjects.TabIndex = 32;
@@ -306,7 +313,7 @@
             // 
             this.lblRegexCntFound.AutoSize = true;
             this.lblRegexCntFound.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblRegexCntFound.Location = new System.Drawing.Point(12, 39);
+            this.lblRegexCntFound.Location = new System.Drawing.Point(1226, 26);
             this.lblRegexCntFound.Name = "lblRegexCntFound";
             this.lblRegexCntFound.Size = new System.Drawing.Size(50, 18);
             this.lblRegexCntFound.TabIndex = 15;
@@ -316,7 +323,7 @@
             // 
             this.tbSearchNode.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.tbSearchNode.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.tbSearchNode.Location = new System.Drawing.Point(12, 126);
+            this.tbSearchNode.Location = new System.Drawing.Point(3, 107);
             this.tbSearchNode.Name = "tbSearchNode";
             this.tbSearchNode.Size = new System.Drawing.Size(438, 20);
             this.tbSearchNode.TabIndex = 6;
@@ -324,9 +331,9 @@
             // 
             // splitter1
             // 
-            this.splitter1.Location = new System.Drawing.Point(306, 181);
+            this.splitter1.Location = new System.Drawing.Point(306, 169);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 344);
+            this.splitter1.Size = new System.Drawing.Size(3, 356);
             this.splitter1.TabIndex = 3;
             this.splitter1.TabStop = false;
             // 
@@ -381,9 +388,9 @@
             this.listView1.Dock = System.Windows.Forms.DockStyle.Left;
             this.listView1.FullRowSelect = true;
             this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(0, 181);
+            this.listView1.Location = new System.Drawing.Point(0, 169);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(306, 344);
+            this.listView1.Size = new System.Drawing.Size(306, 356);
             this.listView1.TabIndex = 5;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -405,51 +412,10 @@
             this.panel2.Controls.Add(this.splitter2);
             this.panel2.Controls.Add(this.documentMap1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(309, 181);
+            this.panel2.Location = new System.Drawing.Point(309, 169);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(813, 344);
+            this.panel2.Size = new System.Drawing.Size(813, 356);
             this.panel2.TabIndex = 8;
-            // 
-            // splitter2
-            // 
-            this.splitter2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.splitter2.Location = new System.Drawing.Point(610, 0);
-            this.splitter2.Name = "splitter2";
-            this.splitter2.Size = new System.Drawing.Size(3, 344);
-            this.splitter2.TabIndex = 8;
-            this.splitter2.TabStop = false;
-            // 
-            // saveFileDialog1
-            // 
-            this.saveFileDialog1.Filter = "SQL files|*.sql";
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // listView2
-            // 
-            this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
-            this.listView2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.listView2.FullRowSelect = true;
-            this.listView2.HideSelection = false;
-            this.listView2.Location = new System.Drawing.Point(1122, 181);
-            this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(306, 344);
-            this.listView2.TabIndex = 9;
-            this.listView2.UseCompatibleStateImageBehavior = false;
-            this.listView2.View = System.Windows.Forms.View.Details;
-            this.listView2.VirtualMode = true;
-            this.listView2.CacheVirtualItems += new System.Windows.Forms.CacheVirtualItemsEventHandler(this.listView2_CacheVirtualItems);
-            this.listView2.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.listView2_RetrieveVirtualItem);
-            this.listView2.SearchForVirtualItem += new System.Windows.Forms.SearchForVirtualItemEventHandler(this.listView2_SearchForVirtualItem);
-            this.listView2.SelectedIndexChanged += new System.EventHandler(this.listView2_SelectedIndexChanged);
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Width = 300;
             // 
             // fastColoredTextBox1
             // 
@@ -487,7 +453,7 @@
             this.fastColoredTextBox1.RightBracket = ')';
             this.fastColoredTextBox1.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.fastColoredTextBox1.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fastColoredTextBox1.ServiceColors")));
-            this.fastColoredTextBox1.Size = new System.Drawing.Size(610, 344);
+            this.fastColoredTextBox1.Size = new System.Drawing.Size(610, 356);
             this.fastColoredTextBox1.TabIndex = 0;
             this.fastColoredTextBox1.Text = "fastColoredTextBox1";
             this.fastColoredTextBox1.Zoom = 100;
@@ -498,6 +464,15 @@
             this.fastColoredTextBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.fastColoredTextBox1_MouseClick);
             this.fastColoredTextBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.fastColoredTextBox1_MouseDoubleClick);
             // 
+            // splitter2
+            // 
+            this.splitter2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.splitter2.Location = new System.Drawing.Point(610, 0);
+            this.splitter2.Name = "splitter2";
+            this.splitter2.Size = new System.Drawing.Size(3, 356);
+            this.splitter2.TabIndex = 8;
+            this.splitter2.TabStop = false;
+            // 
             // documentMap1
             // 
             this.documentMap1.BackColor = System.Drawing.Color.White;
@@ -505,18 +480,43 @@
             this.documentMap1.ForeColor = System.Drawing.Color.Maroon;
             this.documentMap1.Location = new System.Drawing.Point(613, 0);
             this.documentMap1.Name = "documentMap1";
-            this.documentMap1.Size = new System.Drawing.Size(200, 344);
+            this.documentMap1.Size = new System.Drawing.Size(200, 356);
             this.documentMap1.TabIndex = 7;
             this.documentMap1.Target = this.fastColoredTextBox1;
             this.documentMap1.Text = "documentMap1";
             this.documentMap1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.documentMap1_MouseDown);
             // 
-            // serverTabsControl1
+            // saveFileDialog1
             // 
-            this.serverTabsControl1.Location = new System.Drawing.Point(208, 12);
-            this.serverTabsControl1.Name = "serverTabsControl1";
-            this.serverTabsControl1.Size = new System.Drawing.Size(1208, 98);
-            this.serverTabsControl1.TabIndex = 42;
+            this.saveFileDialog1.Filter = "SQL files|*.sql";
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // listView2
+            // 
+            this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+            this.listView2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.listView2.FullRowSelect = true;
+            this.listView2.HideSelection = false;
+            this.listView2.Location = new System.Drawing.Point(1122, 169);
+            this.listView2.Name = "listView2";
+            this.listView2.Size = new System.Drawing.Size(306, 356);
+            this.listView2.TabIndex = 9;
+            this.listView2.UseCompatibleStateImageBehavior = false;
+            this.listView2.View = System.Windows.Forms.View.Details;
+            this.listView2.VirtualMode = true;
+            this.listView2.CacheVirtualItems += new System.Windows.Forms.CacheVirtualItemsEventHandler(this.listView2_CacheVirtualItems);
+            this.listView2.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.listView2_RetrieveVirtualItem);
+            this.listView2.SearchForVirtualItem += new System.Windows.Forms.SearchForVirtualItemEventHandler(this.listView2_SearchForVirtualItem);
+            this.listView2.SelectedIndexChanged += new System.EventHandler(this.listView2_SelectedIndexChanged);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Width = 300;
             // 
             // SqlViewerForm
             // 

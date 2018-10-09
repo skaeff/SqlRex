@@ -36,6 +36,7 @@
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exploredoubleClickToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.serverTabsControl1 = new SqlRex.ServerTabsControl();
             this.label1 = new System.Windows.Forms.Label();
             this.tbSearchNode = new System.Windows.Forms.TextBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
@@ -44,7 +45,6 @@
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.fastColoredTextBox1 = new FastColoredTextBoxNS.FastColoredTextBox();
-            this.serverTabsControl1 = new SqlRex.ServerTabsControl();
             this.contextMenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox1)).BeginInit();
@@ -109,10 +109,17 @@
             this.panel1.Size = new System.Drawing.Size(1014, 150);
             this.panel1.TabIndex = 7;
             // 
+            // serverTabsControl1
+            // 
+            this.serverTabsControl1.Location = new System.Drawing.Point(3, 3);
+            this.serverTabsControl1.Name = "serverTabsControl1";
+            this.serverTabsControl1.Size = new System.Drawing.Size(999, 96);
+            this.serverTabsControl1.TabIndex = 9;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(360, 125);
+            this.label1.Location = new System.Drawing.Point(360, 108);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 8;
@@ -122,7 +129,7 @@
             // 
             this.tbSearchNode.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.tbSearchNode.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.tbSearchNode.Location = new System.Drawing.Point(3, 122);
+            this.tbSearchNode.Location = new System.Drawing.Point(3, 105);
             this.tbSearchNode.Name = "tbSearchNode";
             this.tbSearchNode.Size = new System.Drawing.Size(351, 20);
             this.tbSearchNode.TabIndex = 7;
@@ -212,13 +219,6 @@
             this.fastColoredTextBox1.Text = "fastColoredTextBox1";
             this.fastColoredTextBox1.Zoom = 100;
             // 
-            // serverTabsControl1
-            // 
-            this.serverTabsControl1.Location = new System.Drawing.Point(3, 3);
-            this.serverTabsControl1.Name = "serverTabsControl1";
-            this.serverTabsControl1.Size = new System.Drawing.Size(999, 96);
-            this.serverTabsControl1.TabIndex = 9;
-            // 
             // AssemblyExporterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -231,7 +231,7 @@
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.panel1);
             this.Name = "AssemblyExporterForm";
-            this.Text = "AssemblyExporterForm";
+            this.Text = "Assembly Viewer";
             this.contextMenuStrip1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
