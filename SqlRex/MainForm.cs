@@ -381,7 +381,6 @@ namespace SqlRex
 
                 if (!tabForms.Visible) tabForms.Visible = true;
                 tabForms.SelectedTab = ActiveMdiChild.Tag as TabPage;
-
             }
         }
 
@@ -743,12 +742,7 @@ namespace SqlRex
 
             }
         }
-
-        public void RefreshTab()
-        {
-            (ActiveMdiChild.Tag as TabPage).Text = ActiveMdiChild.Text;
-            (ActiveMdiChild.Tag as TabPage).ToolTipText = ActiveMdiChild.Text;
-        }
+        
 
         public void ConnectionsChanged()
         {

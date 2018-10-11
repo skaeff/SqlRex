@@ -81,7 +81,7 @@ namespace SqlRex
             _needRebuild = true;
             Syncronized(()=> listView1.VirtualListSize = _listItems.Count);
             Syncronized(()=> listView1.SelectedIndices.Clear());
-            Syncronized(() => (MdiParent as IMainForm).RefreshTab());
+            Syncronized(() => SetTextModified(Text));
         }
         
         List<SqlAssemblyObject> _listItems = new List<SqlAssemblyObject>();

@@ -14,9 +14,7 @@ namespace SqlRex
         void EncodingChanged();
         void ReadonlySqlChanged();
         void AutocompleteChanged();
-
-        void RefreshTab();
-
+        
         void ConnectionsChanged();
     }
 }

@@ -55,7 +55,7 @@ namespace SqlRex
             var csb = new SqlConnectionStringBuilder(e);
             
             Text = csb.DataSource + "." + csb.InitialCatalog;
-            (MdiParent as IMainForm).RefreshTab();
+            SetTextModified(Text);
             Common.Async.ExecAsync(this, (b) => BuildSqlObjects(e, b), (tm) => ReportTime(tm), true);
             EnableButtons();
         }
@@ -422,7 +422,7 @@ namespace SqlRex
                 csb.Password = Utils.Decrypt(csb.Password);
             }
             Text = csb.DataSource + "." + csb.InitialCatalog;
-            (MdiParent as IMainForm).RefreshTab();
+            SetTextModified(Text);
             Common.Async.ExecAsync(this, (b) => BuildSqlObjects(db, b), (tm) => ReportTime(tm), true);
         }
 
