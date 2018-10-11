@@ -17,23 +17,12 @@ using System.Xml.Serialization;
 
 namespace SqlRex
 {
-    public partial class Form1 : Form, IChildForm
+    public partial class Form1 : BaseForm
     {
         AutoCompleteStringCollection _autoComplete = new AutoCompleteStringCollection();
-        SynchronizationContext _sync;
+        
         Encoding _encoding = Encoding.GetEncoding("windows-1251");
-
-        public void Syncronized(Action action)
-        {
-            _sync.Send((o) => action(), null);
-        }
-
-        public T Syncronized<T>(Func<T> action)
-        {
-            T result = default(T);
-            _sync.Send((o) => result = action(), null);
-            return result;
-        }
+        
         public Form1()
         {
             InitializeComponent();
@@ -45,33 +34,23 @@ namespace SqlRex
 
             var fields = typeof(RegexValues).GetFields(System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
             listBox1.Items.AddRange(fields);
-
-            _sync = SynchronizationContext.Current;
+            
             TextModified = false;
 
             
         }
-
-        public event EventHandler<string> OnTextModified;
-        public event EventHandler<TimeSpan> OnAsyncCompleted;
 
         void BuildTreeAsync(string regex)
         {
             Common.Async.ExecAsync(this, (b) => BuildTree(regex, b), (tm) => ReportTime(tm), true);
         }
 
-        private void ReportTime(TimeSpan tm)
-        {
-            if (OnAsyncCompleted != null)
-                OnAsyncCompleted(null, tm);
-        }
 
         void BuildTreeAsync2(string regex)
         {
             Common.Async.ExecAsync(this, (b) => BuildTree2(regex, b), (tm) => ReportTime(tm), true);
         }
-
-        public string FileName { get; private set; }
+        
         internal void LoadFile(string fileName, bool createWatcher = false, EncodingInfo encoding = null)
         {
             var fi2 = new FileInfo(fileName);
@@ -468,7 +447,7 @@ namespace SqlRex
                 _watcher = null;
             }
         }
-        public void SaveFile()
+        public override void SaveFile()
         {
             DisposeWatcher();
             
@@ -477,14 +456,11 @@ namespace SqlRex
             var fi = new FileInfo(FileName);
             Text = fi.Name;
             TextModified = false;
-            OnTextModified(this, fi.Name);
-
+            SetTextModified(fi.Name);
+            
             CreateFileWatcher(fi.DirectoryName);
         }
-
-       
         
-        public bool TextModified { get; private set; }
         private void fastColoredTextBox1_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextModified = true;
@@ -492,8 +468,7 @@ namespace SqlRex
             {
                 var fi = new FileInfo(FileName);
                 Text = "*" + fi.Name;
-                if (OnTextModified != null)
-                    OnTextModified(this, Text);
+                SetTextModified(Text);
             }
         }
 
@@ -597,7 +572,7 @@ namespace SqlRex
             }
         }
 
-        public void NextItem()
+        public override void NextItem()
         {
             if(listView1.SelectedIndices.Count > 0)
             {
@@ -613,7 +588,7 @@ namespace SqlRex
             }
         }
 
-        public void PrevItem()
+        public override void PrevItem()
         {
             if (listView1.SelectedIndices.Count > 0)
             {
@@ -754,7 +729,8 @@ namespace SqlRex
                                 rng.SetStyle(new TextStyle(Brushes.Black, Brushes.Yellow, FontStyle.Regular));
 
                                 item2.ClearAllStyle();
-                                item2.SetStyle(new TextStyle(Brushes.Black, Brushes.Orange, FontStyle.Bold));
+                                item2.SetStyle(new TextStyle(Brushes.Black, Brushes.Yellow, FontStyle.Bold));
+                                //item2.SetStyle(new TextStyle(Brushes.Black, Brushes.Orange, FontStyle.Bold));
                             }
 
 
@@ -937,7 +913,8 @@ namespace SqlRex
                         rng.SetStyle(new TextStyle(Brushes.Black, Brushes.Yellow, FontStyle.Regular));
 
                         item2.ClearAllStyle();
-                        item2.SetStyle(new TextStyle(Brushes.Black, Brushes.Orange, FontStyle.Bold));
+                        //item2.SetStyle(new TextStyle(Brushes.Black, Brushes.Orange, FontStyle.Bold));
+                        item2.SetStyle(new TextStyle(Brushes.Black, Brushes.Yellow, FontStyle.Bold));
                     }
                 }
                 
@@ -995,7 +972,7 @@ namespace SqlRex
             }
         }
 
-        public void SaveFile(string fileName, Encoding enc)
+        public override void SaveFile(string fileName, Encoding enc)
         {
             fastColoredTextBox1.SaveToFile(fileName, enc);
         }
@@ -1034,20 +1011,16 @@ namespace SqlRex
 
         }
 
-        public void NotifyReadonlySql()
+        public override void NotifyReadonlySql()
         {
             fastColoredTextBox1.ReadOnly = Config.ReadOnlySql;
         }
 
-        public void NotifyAutocomplete()
+        public override void NotifyAutocomplete()
         {
             timer1.Enabled = Config.Autocomplete;
         }
-
-        public void NotifyReloadConnections()
-        {
-            //TODO dummy
-        }
+        
 
         private void timer1_Tick(object sender, EventArgs e)
         {

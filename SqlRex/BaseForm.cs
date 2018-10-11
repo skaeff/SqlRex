@@ -30,14 +30,48 @@ namespace SqlRex
             get; protected set;
         }
 
+        public virtual string Status2
+        {
+            get; protected set;
+        }
+
+        public event EventHandler<string> OnLastQuery;
+
+        protected void ReportLastQuery(string txt)
+        {
+            if(OnLastQuery != null)
+            {
+                OnLastQuery(this, txt);
+            }
+        }
+
         public event EventHandler<TimeSpan> OnAsyncCompleted;
-        public event EventHandler<string> OnTextModified;
 
         protected void ReportTime(TimeSpan tm)
         {
             if (OnAsyncCompleted != null)
-                OnAsyncCompleted(null, tm);
+                OnAsyncCompleted(this, tm);
         }
+
+        public event EventHandler<string> OnTextModified;
+
+        protected void SetTextModified(string txt)
+        {
+            if (OnTextModified != null)
+                OnTextModified(this, txt);
+        }
+
+        public event EventHandler<string> OnCaptionChanged;
+
+        protected void CaptionChanged(string caption)
+        {
+            if(OnCaptionChanged != null)
+            {
+                OnCaptionChanged(this, caption);
+            }
+        }
+
+        
 
         public virtual void NextItem()
         {
@@ -66,7 +100,14 @@ namespace SqlRex
 
         public virtual void SaveFile()
         {
-            //
+            MessageBox.Show("Not implemented", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            //File.WriteAllText(FileName, SqlText, _encoding);
+
+            //var fi = new FileInfo(FileName);
+            //Text = fi.Name;
+            //TextModified = false;
+            //OnTextModified(this, fi.Name);
         }
 
         public virtual void SaveFile(string fileName, Encoding enc)

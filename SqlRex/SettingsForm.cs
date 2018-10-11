@@ -12,7 +12,7 @@ using System.Xml.Serialization;
 
 namespace SqlRex
 {
-    public partial class SettingsForm : Form, IChildForm
+    public partial class SettingsForm : BaseForm
     {
         public SettingsForm()
         {
@@ -57,33 +57,14 @@ namespace SqlRex
             cbEncoding.SelectedIndexChanged += cbEncoding_SelectedIndexChanged;
         }
 
-        public string FileName
+        public override string FileName
         {
             get
             {
                 return "Settings";
             }
         }
-
-        public bool TextModified { get; private set; }
-
-        public event EventHandler<string> OnTextModified;
-        public event EventHandler<TimeSpan> OnAsyncCompleted;
-
-        public void SaveFile()
-        {
-            
-        }
-
-        public void Syncronized(Action action)
-        {
-            throw new NotImplementedException();
-        }
-
-        public T Syncronized<T>(Func<T> action)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
@@ -95,13 +76,6 @@ namespace SqlRex
             
             
         }
-        public void NextItem()
-        {
-        }
-
-        public void PrevItem()
-        {
-        }
 
         private void cbLargeFiles_CheckedChanged(object sender, EventArgs e)
         {
@@ -112,12 +86,7 @@ namespace SqlRex
                 main.LargeFileModeChanged();
             }
         }
-
-        public void SaveFile(string fileName, Encoding enc)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         private void cbRegexOnLoad_CheckedChanged(object sender, EventArgs e)
         {
             Config.RegexOnLoad = cbRegexOnLoad.Checked;
@@ -149,11 +118,7 @@ namespace SqlRex
                 main.ReadonlySqlChanged();
             }
         }
-
-        public void NotifyReadonlySql()
-        {
-            //
-        }
+        
 
         private void cbAutoComplete_CheckedChanged(object sender, EventArgs e)
         {
@@ -165,15 +130,6 @@ namespace SqlRex
             }
         }
 
-        public void NotifyAutocomplete()
-        {
-            //
-        }
-
-        public void NotifyReloadConnections()
-        {
-            //TODO dummy
-        }
 
         private void cbFindUsageRegex_CheckedChanged(object sender, EventArgs e)
         {

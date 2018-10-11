@@ -353,7 +353,9 @@ namespace SqlRex
             else
             {
                 this.ActiveMdiChild.WindowState = FormWindowState.Maximized;
-                
+
+                toolStripStatusLabel1.Text = (ActiveMdiChild as IChildForm).Status2;
+
                 if (this.ActiveMdiChild.Tag == null)
                 {
                     
@@ -370,6 +372,7 @@ namespace SqlRex
                     this.ActiveMdiChild.FormClosed += new FormClosedEventHandler(ActiveMdiChild_FormClosed);
                     (ActiveMdiChild as IChildForm).OnTextModified += MainForm_OnTextModified;
                     (ActiveMdiChild as IChildForm).OnAsyncCompleted += MainForm_OnAsyncCompleted;
+                    (ActiveMdiChild as IChildForm).OnLastQuery += MainForm_OnLastQuery;
 
                     tp.ToolTipText = (ActiveMdiChild as IChildForm).FileName;
 
@@ -380,6 +383,12 @@ namespace SqlRex
                 tabForms.SelectedTab = ActiveMdiChild.Tag as TabPage;
 
             }
+        }
+
+        private void MainForm_OnLastQuery(object sender, string e)
+        {
+            if(ActiveMdiChild == sender)
+                toolStripStatusLabel1.Text = e;
         }
 
         private void MainForm_OnAsyncCompleted(object sender, TimeSpan e)

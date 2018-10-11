@@ -8,9 +8,13 @@ namespace SqlRex
 {
     interface IChildForm
     {
-
+        event EventHandler<string> OnLastQuery;
         event EventHandler<string> OnTextModified;
         event EventHandler<TimeSpan> OnAsyncCompleted;
+
+        event EventHandler<string> OnCaptionChanged;
+
+        string Status2 { get; }
         string FileName { get;  }
         bool TextModified { get;  }
 

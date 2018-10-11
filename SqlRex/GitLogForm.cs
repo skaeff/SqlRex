@@ -16,57 +16,20 @@ using System.Windows.Forms;
 
 namespace SqlRex
 {
-    public partial class GitLogForm : Form, IChildForm
+    public partial class GitLogForm : BaseForm
     {
-        SynchronizationContext _sync;
         
-        public void Syncronized(Action action)
-        {
-            _sync.Send((o) => action(), null);
-        }
-
-        public T Syncronized<T>(Func<T> action)
-        {
-            T result = default(T);
-            _sync.Send((o) => result = action(), null);
-            return result;
-        }
-
-        string _fileName;
-
-        public string FileName
-        {
-            get
-            {
-                return _fileName ?? "git log";
-            }
-        }
-
-        public bool TextModified
-        {
-            get
-            {
-                return false;
-            }
-        }
-
-        public event EventHandler<string> OnTextModified;
-        public event EventHandler<TimeSpan> OnAsyncCompleted;
-
-        public void SaveFile()
-        {
-        }
-
+       
+        
         public GitLogForm()
         {
             InitializeComponent();
-            _sync = SynchronizationContext.Current;
         }
         public GitLogForm(string fileName):this()
         {
             
             Text = fileName;
-            _fileName = fileName;
+            FileName = fileName;
             listView1.Columns.Add("revision", 250);
             listView1.Columns.Add("author", 250);
             listView1.Columns.Add("time", 250);
@@ -81,7 +44,7 @@ namespace SqlRex
             }
             if (keyData == Keys.Enter)
             {
-                Common.Async.ExecAsync(this,(b) => ShowDiff(_fileName), null);
+                Common.Async.ExecAsync(this,(b) => ShowDiff(FileName), null);
                 
                 return true;
             }
@@ -154,34 +117,5 @@ namespace SqlRex
             }
         }
 
-      
-
-        public void NextItem()
-        {
-        }
-
-        public void PrevItem()
-        {
-        }
-
-        public void SaveFile(string fileName, Encoding enc)
-        {
-            //
-        }
-
-        public void NotifyReadonlySql()
-        {
-            //
-        }
-
-        public void NotifyAutocomplete()
-        {
-            //
-        }
-
-        public void NotifyReloadConnections()
-        {
-            //TODO dummy
-        }
     }
 }

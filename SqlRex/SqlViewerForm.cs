@@ -18,23 +18,11 @@ using System.Xml.Serialization;
 
 namespace SqlRex
 {
-    public partial class SqlViewerForm : Form, IChildForm
+    public partial class SqlViewerForm : BaseForm
     {
         AutoCompleteStringCollection _autoComplete = new AutoCompleteStringCollection();
-        SynchronizationContext _sync;
+        
         Encoding _encoding = Encoding.GetEncoding("windows-1251");
-
-        public void Syncronized(Action action)
-        {
-            _sync.Send((o) => action(), null);
-        }
-
-        public T Syncronized<T>(Func<T> action)
-        {
-            T result = default(T);
-            _sync.Send((o) => result = action(), null);
-            return result;
-        }
         
         public SqlViewerForm()
         {
@@ -42,8 +30,6 @@ namespace SqlRex
             timer1.Enabled = Config.Autocomplete;
             tbSearchNode.AutoCompleteCustomSource = _autoComplete;
             
-           
-            _sync = SynchronizationContext.Current;
             TextModified = false;
 
             serverTabsControl1.RebuildServerTabs();
@@ -61,27 +47,44 @@ namespace SqlRex
             }
         }
 
+        DateTime _lastQuery = DateTime.MinValue;
+
         private void ServerTabsControl1_OnDatabaseSelected(object sender, string e)
         {
+            _lastQuery = DateTime.Now;
             var csb = new SqlConnectionStringBuilder(e);
+            
             Text = csb.DataSource + "." + csb.InitialCatalog;
             (MdiParent as IMainForm).RefreshTab();
             Common.Async.ExecAsync(this, (b) => BuildSqlObjects(e, b), (tm) => ReportTime(tm), true);
             EnableButtons();
         }
 
-        public event EventHandler<string> OnTextModified;
-        public event EventHandler<TimeSpan> OnAsyncCompleted;
-        
-        private void ReportTime(TimeSpan tm)
+        private string GetTimeElapsed()
         {
-            if (OnAsyncCompleted != null)
-                OnAsyncCompleted(null, tm);
+            var dt = DateTime.Now - _lastQuery;
+            if (dt < TimeSpan.FromMinutes(1))
+            {
+                return dt.Seconds.ToString() + " seconds ago";
+            }
+            else
+            if (dt < TimeSpan.FromHours(1))
+            {
+                return dt.Minutes.ToString() + " minutes ago";
+            }
+            else
+            if (dt < TimeSpan.FromDays(1))
+            {
+                return dt.Hours.ToString() + " hours ago";
+            }
+            else
+            //if (dt < TimeSpan.FromDays(2))
+            {
+                return dt.Days.ToString() + " days ago";
+            }
+
+            return "";
         }
-
-
-        public string FileName { get; private set; }
-        
 
         void ClearFoundRanges()
         {
@@ -179,26 +182,7 @@ namespace SqlRex
                 return fastColoredTextBox1.Text;
             }
         }
-
         
-
-        public void SaveFile()
-        {
-            MessageBox.Show("Not implemented");
-
-            //File.WriteAllText(FileName, SqlText, _encoding);
-            
-            //var fi = new FileInfo(FileName);
-            //Text = fi.Name;
-            //TextModified = false;
-            //OnTextModified(this, fi.Name);
-
-            
-        }
-
-       
-        
-        public bool TextModified { get; private set; }
         private void fastColoredTextBox1_TextChanged(object sender, TextChangedEventArgs e)
         {
             //TextModified = true;
@@ -308,7 +292,7 @@ namespace SqlRex
             }
         }
 
-        public void NextItem()
+        public override void NextItem()
         {
             if(listView1.SelectedIndices.Count > 0)
             {
@@ -324,7 +308,7 @@ namespace SqlRex
             }
         }
 
-        public void PrevItem()
+        public override void PrevItem()
         {
             if (listView1.SelectedIndices.Count > 0)
             {
@@ -407,9 +391,13 @@ namespace SqlRex
                         rng.ClearAllStyle();
                         rng.SetStyle(new TextStyle(Brushes.Black, Brushes.Yellow, FontStyle.Regular));
 
-                        var rng2 = new Range(fastColoredTextBox1, item2.Start, item2.End);
-                        rng2.ClearAllStyle();
-                        rng2.SetStyle(new TextStyle(Brushes.Black, Brushes.Orange, FontStyle.Bold));
+                        item2.ClearAllStyle();
+                        //item2.SetStyle(new TextStyle(Brushes.Black, Brushes.Orange, FontStyle.Bold));
+                        item2.SetStyle(new TextStyle(Brushes.Black, Brushes.Yellow, FontStyle.Bold));
+
+                        //var rng2 = new Range(fastColoredTextBox1, item2.Start, item2.End);
+                        //rng2.ClearAllStyle();
+                        //rng2.SetStyle(new TextStyle(Brushes.Black, Brushes.Orange, FontStyle.Bold));
                     }
                 }
             }
@@ -420,7 +408,7 @@ namespace SqlRex
            
         }
 
-        public void SaveFile(string fileName, Encoding enc)
+        public override void SaveFile(string fileName, Encoding enc)
         {
             fastColoredTextBox1.SaveToFile(fileName, enc);
         }
@@ -712,13 +700,24 @@ namespace SqlRex
             }
         }
 
-        public void NotifyReadonlySql()
+        public override void NotifyReadonlySql()
         {
             fastColoredTextBox1.ReadOnly = Config.ReadOnlySql;
         }
 
+        
         private void timer1_Tick(object sender, EventArgs e)
         {
+            if(_lastQuery != DateTime.MinValue)
+            {
+                var timeElapsed = GetTimeElapsed();
+                if (Status2 != timeElapsed)
+                {
+                    ReportLastQuery(timeElapsed);
+                    Status2 = timeElapsed;
+                }
+            }
+
             if(_sw.Elapsed >= TimeSpan.FromSeconds(5))
             {
                 if(!string.IsNullOrEmpty(tbSearchNode.Text))
@@ -739,12 +738,12 @@ namespace SqlRex
         }
 
         
-        public void NotifyAutocomplete()
+        public override void NotifyAutocomplete()
         {
             timer1.Enabled = Config.Autocomplete;
         }
 
-        public void NotifyReloadConnections()
+        public override void NotifyReloadConnections()
         {
             serverTabsControl1.RebuildServerTabs();
         }
@@ -903,9 +902,29 @@ namespace SqlRex
                         foreach (Match match in matches)
                         {
                             Group g = match.Groups[0];
-                            var lineNumber = item.Text.Take(g.Index).Count(c => c == '\n')/* + 1*/;//https://stackoverflow.com/questions/7255743/what-is-simpliest-way-to-get-line-number-from-char-position-in-string
 
-                            var item1 = Syncronized(() => new Range(fastColoredTextBox1, g.Index, lineNumber, g.Index + g.Length, lineNumber));
+
+                            //https://stackoverflow.com/questions/7255743/what-is-simpliest-way-to-get-line-number-from-char-position-in-string
+                            int lineNumber = 0;
+
+                            var lineStart = 0;
+                            int n = 0;
+                            foreach (var c in item.Text.Take(g.Index))
+                            {
+                                if(c == '\n')
+                                {
+                                    lineNumber++;
+                                    lineStart+=n;
+                                    n = 0;
+                                }
+                                n++;
+                                
+                            }
+                            
+                            if(lineStart > 0)
+                                lineStart++;
+
+                            var item1 = Syncronized(() => new Range(fastColoredTextBox1, g.Index - lineStart, lineNumber, g.Index + g.Length - lineStart, lineNumber));
                             Syncronized(() => resultOut.Add(item1));
 
                         }
