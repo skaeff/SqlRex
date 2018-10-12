@@ -49,6 +49,10 @@
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnHistory = new SqlRex.SplitButton();
+            this.miHistory = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.testToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.serverTabsControl1 = new SqlRex.ServerTabsControl();
             this.listView3 = new System.Windows.Forms.ListView();
             this.btnClearSearches = new System.Windows.Forms.Button();
@@ -79,6 +83,7 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip3.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.miHistory.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox1)).BeginInit();
@@ -208,6 +213,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnHistory);
             this.panel1.Controls.Add(this.serverTabsControl1);
             this.panel1.Controls.Add(this.listView3);
             this.panel1.Controls.Add(this.btnClearSearches);
@@ -223,6 +229,36 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1428, 169);
             this.panel1.TabIndex = 1;
+            // 
+            // btnHistory
+            // 
+            this.btnHistory.Location = new System.Drawing.Point(3, 133);
+            this.btnHistory.Menu = this.miHistory;
+            this.btnHistory.Name = "btnHistory";
+            this.btnHistory.Size = new System.Drawing.Size(128, 23);
+            this.btnHistory.TabIndex = 44;
+            this.btnHistory.Text = "text filter history";
+            this.btnHistory.UseVisualStyleBackColor = true;
+            // 
+            // miHistory
+            // 
+            this.miHistory.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.testToolStripMenuItem,
+            this.testToolStripMenuItem1});
+            this.miHistory.Name = "miHistory";
+            this.miHistory.Size = new System.Drawing.Size(94, 48);
+            // 
+            // testToolStripMenuItem
+            // 
+            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
+            this.testToolStripMenuItem.Text = "test";
+            // 
+            // testToolStripMenuItem1
+            // 
+            this.testToolStripMenuItem1.Name = "testToolStripMenuItem1";
+            this.testToolStripMenuItem1.Size = new System.Drawing.Size(93, 22);
+            this.testToolStripMenuItem1.Text = "test";
             // 
             // serverTabsControl1
             // 
@@ -543,6 +579,7 @@
             this.contextMenuStrip3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.miHistory.ResumeLayout(false);
             this.contextMenuStrip2.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox1)).EndInit();
@@ -595,6 +632,10 @@
         private System.Windows.Forms.ListView listView3;
         private System.Windows.Forms.ToolStripMenuItem getCLRDescToolStripMenuItem;
         private ServerTabsControl serverTabsControl1;
+        private System.Windows.Forms.ContextMenuStrip miHistory;
+        private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem1;
+        private SplitButton btnHistory;
     }
 }
 

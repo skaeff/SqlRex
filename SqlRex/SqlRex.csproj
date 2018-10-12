@@ -166,6 +166,9 @@
     <Compile Include="ServerTabsControl.Designer.cs">
       <DependentUpon>ServerTabsControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="SplitButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SqlAssemblyObject.cs" />
     <Compile Include="SqlDdlObject.cs" />
     <Compile Include="SqlViewerForm.cs">

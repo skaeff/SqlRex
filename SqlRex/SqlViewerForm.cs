@@ -34,6 +34,8 @@ namespace SqlRex
 
             serverTabsControl1.RebuildServerTabs();
 
+            miHistory.Items.Clear();
+
             serverTabsControl1.OnDatabaseSelected += ServerTabsControl1_OnDatabaseSelected;
             serverTabsControl1.OnServerTabsChanged += ServerTabsControl1_OnServerTabsChanged;
         }
@@ -732,12 +734,18 @@ namespace SqlRex
                             tip += item + Environment.NewLine;
                         }
                         toolTip1.SetToolTip(tbSearchNode, tip);
+                        var mi = new ToolStripMenuItem(txt);
+                        mi.Click += (ss, ee)=> {
+                            tbSearchNode.Text = (ss as ToolStripMenuItem).Text;
+                        };
+                        miHistory.Items.Insert(0, mi);
                     }
                 }
             }
         }
 
         
+
         public override void NotifyAutocomplete()
         {
             timer1.Enabled = Config.Autocomplete;
@@ -1236,5 +1244,6 @@ namespace SqlRex
         {
 
         }
+        
     }
 }
