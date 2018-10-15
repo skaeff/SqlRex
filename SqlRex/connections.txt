@@ -1,1 +1,1 @@
-﻿
+﻿Data Source=(localdb)\v11.0;Initial Catalog=Northwind;Integrated Security=True
