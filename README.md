@@ -1,7 +1,7 @@
 # SqlRex
 SQL object dependencies with simple RegEx and some algo magic
 
-Please see user guide and how-to here https://github.com/skaeff/SqlRex/blob/master/SqlRex_howto.png
+Please see user guide and how-to here ![howto](https://raw.githubusercontent.com/skaeff/SqlRex/master/3.gif "small demo")
 
 Compiled binary can be found here https://github.com/skaeff/SqlRex/blob/master/SqlRex_binary.7z
 
