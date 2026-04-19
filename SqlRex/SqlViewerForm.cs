@@ -902,71 +902,57 @@ namespace SqlRex
 
                     
                     _ls.Clear();
-                    //==== old way
+                    
                     var rx = new Regex(regex, RegexOptions.IgnoreCase);
                     foreach (var item in objectsToSearch)
                     {
                         var resultOut = new List<Range>();
 
-                        //var matches = rx.Matches(item.Text);
-                        //foreach (Match match in matches)
-                        //{
-                        //    Group g = match.Groups[0];
+                        var lines = item.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
-
-                        //    //https://stackoverflow.com/questions/7255743/what-is-simpliest-way-to-get-line-number-from-char-position-in-string
-                        //    int lineNumber = 0;
-
-                        //    var lineStart = 0;
-                        //    int n = 0;
-                        //    foreach (var c in item.Text.Take(g.Index))
-                        //    {
-                        //        if(c == '\n')
-                        //        {
-                        //            lineNumber++;
-                        //            lineStart+=n;
-                        //            n = 0;
-                        //        }
-                        //        n++;
-
-                        //    }
-
-                        //    if(lineStart > 0)
-                        //        lineStart++;
-
-                        //    var item1 = Syncronized(() => new Range(fastColoredTextBox1, g.Index - lineStart, lineNumber, g.Index + g.Length - lineStart, lineNumber));
-                        //    Syncronized(() => resultOut.Add(item1));
-
-                        //}
-                        //===========
-
-                        //==== new way from Form1.BuildTree3
-                        //*
-
-                        var tb = Syncronized(() => fastColoredTextBox1);
-
-
-                        //ClearFoundRanges();
-                        var range = Syncronized(() => fastColoredTextBox1.Selection.Clone());
-                        range.Normalize();
-
-                        range.Start = new Place(0, 0);
-                        range.End = Syncronized(() => new Place(tb.GetLineLength(tb.LinesCount - 1), tb.LinesCount - 1));
-                        var resultRanges = range.GetRangesByLines(regex, RegexOptions.IgnoreCase);
-
-                        int i = 0;
-
-                        foreach (var itemRange in resultRanges)
+                        for (int i = 0; i < lines.Length; i++)
                         {
-                            if (b != null && b.CancellationPending)
-                                break;
+                            var matches = rx.Matches(lines[i]);
+                            foreach (Match match in matches)
+                            {
+                                Group g = match.Groups[0];
 
-                            Syncronized(() => resultOut.Add(itemRange));
-                            i++;
+                                int lineNumber = i;
+
+                                var item1 = Syncronized(() => new Range(fastColoredTextBox1, g.Index, lineNumber, g.Index + g.Length, lineNumber));
+                                Syncronized(() => resultOut.Add(item1));
+
+                            }
                         }
 
-                        //*/
-                        //return resultOut;
+                        //==== new way from Form1.BuildTree3
+                        ////*
+
+                        //Syncronized(() => fastColoredTextBox1.Text = item.Text);
+                        //var tb = Syncronized(() => fastColoredTextBox1);
+
+
+                        ////ClearFoundRanges();
+                        //var range = Syncronized(() => fastColoredTextBox1.Selection.Clone());
+                        //range.Normalize();
+
+                        //range.Start = new Place(0, 0);
+                        //range.End = Syncronized(() => new Place(tb.GetLineLength(tb.LinesCount - 1), tb.LinesCount - 1));
+                        //var resultRanges = range.GetRangesByLines(regex, RegexOptions.IgnoreCase);
+
+                        //int i = 0;
+
+                        //foreach (var itemRange in resultRanges)
+                        //{
+                        //    if (b != null && b.CancellationPending)
+                        //        break;
+
+                        //    Syncronized(() => resultOut.Add(itemRange));
+                        //    i++;
+                        //}
+
+                        ////*/
+                        ////return resultOut;
                         //============
 
                         if (resultOut.Count > 0)
