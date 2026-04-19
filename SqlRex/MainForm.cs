@@ -1,4 +1,5 @@
-﻿using Microsoft.WindowsAPICodePack.Taskbar;
+﻿//using Microsoft.WindowsAPICodePack.Taskbar;
+using SqlRex.Legacy;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -37,9 +38,9 @@ namespace SqlRex
         {
             _sync = SynchronizationContext.Current;
 
-#if !DEBUG
-            TaskbarManager.Instance.ApplicationId = Assembly.GetEntryAssembly().Location;
-#endif
+//#if !DEBUG
+//            TaskbarManager.Instance.ApplicationId = Assembly.GetEntryAssembly().Location;
+//#endif
             InitializeComponent();
             LargeFileModeChanged();
             RegexOnLoadChanged();
@@ -69,7 +70,7 @@ namespace SqlRex
         
 
         string _recentFiles = Application.StartupPath + @"\recent.txt";
-        private JumpList _jumpList;
+        //private JumpList _jumpList;
 
         
 
@@ -118,48 +119,48 @@ namespace SqlRex
             
         }
 
-        void RebuildRecentJumpList()
-        {
-            if (!File.Exists(_recentFiles))
-                return;
+        //void RebuildRecentJumpList()
+        //{
+        //    if (!File.Exists(_recentFiles))
+        //        return;
 
-            var files = File.ReadAllLines(_recentFiles);
+        //    var files = File.ReadAllLines(_recentFiles);
 
             
-            _jumpList = JumpList.CreateJumpList();
-            List<JumpListTask> tasks = new List<JumpListTask>();
+        //    _jumpList = JumpList.CreateJumpList();
+        //    List<JumpListTask> tasks = new List<JumpListTask>();
 
-            List<JumpListCustomCategory> cats = new List<JumpListCustomCategory>();
-            foreach (var item in files)
-            {
-                var fi = new FileInfo(item);
+        //    List<JumpListCustomCategory> cats = new List<JumpListCustomCategory>();
+        //    foreach (var item in files)
+        //    {
+        //        var fi = new FileInfo(item);
                 
-                var task = new JumpListLink(Assembly.GetEntryAssembly().Location, fi.Name + "    (" + fi.DirectoryName + ")");
-                task.WorkingDirectory = fi.DirectoryName;
-                task.Arguments = item;
+        //        var task = new JumpListLink(Assembly.GetEntryAssembly().Location, fi.Name + "    (" + fi.DirectoryName + ")");
+        //        task.WorkingDirectory = fi.DirectoryName;
+        //        task.Arguments = item;
                 
                 
-                tasks.Add(task);   
+        //        tasks.Add(task);   
                 
-            }
+        //    }
 
-            _jumpList.AddUserTasks(tasks.ToArray());
-            _jumpList.Refresh();
-        }
+        //    _jumpList.AddUserTasks(tasks.ToArray());
+        //    _jumpList.Refresh();
+        //}
 
-        private JumpListCustomCategory CreateCategory(string fileName, string categoryName, string searchPattern)
-        {
-            var fi = new FileInfo(fileName);
+        //private JumpListCustomCategory CreateCategory(string fileName, string categoryName, string searchPattern)
+        //{
+        //    var fi = new FileInfo(fileName);
 
-            var category = new JumpListCustomCategory(fi.DirectoryName);
+        //    var category = new JumpListCustomCategory(fi.DirectoryName);
 
-            var vsmPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "VSM");
-            var items = from f in Directory.GetFiles(vsmPath, searchPattern)
-                        select new JumpListItem(Path.Combine(vsmPath, f));
-            category.AddJumpListItems(items.ToArray());
+        //    var vsmPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "VSM");
+        //    var items = from f in Directory.GetFiles(vsmPath, searchPattern)
+        //                select new JumpListItem(Path.Combine(vsmPath, f));
+        //    category.AddJumpListItems(items.ToArray());
 
-            return category;
-        }
+        //    return category;
+        //}
 
         private void OnRecentFileClick(object sender, EventArgs e)
         {
@@ -384,20 +385,20 @@ namespace SqlRex
             }
         }
 
-        private void MainForm_OnLastQuery(object sender, string e)
+        private void MainForm_OnLastQuery(object sender, StringEventArgs e)
         {
             if(ActiveMdiChild == sender)
-                toolStripStatusLabel1.Text = e;
+                toolStripStatusLabel1.Text = e.Data;
         }
 
-        private void MainForm_OnAsyncCompleted(object sender, TimeSpan e)
+        private void MainForm_OnAsyncCompleted(object sender, TimeSpanEventArgs e)
         {
-            toolStripStatusLabel.Text = e.ToString();
+            toolStripStatusLabel.Text = e.Data.ToString();
         }
 
-        private void MainForm_OnTextModified(object sender, string e)
+        private void MainForm_OnTextModified(object sender, StringEventArgs e)
         {
-            ((sender as Form).Tag as TabPage).Text = e;
+            ((sender as Form).Tag as TabPage).Text = e.Data;
         }
 
         private void ActiveMdiChild_FormClosing(object sender, FormClosingEventArgs e)
@@ -572,9 +573,9 @@ namespace SqlRex
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-#if !DEBUG
-            RebuildRecentJumpList();
-#endif
+//#if !DEBUG
+//            RebuildRecentJumpList();
+//#endif
         }
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -764,9 +765,10 @@ namespace SqlRex
 
         private void btnAssemblyBrowser_Click(object sender, EventArgs e)
         {
-            var f = new AssemblyExporterForm();
-            f.MdiParent = this;
-            f.Show();
+            MessageBox.Show("Not implemented on .Net Framework 4.0", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            //var f = new AssemblyExporterForm();
+            //f.MdiParent = this;
+            //f.Show();
         }
     }
 }

@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.IO;
+using SqlRex.Legacy;
 
 namespace SqlRex
 {
     public partial class ServerTabsControl : UserControl
     {
-        public event EventHandler<string> OnDatabaseSelected;
+        public event EventHandler<StringEventArgs> OnDatabaseSelected;
         public event EventHandler OnServerTabsChanged;
 
         public ServerTabsControl()
@@ -162,7 +163,7 @@ namespace SqlRex
 
                 if(OnDatabaseSelected != null)
                 {
-                    OnDatabaseSelected(null, db);
+                    OnDatabaseSelected(null, new StringEventArgs(db));
                 }
                 //(MdiParent as IMainForm).RefreshTab();
                 //Common.Async.ExecAsync(this, (b) => BuildSqlObjects(db, b), (tm) => ReportTime(tm), true);

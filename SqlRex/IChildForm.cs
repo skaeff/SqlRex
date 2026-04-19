@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SqlRex.Legacy;
 
 namespace SqlRex
 {
     interface IChildForm
     {
-        event EventHandler<string> OnLastQuery;
-        event EventHandler<string> OnTextModified;
-        event EventHandler<TimeSpan> OnAsyncCompleted;
+        event EventHandler<StringEventArgs> OnLastQuery;
+        event EventHandler<StringEventArgs> OnTextModified;
+        event EventHandler<TimeSpanEventArgs> OnAsyncCompleted;
 
-        event EventHandler<string> OnCaptionChanged;
+        event EventHandler<StringEventArgs> OnCaptionChanged;
 
         string Status2 { get; }
         string FileName { get;  }

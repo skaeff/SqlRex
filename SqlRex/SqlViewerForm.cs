@@ -1,4 +1,5 @@
 ﻿using FastColoredTextBoxNS;
+using SqlRex.Legacy;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -51,14 +52,14 @@ namespace SqlRex
 
         DateTime _lastQuery = DateTime.MinValue;
 
-        private void ServerTabsControl1_OnDatabaseSelected(object sender, string e)
+        private void ServerTabsControl1_OnDatabaseSelected(object sender, StringEventArgs e)
         {
             _lastQuery = DateTime.Now;
-            var csb = new SqlConnectionStringBuilder(e);
+            var csb = new SqlConnectionStringBuilder(e.Data);
             
             Text = csb.DataSource + "." + csb.InitialCatalog;
             SetTextModified(Text);
-            Common.Async.ExecAsync(this, (b) => BuildSqlObjects(e, b), (tm) => ReportTime(tm), true);
+            Common.Async.ExecAsync(this, (b) => BuildSqlObjects(e.Data, b), (tm) => ReportTime(tm), true);
             EnableButtons();
         }
 
@@ -981,7 +982,7 @@ namespace SqlRex
                     var dicKey = "";
                     if (findInFound)
                     {
-                        dicKey = $"{regex} in [{ _lastSearch }]";
+                        dicKey = regex + " in [" + _lastSearch + "]";
                     }
                     else
                     {
@@ -1003,8 +1004,8 @@ namespace SqlRex
                             //ClearFoundRanges();
                             //_needRebuild2 = true;
 
-                            findUsagesInFoundToolStripMenuItem.Text = $"Find Usages in [{((Control)s).Text}] search";
-                            findUsagesInFoundanyTextToolStripMenuItem.Text = $"Find Usages in [{((Control)s).Text}] search (any text)...";
+                            findUsagesInFoundToolStripMenuItem.Text = "Find Usages in [" + ((Control)s).Text + "] search";
+                            findUsagesInFoundanyTextToolStripMenuItem.Text = "Find Usages in [" + ((Control)s).Text + "] search (any text)...";
 
                             _listItems2.AddRange(_listItemsDic[((Control)s).Text]);
                             _listItemsCache2.AddRange(_listItemsDic[((Control)s).Text]);
@@ -1021,10 +1022,10 @@ namespace SqlRex
 
                         flowLayoutPanel1.Controls.Add(rb);
 
-                        findUsagesInFoundToolStripMenuItem.Text = $"Find Usages in [{dicKey}] search";
+                        findUsagesInFoundToolStripMenuItem.Text = "Find Usages in [" + dicKey + "] search";
                         findUsagesInFoundToolStripMenuItem.Enabled = true;
 
-                        findUsagesInFoundanyTextToolStripMenuItem.Text = $"Find Usages in [{dicKey}] search (any text)...";
+                        findUsagesInFoundanyTextToolStripMenuItem.Text = "Find Usages in [" + dicKey + "] search (any text)...";
                         findUsagesInFoundanyTextToolStripMenuItem.Enabled = true;
 
                         if (_listItemsDic.ContainsKey(dicKey))

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SqlRex.Legacy;
 
 namespace SqlRex
 {
@@ -35,39 +36,39 @@ namespace SqlRex
             get; protected set;
         }
 
-        public event EventHandler<string> OnLastQuery;
+        public event EventHandler<StringEventArgs> OnLastQuery;
 
         protected void ReportLastQuery(string txt)
         {
             if(OnLastQuery != null)
             {
-                OnLastQuery(this, txt);
+                OnLastQuery(this, new StringEventArgs(txt));
             }
         }
 
-        public event EventHandler<TimeSpan> OnAsyncCompleted;
+        public event EventHandler<TimeSpanEventArgs> OnAsyncCompleted;
 
         protected void ReportTime(TimeSpan tm)
         {
             if (OnAsyncCompleted != null)
-                OnAsyncCompleted(this, tm);
+                OnAsyncCompleted(this, new TimeSpanEventArgs(tm));
         }
 
-        public event EventHandler<string> OnTextModified;
+        public event EventHandler<StringEventArgs> OnTextModified;
 
         protected void SetTextModified(string txt)
         {
             if (OnTextModified != null)
-                OnTextModified(this, txt);
+                OnTextModified(this, new StringEventArgs(txt));
         }
 
-        public event EventHandler<string> OnCaptionChanged;
+        public event EventHandler<StringEventArgs> OnCaptionChanged;
 
         protected void CaptionChanged(string caption)
         {
             if(OnCaptionChanged != null)
             {
-                OnCaptionChanged(this, caption);
+                OnCaptionChanged(this, new StringEventArgs(caption));
             }
         }
 
