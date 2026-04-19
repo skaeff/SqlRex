@@ -429,9 +429,12 @@ namespace SqlRex
             Common.Async.ExecAsync(this, (b) => BuildSqlObjects(db, b), (tm) => ReportTime(tm), true);
         }
 
-        private void BuildSqlObjects(string database, BackgroundWorker worker)
+        private void BuildSqlObjects(string database, BackgroundWorker worker, List<SqlDdlObject> result = null)
         {
-            var result = Generate(database);
+            if (result == null)
+            {
+                result = Generate(database);
+            }
 
             Syncronized(() => _listItems.Clear());
             Syncronized(() => _listItemsCache.Clear());
@@ -1245,6 +1248,27 @@ namespace SqlRex
         {
 
         }
-        
+
+        private void debugButton_Click(object sender, EventArgs e)
+        {
+            if(openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                var sqlObjectData = File.ReadAllText(openFileDialog1.FileName);
+
+                var result = new List<SqlDdlObject>
+                {
+                    new SqlDdlObject
+                    {
+                        Name = "test",
+                        ObjectId = 999,
+                        Text = sqlObjectData,
+                        Type = "SP",
+                        TypeDesc = "STORED_PROCEDURE"
+                    }
+                };
+
+                Common.Async.ExecAsync(this, (b) => BuildSqlObjects("<none>", b, result), (tm) => ReportTime(tm), true);
+            }
+        }
     }
 }
