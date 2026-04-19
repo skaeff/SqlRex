@@ -901,11 +901,9 @@ namespace SqlRex
                     fastColoredTextBox1.VisibleRangeChangedDelayed -= fastColoredTextBox1_VisibleRangeChangedDelayed;
 
                     
-
-                    var rx = new Regex(regex, RegexOptions.IgnoreCase);
-
                     _ls.Clear();
-                    
+                    //==== old way
+                    var rx = new Regex(regex, RegexOptions.IgnoreCase);
                     foreach (var item in objectsToSearch)
                     {
                         var resultOut = new List<Range>();
@@ -940,9 +938,9 @@ namespace SqlRex
                             Syncronized(() => resultOut.Add(item1));
 
                         }
-                        if(resultOut.Count > 0)
-                            _ls.Add(item.ObjectId, resultOut);
+                        //===========
 
+                        //==== new way from Form1.BuildTree3
                         /*
                         
                         Syncronized(() => fastColoredTextBox1.Text = item.Text);
@@ -972,6 +970,11 @@ namespace SqlRex
                         ls.Add(item.ObjectId, resultOut);
                         //*/
                         //return resultOut;
+                        //============
+
+                        if (resultOut.Count > 0)
+                            _ls.Add(item.ObjectId, resultOut);
+
                     }
 
                     _listItems2.Clear();
