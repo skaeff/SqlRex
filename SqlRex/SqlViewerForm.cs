@@ -907,66 +907,63 @@ namespace SqlRex
                     {
                         var resultOut = new List<Range>();
 
-                        var matches = rx.Matches(item.Text);
-                        foreach (Match match in matches)
-                        {
-                            Group g = match.Groups[0];
+                        //var matches = rx.Matches(item.Text);
+                        //foreach (Match match in matches)
+                        //{
+                        //    Group g = match.Groups[0];
 
 
-                            //https://stackoverflow.com/questions/7255743/what-is-simpliest-way-to-get-line-number-from-char-position-in-string
-                            int lineNumber = 0;
+                        //    //https://stackoverflow.com/questions/7255743/what-is-simpliest-way-to-get-line-number-from-char-position-in-string
+                        //    int lineNumber = 0;
 
-                            var lineStart = 0;
-                            int n = 0;
-                            foreach (var c in item.Text.Take(g.Index))
-                            {
-                                if(c == '\n')
-                                {
-                                    lineNumber++;
-                                    lineStart+=n;
-                                    n = 0;
-                                }
-                                n++;
-                                
-                            }
-                            
-                            if(lineStart > 0)
-                                lineStart++;
+                        //    var lineStart = 0;
+                        //    int n = 0;
+                        //    foreach (var c in item.Text.Take(g.Index))
+                        //    {
+                        //        if(c == '\n')
+                        //        {
+                        //            lineNumber++;
+                        //            lineStart+=n;
+                        //            n = 0;
+                        //        }
+                        //        n++;
 
-                            var item1 = Syncronized(() => new Range(fastColoredTextBox1, g.Index - lineStart, lineNumber, g.Index + g.Length - lineStart, lineNumber));
-                            Syncronized(() => resultOut.Add(item1));
+                        //    }
 
-                        }
+                        //    if(lineStart > 0)
+                        //        lineStart++;
+
+                        //    var item1 = Syncronized(() => new Range(fastColoredTextBox1, g.Index - lineStart, lineNumber, g.Index + g.Length - lineStart, lineNumber));
+                        //    Syncronized(() => resultOut.Add(item1));
+
+                        //}
                         //===========
 
                         //==== new way from Form1.BuildTree3
-                        /*
-                        
-                        Syncronized(() => fastColoredTextBox1.Text = item.Text);
+                        //*
 
                         var tb = Syncronized(() => fastColoredTextBox1);
 
 
-                        ClearFoundRanges();
+                        //ClearFoundRanges();
                         var range = Syncronized(() => fastColoredTextBox1.Selection.Clone());
                         range.Normalize();
 
                         range.Start = new Place(0, 0);
                         range.End = Syncronized(() => new Place(tb.GetLineLength(tb.LinesCount - 1), tb.LinesCount - 1));
-                        var result1 = range.GetRangesByLines(regex, RegexOptions.IgnoreCase);
+                        var resultRanges = range.GetRangesByLines(regex, RegexOptions.IgnoreCase);
 
                         int i = 0;
 
-                        foreach (var item1 in result1)
+                        foreach (var itemRange in resultRanges)
                         {
-                            //if (worker != null && worker.CancellationPending)
-                            //    break;
+                            if (b != null && b.CancellationPending)
+                                break;
 
-                            Syncronized(() => resultOut.Add(item1));
+                            Syncronized(() => resultOut.Add(itemRange));
                             i++;
                         }
 
-                        ls.Add(item.ObjectId, resultOut);
                         //*/
                         //return resultOut;
                         //============
