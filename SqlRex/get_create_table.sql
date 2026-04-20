@@ -1,4 +1,6 @@
-﻿DECLARE @table_name SYSNAME
+﻿SET ARITHABORT ON;
+
+DECLARE @table_name SYSNAME
 SELECT @table_name = @table_name_ext
 
 DECLARE 

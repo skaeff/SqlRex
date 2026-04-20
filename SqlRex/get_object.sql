@@ -1,4 +1,6 @@
-﻿select
+﻿SET ARITHABORT ON;
+
+select
 	OBJECT_DEFINITION(object_id) txt_part,
 	o.[type],
 	s.name + '.' + o.name full_name,

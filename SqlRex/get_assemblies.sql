@@ -1,4 +1,6 @@
-﻿SELECT 
+﻿SET ARITHABORT ON;
+
+SELECT 
  af.name,
  af.content 
 FROM sys.assemblies a
